@@ -1,9 +1,6 @@
 ---
 name: hwp-to-text
 description: HWP/HWPX 문서를 Markdown 텍스트로 변환 (rhwp 등 활용).
-applyTo: ["archive/raw/**/*.hwp*", "archive/raw/**/*.hwpx"]
-tools: ["filesystem"]
-model: ""
 ---
 
 # hwp-to-text

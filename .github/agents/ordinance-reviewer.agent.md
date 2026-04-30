@@ -1,9 +1,8 @@
 ---
 name: ordinance-reviewer
 description: 조례·시행규칙·고시 분석 전문 에이전트. 한 페이지 브리핑 산출.
-applyTo: ["archive/processed/ordinances/**", "notebooks/**/ordinances/**"]
-tools: ["gov-archive/archive_search", "gov-archive/archive_cite", "filesystem"]
-model: ""
+tools: [execute, read, edit, search, web, browser, 'gov-archive/*', ms-vscode.vscode-websearchforcopilot/websearch, todo]
+model: "GPT-5.4 mini (copilot)"
 ---
 
 # ordinance-reviewer

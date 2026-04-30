@@ -12,8 +12,6 @@ description: 비개발자를 위한 5단계 시작 가이드
 - 이 저장소는 **여러분의 컴퓨터에서만** 동작합니다. 모든 자격증명·캐시·결과물은 여러분의 컴퓨터에 남고, 외부에 자동 전송되지 않습니다.
 - "전역 설치"가 필요한 경우 **항상 동의를 먼저 묻습니다**. 동의 없이 시스템 설정을 바꾸지 않습니다.
 
----
-
 ## 1. 사전 준비
 
 | 항목 | Windows 11 | Windows 10 | macOS |
@@ -28,8 +26,6 @@ description: 비개발자를 위한 5단계 시작 가이드
 
 > Node.js·Python·GitHub CLI·Copilot CLI 등 나머지는 다음 단계의 설정 스크립트가 알아서 안내합니다.
 
----
-
 ## 2. 저장소 받기
 
 ```pwsh
@@ -43,8 +39,6 @@ cd my-politics-agents
 ```pwsh
 git submodule update --init --recursive
 ```
-
----
 
 ## 3. 환경 설정
 
@@ -79,9 +73,9 @@ zsh scripts/setup.sh --dry-run
 - (선택) Java 11+ — PDF 추출(opendataloader-pdf) 사용 시
 - (선택) Rancher Desktop — 컨테이너 기반 MCP 사용 시
 
----
+## 4. GitHub CLI 로그인
 
-## 4. GitHub 로그인
+- https://cli.github.com/
 
 ```pwsh
 gh auth login
@@ -89,8 +83,6 @@ gh auth login
 
 브라우저가 열리고 GitHub 인증이 끝나면 됩니다.
 나중에 자격증명을 정리하려면 [docs/security.md](security.md)의 `auth-purge`를 참고하세요.
-
----
 
 ## 5. 에이전트 시작
 
@@ -111,15 +103,11 @@ copilot
 
 세션이 시작되면 정책 배너가 출력되고, 위험 명령은 차단/경고됩니다.
 
----
-
 ## 자주 묻는 질문
 
 - **인터넷 접속이 차단된 환경입니다.** — 외부 자료가 필요한 도구는 동작하지 않습니다. 로컬 archive만 사용하는 작업(요약·재정리)은 가능합니다.
 - **결과물이 어디에 저장되나요?** — 원본은 `archive/raw/`, 정제본은 `archive/processed/`, NotebookLM에 보낼 묶음은 `notebooks/<slug>/`에 저장됩니다.
 - **회고가 자동으로 만들어진다는데?** — 세션 종료 직전에 `retrospective-writer` 스킬이 `retrospectives/`에 한 파일을 만듭니다. 다음 사용에서 이전 회고를 참고합니다.
-
----
 
 ## 다음 읽기
 

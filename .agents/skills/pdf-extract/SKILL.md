@@ -1,9 +1,6 @@
 ---
 name: pdf-extract
 description: PDF에서 본문·표·메타를 추출. opendataloader-pdf(JVM) 우선, 대안으로 pypdf.
-applyTo: ["archive/raw/**/*.pdf"]
-tools: ["filesystem"]
-model: ""
 ---
 
 # pdf-extract

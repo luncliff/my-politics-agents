@@ -1,7 +1,5 @@
 ---
 description: notebooks/<slug>/manifest.yml 스키마
----
-
 # manifest.yml 스키마
 
 NotebookLM 노트북 1개에 대응하는 업로드 묶음의 정의입니다.

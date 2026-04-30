@@ -11,8 +11,6 @@ GitHub Copilot CLI + VS Code Chat 기반 다중 에이전트 도구 모음입니
 [law.go.kr]: https://www.law.go.kr/
 [legalize-kr]: https://github.com/legalize-kr/legalize-kr
 
----
-
 ## 5단계 시작 (비개발자용)
 
 1. **사전 준비** — Git, Visual Studio Code 설치.
@@ -31,15 +29,11 @@ GitHub Copilot CLI + VS Code Chat 기반 다중 에이전트 도구 모음입니
 자세한 사용법은 [docs/getting-started.md](docs/getting-started.md)와
 [docs/for-non-developers.md](docs/for-non-developers.md)를 보세요.
 
----
-
 ## 무엇을 할 수 있나요?
 
 - 의안·회의록·예산서 PDF/HWP를 Markdown으로 변환하고 출처(URL·해시·시각)를 함께 기록
 - 정제된 문서를 NotebookLM 노트북으로 업로드/갱신해 시민이 음성·Q&A로 열람
 - 같은 작업을 반복할 때마다 **회고와 스킬·에이전트가 자동으로 누적**되어 다음 사용이 더 빨라집니다
-
----
 
 ## 보안·거버넌스 핵심
 
@@ -49,8 +43,6 @@ GitHub Copilot CLI + VS Code Chat 기반 다중 에이전트 도구 모음입니
 - 모든 산출물은 출처를 footer에 명시합니다. PII는 `pii-mask` 스킬 통과를 의무화합니다.
 
 자세한 정책은 [docs/security.md](docs/security.md), [docs/governance.md](docs/governance.md)를 보세요.
-
----
 
 ## 디렉터리
 
@@ -69,8 +61,6 @@ GitHub Copilot CLI + VS Code Chat 기반 다중 에이전트 도구 모음입니
 | [`retrospectives/`](retrospectives/) | 세션 회고 누적 (자동 생성) |
 | [`data/legalize-kr/`](data/) | 법령 데이터 git submodule |
 | [`docs/`](docs/) | 한국어 문서 |
-
----
 
 ## 라이선스
 

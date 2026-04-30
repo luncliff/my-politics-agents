@@ -1,9 +1,6 @@
 ---
 name: vscode-task-author
 description: 새 워크플로를 .vscode/tasks.json의 Task로 추가하는 작업.
-applyTo: [".vscode/tasks.json"]
-tools: ["filesystem"]
-model: ""
 ---
 
 # vscode-task-author

@@ -1,9 +1,6 @@
 ---
 name: notebooklm-sync
 description: notebooks/<slug>/manifest.yml을 NotebookLM에 동기화 (외부 MCP 위임).
-applyTo: ["notebooks/**"]
-tools: ["filesystem"]
-model: ""
 ---
 
 # notebooklm-sync

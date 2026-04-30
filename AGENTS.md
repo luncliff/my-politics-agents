@@ -6,14 +6,10 @@
 > 더 좁은 범위(파일·폴더)의 규칙이 있으면 그것이 우선합니다.
 > `applyTo` 패턴이 일치하는 `.instructions.md`, 그 다음 `agents/`, 마지막으로 이 파일.
 
----
-
 ## 1. 미션
 
 대한민국 지방정치 현장에서 **신뢰 가능한 정보 흐름**을 만든다.
 수집(collect) → 정제(process) → 출판(publish) 모든 단계에서 **출처가 항상 따라다니게** 한다.
-
----
 
 ## 2. 핵심 원칙
 
@@ -26,7 +22,7 @@
 ### 2.2 출처(Citation) 의무
 
 - 외부 데이터를 다루는 모든 산출물에는 **원본 URL · 수집 일시 · SHA-256 해시**를 footer에 포함한다.
-- `archive/raw/<host>/<YYYY-MM-DD>/`에 원본을 보존한다(재현성).
+- `archive/raw/<YYYY-MM-DD> <filename>.<ext>`에 원본을 보존한다(재현성).
 - `gov-archive` MCP의 `archive_cite` 도구를 사용해 인용 메타를 생성한다.
 
 ### 2.3 PII·개인정보
@@ -44,8 +40,6 @@
 - `Bypass Approvals`, `Autopilot`, `/yolo`, `chat.tools.global.autoApprove`는 사용하지 않는다.
 - 새 도구·도메인은 **명시 동의** 후 자동 승인 목록에 추가한다.
 - 파괴적 명령(`rm -rf`, `git push --force`, `mkfs`, `dd`, `curl|bash`)은 항상 사람의 확인이 필요하다.
-
----
 
 ## 3. 작업 흐름
 
@@ -70,8 +64,6 @@
 - 다음 번에 자동화할 후보(skill / agent / task / hook)
 - 누락된 출처·PII가 있었다면 즉시 수정
 
----
-
 ## 4. 산출물 형식
 
 ### 4.1 정제 문서 (Markdown)
@@ -84,8 +76,6 @@ collected_at: "<ISO-8601>"
 content_sha256: "<해시>"
 license: "공공누리 1유형"   # 또는 해당 라이선스
 pii_masked: true
----
-
 # <제목>
 
 본문 …
@@ -102,8 +92,6 @@ pii_masked: true
 
 `retrospectives/YYYY-MM-DD-<slug>.md` — `retrospective-writer` 스킬이 템플릿 제공.
 
----
-
 ## 5. 도구 사용 우선순위
 
 1. **워크스페이스 로컬 MCP 서버** (`mcp-servers/*`) — 출처·해시·로깅이 통일됨
@@ -113,16 +101,12 @@ pii_masked: true
 
 128 tool 한도에 닿으면 `Tool Sets`(`.vscode/toolsets.jsonc`)로 묶어 호출한다.
 
----
-
 ## 6. 금지 사항
 
 - `archive/raw/`의 파일을 임의로 수정·삭제 (불변 보존)
 - 자격증명·토큰을 채팅·로그·커밋 메시지·산출물에 포함
 - robots.txt 위반, rate-limit 무시
 - 출처 없이 단정적 진술
-
----
 
 ## 7. 참고
 

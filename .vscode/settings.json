@@ -1,20 +1,17 @@
 {
-  "// ----- 채팅 도구 자동 승인 -----": "",
-  "chat.tools.global.autoApprove": false,
-
   "chat.tools.urls.autoApprove": {
     "https://docs.github.com/*": true,
     "https://code.visualstudio.com/*": true,
     "https://modelcontextprotocol.io/*": true,
     "https://docs.astral.sh/*": true,
-    "https://*.go.kr/*": { "approveRequest": true, "approveResponse": false },
-    "https://*.or.kr/*": { "approveRequest": true, "approveResponse": false },
-    "https://www.law.go.kr/*": { "approveRequest": true, "approveResponse": false },
-    "https://open.assembly.go.kr/*": { "approveRequest": true, "approveResponse": false },
-    "https://pastebin.com/*": false,
-    "https://*.ngrok.io/*": false
+    "https://*.go.kr/*": true,
+    "https://open.assembly.go.kr/*": {
+      "approveRequest": true,
+      "approveResponse": false
+    },
+    "https://*.or.kr/*": true,
+    "https://namu.wiki/*": false,
   },
-
   "chat.tools.terminal.autoApprove": {
     "/^git (status|diff|log|show|branch|remote|fetch)\\b/": true,
     "/^gh (repo view|issue list|pr (list|view))\\b/": true,
@@ -27,25 +24,34 @@
     "/git push --force/": false,
     "curl": false
   },
-
-  "// ----- 한국어 작업 환경 -----": "",
   "files.encoding": "utf8",
   "files.eol": "\n",
-  "[powershell]": { "files.eol": "\r\n" },
-  "[bat]": { "files.eol": "\r\n" },
-
-  "// ----- Markdown -----": "",
+  "[powershell]": {
+    "files.eol": "\r\n"
+  },
+  "[bat]": {
+    "files.eol": "\r\n"
+  },
   "[markdown]": {
     "files.trimTrailingWhitespace": false,
     "editor.wordWrap": "on"
   },
-
-  "// ----- Python (uv) -----": "",
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "github.copilot.chat.agent.autoFix": false,
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": false,
+    "markdown": true,
+    "scminput": false
+  },
+  "python.envFile": "${workspaceFolder}/.env",
+  "python.terminal.useEnvFile": true,
   "python.terminal.activateEnvInCurrentTerminal": true,
   "python.analysis.typeCheckingMode": "basic",
   "[python]": {
-    "editor.defaultFormatter": "charliermarsh.ruff",
     "editor.formatOnSave": true,
-    "editor.codeActionsOnSave": { "source.organizeImports": "explicit" }
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    }
   }
 }

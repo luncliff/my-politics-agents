@@ -1,9 +1,6 @@
 ---
 name: gokr-fetch
 description: go.kr 도메인에서 자료를 받아 archive/raw에 저장하고 SHA-256과 인용 메타를 만든다.
-applyTo: ["**"]
-tools: ["gov-archive/archive_fetch", "gov-archive/archive_cite"]
-model: ""
 ---
 
 # gokr-fetch

@@ -1,7 +1,5 @@
 ---
 description: NotebookLM 동기화 흐름과 매니페스트 작성
----
-
 # NotebookLM 동기화
 
 ## 흐름

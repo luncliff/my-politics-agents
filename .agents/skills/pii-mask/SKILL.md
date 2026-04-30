@@ -1,9 +1,6 @@
 ---
 name: pii-mask
 description: 한국 맥락의 PII(이름·연락처·주민번호·주소·이메일) 마스킹. 매핑 키는 메모리만.
-applyTo: ["archive/processed/**", "notebooks/**"]
-tools: []
-model: ""
 ---
 
 # pii-mask

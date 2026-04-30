@@ -1,9 +1,6 @@
 ---
 name: retrospective-writer
 description: 세션 종료 시 retrospectives/YYYY-MM-DD-<slug>.md 작성.
-applyTo: ["retrospectives/**"]
-tools: ["filesystem"]
-model: ""
 ---
 
 # retrospective-writer

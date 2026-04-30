@@ -1,9 +1,8 @@
 ---
 name: notebooklm-publisher
 description: NotebookLM 노트북 매니페스트 작성·동기화 담당.
-applyTo: ["notebooks/**"]
-tools: ["filesystem"]
-model: ""
+tools: [execute, read, search, web, browser, todo]
+model: "GPT-5.4 mini (copilot)"
 ---
 
 # notebooklm-publisher
