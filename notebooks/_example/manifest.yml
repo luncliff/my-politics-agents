@@ -1,0 +1,12 @@
+notebook_id: ""
+title: "예시 노트북: OO시 2026 본예산"
+update_policy: replace
+visibility: private
+language: ko
+tags: [예시, 예산]
+
+sources:
+  - path: archive/processed/_example/budget-overview.md
+    citation: https://www.example.go.kr/budget/2026
+    title: "2026 본예산 개요"
+    pinned: true

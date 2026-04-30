@@ -1,0 +1,4 @@
+[submodule "data/legalize-kr"]
+	path = data/legalize-kr
+	url = https://github.com/legalize-kr/legalize-kr.git
+	shallow = true

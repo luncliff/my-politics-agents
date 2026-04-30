@@ -1,0 +1,38 @@
+name: lint
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  yaml-frontmatter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pyyaml
+      - name: validate YAML frontmatter in agents/skills/prompts
+        run: python scripts/lint_frontmatter.py
+
+  json-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: validate JSON files
+        run: |
+          set -e
+          for f in $(git ls-files '*.json' '*.jsonc'); do
+            # strip // and /* */ comments for jsonc
+            python - "$f" <<'PY'
+          import json, re, sys
+          p = sys.argv[1]
+          s = open(p, encoding='utf-8').read()
+          if p.endswith('.jsonc'):
+              s = re.sub(r'/\*.*?\*/', '', s, flags=re.S)
+              s = re.sub(r'(^|\s)//.*', '', s)
+          json.loads(s)
+          print(f"ok: {p}")
+          PY
+          done

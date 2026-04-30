@@ -1,0 +1,14 @@
+{
+  "$schema": "https://aka.ms/vscode-mcp-servers-schema",
+  "servers": {
+    "gov-archive": {
+      "type": "stdio",
+      "command": "uv",
+      "args": ["run", "--directory", "mcp-servers/gov-archive", "gov-archive"],
+      "dev": {
+        "watch": ["mcp-servers/gov-archive/src/**/*.py"],
+        "debug": { "type": "python" }
+      }
+    }
+  }
+}

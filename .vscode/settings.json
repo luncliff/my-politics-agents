@@ -1,0 +1,51 @@
+{
+  "// ----- 채팅 도구 자동 승인 -----": "",
+  "chat.tools.global.autoApprove": false,
+
+  "chat.tools.urls.autoApprove": {
+    "https://docs.github.com/*": true,
+    "https://code.visualstudio.com/*": true,
+    "https://modelcontextprotocol.io/*": true,
+    "https://docs.astral.sh/*": true,
+    "https://*.go.kr/*": { "approveRequest": true, "approveResponse": false },
+    "https://*.or.kr/*": { "approveRequest": true, "approveResponse": false },
+    "https://www.law.go.kr/*": { "approveRequest": true, "approveResponse": false },
+    "https://open.assembly.go.kr/*": { "approveRequest": true, "approveResponse": false },
+    "https://pastebin.com/*": false,
+    "https://*.ngrok.io/*": false
+  },
+
+  "chat.tools.terminal.autoApprove": {
+    "/^git (status|diff|log|show|branch|remote|fetch)\\b/": true,
+    "/^gh (repo view|issue list|pr (list|view))\\b/": true,
+    "/^uv (run|sync|tool list)\\b/": true,
+    "/^npm (run|view|ls)\\b/": true,
+    "rm": false,
+    "rmdir": false,
+    "del": false,
+    "Remove-Item": false,
+    "/git push --force/": false,
+    "curl": false
+  },
+
+  "// ----- 한국어 작업 환경 -----": "",
+  "files.encoding": "utf8",
+  "files.eol": "\n",
+  "[powershell]": { "files.eol": "\r\n" },
+  "[bat]": { "files.eol": "\r\n" },
+
+  "// ----- Markdown -----": "",
+  "[markdown]": {
+    "files.trimTrailingWhitespace": false,
+    "editor.wordWrap": "on"
+  },
+
+  "// ----- Python (uv) -----": "",
+  "python.terminal.activateEnvInCurrentTerminal": true,
+  "python.analysis.typeCheckingMode": "basic",
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": { "source.organizeImports": "explicit" }
+  }
+}

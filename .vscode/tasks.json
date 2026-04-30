@@ -1,0 +1,70 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "civic: setup",
+      "type": "shell",
+      "command": "${command:workbench.action.terminal.sendSequence}",
+      "windows": {
+        "command": "pwsh",
+        "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "scripts/setup.ps1"]
+      },
+      "linux":   { "command": "bash", "args": ["scripts/setup.sh"] },
+      "osx":     { "command": "zsh",  "args": ["scripts/setup.sh"] },
+      "problemMatcher": []
+    },
+    {
+      "label": "civic: auth-purge",
+      "type": "shell",
+      "windows": { "command": "pwsh", "args": ["-NoProfile", "-File", "scripts/auth-purge.ps1"] },
+      "linux":   { "command": "bash", "args": ["scripts/auth-purge.sh"] },
+      "osx":     { "command": "zsh",  "args": ["scripts/auth-purge.sh"] },
+      "problemMatcher": []
+    },
+    {
+      "label": "civic: copilot session",
+      "type": "shell",
+      "command": "copilot",
+      "args": [],
+      "presentation": { "reveal": "always", "panel": "dedicated" },
+      "problemMatcher": []
+    },
+    {
+      "label": "civic: collect",
+      "type": "shell",
+      "command": "echo",
+      "args": ["Use Copilot Chat: '/collect-site' prompt with target URLs."],
+      "problemMatcher": []
+    },
+    {
+      "label": "civic: process",
+      "type": "shell",
+      "command": "echo",
+      "args": ["Use Copilot Chat: '/summarize-minutes' or '/ordinance-brief' prompt."],
+      "problemMatcher": []
+    },
+    {
+      "label": "civic: notebooklm-sync",
+      "type": "shell",
+      "command": "echo",
+      "args": ["Use Copilot Chat: '/publish-notebook' prompt."],
+      "problemMatcher": []
+    },
+    {
+      "label": "civic: mcp doctor",
+      "type": "shell",
+      "windows": { "command": "pwsh", "args": ["-NoProfile", "-Command", "uv run --directory mcp-servers/gov-archive python -c \"from gov_archive.server import describe; print(describe())\""] },
+      "linux":   { "command": "bash", "args": ["-lc", "uv run --directory mcp-servers/gov-archive python -c 'from gov_archive.server import describe; print(describe())'"] },
+      "osx":     { "command": "zsh",  "args": ["-lc", "uv run --directory mcp-servers/gov-archive python -c 'from gov_archive.server import describe; print(describe())'"] },
+      "problemMatcher": []
+    },
+    {
+      "label": "civic: lint prompts/skills",
+      "type": "shell",
+      "windows": { "command": "pwsh", "args": ["-NoProfile", "-Command", "python scripts/lint_frontmatter.py"] },
+      "linux":   { "command": "bash", "args": ["-lc", "python3 scripts/lint_frontmatter.py"] },
+      "osx":     { "command": "zsh",  "args": ["-lc", "python3 scripts/lint_frontmatter.py"] },
+      "problemMatcher": []
+    }
+  ]
+}

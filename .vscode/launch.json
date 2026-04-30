@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug: gov-archive MCP (stdio)",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "gov_archive",
+      "cwd": "${workspaceFolder}/mcp-servers/gov-archive",
+      "console": "integratedTerminal",
+      "justMyCode": false
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+# --- 자격증명·환경변수 ---
+.env
+.env.*
+!.env.example
+*.token
+*.pat
+*.key
+*.pem
+
+# --- Copilot CLI / hooks 로컬 산출물 ---
+.copilot/
+!.copilot/.gitkeep
+.github/hooks/logs/
+!.github/hooks/logs/.gitkeep
+
+# --- 수집 산출물 (대용량) ---
+archive/raw/**
+!archive/raw/.gitkeep
+archive/processed/**
+!archive/processed/.gitkeep
+
+# --- Python (uv) ---
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# --- Node ---
+node_modules/
+dist/
+build/
+*.log
+.npm/
+
+# --- VS Code 사용자별 ---
+.vscode/*.local.json
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- 기타 임시 ---
+*.tmp
+*.bak
+*~

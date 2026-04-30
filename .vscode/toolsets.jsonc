@@ -1,0 +1,29 @@
+// Tool Sets — 128 tool 한도 회피용 묶음. 채팅에서 토글해 활성화합니다.
+{
+  "toolSets": {
+    "collect": {
+      "description": "외부 자료 수집·archive 보존",
+      "tools": [
+        "gov-archive/archive_fetch",
+        "gov-archive/archive_cite",
+        "fetch",
+        "filesystem"
+      ]
+    },
+    "review": {
+      "description": "정제·검색·인용 검증",
+      "tools": [
+        "gov-archive/archive_search",
+        "gov-archive/archive_cite",
+        "filesystem",
+        "problems"
+      ]
+    },
+    "publish": {
+      "description": "NotebookLM 매니페스트·동기화",
+      "tools": [
+        "filesystem"
+      ]
+    }
+  }
+}
