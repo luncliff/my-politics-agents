@@ -55,10 +55,12 @@
       "problemMatcher": []
     },
     {
-      "label": "civic: copilot session",
+      "label": "civic: copilot session continue",
       "type": "shell",
       "command": "copilot",
-      "args": [],
+      "args": [
+        "--continue"
+      ],
       "presentation": {
         "reveal": "always",
         "panel": "dedicated"
@@ -66,22 +68,17 @@
       "problemMatcher": []
     },
     {
-      "label": "civic: collect",
+      "label": "civic: search night care",
       "type": "shell",
-      "command": "echo",
+      "command": "copilot",
       "args": [
-        "Use Copilot Chat: '/collect-site' prompt with target URLs."
-      ],
-      "problemMatcher": []
-    },
-    {
-      "label": "civic: process",
-      "type": "shell",
-      "command": "echo",
-      "args": [
-        "Use Copilot Chat: '/summarize-minutes' or '/ordinance-brief' prompt."
-      ],
-      "problemMatcher": []
+        "--model=auto",
+        "--allow-all-urls",
+        "--add-dir",
+        "${workspaceFolder}",
+        "--prompt",
+        "/search-night-care with current location.txt"
+      ]
     },
     {
       "label": "civic: notebooklm-sync",
