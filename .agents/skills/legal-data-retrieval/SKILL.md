@@ -36,7 +36,8 @@ https://raw.githubusercontent.com/legalize-kr/legalize-kr/master/kr/{법령명}/
 ```
 
 - 법령명은 **반드시 UTF-8 URL 인코딩**한다(공백·괄호·한자 포함 시 필수).
-- 원본은 `archive/raw/<YYYY-MM-DD>/legalize-kr_<법령명>_<종류>.md`로 보존하고 SHA-256을 기록한다.
+- 원본은 `archive/raw/<host>/<basename>`으로 보존하고 SHA-256을 기록한다.
+- 파일명에 수집일 접두어를 붙이지 않으며, 시간순 정렬은 `.meta.json`의 `collected_at`을 기준으로 한다.
 - `gov-archive/archive_fetch`를 우선 사용하면 보존·해시·인용이 자동화된다.
 
 **보조 경로**

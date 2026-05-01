@@ -1,5 +1,6 @@
 ---
 description: 워크스페이스 MCP 서버 가이드
+---
 # MCP 서버
 
 이 저장소는 **워크스페이스 로컬 MCP 서버**를 권장합니다.
@@ -18,9 +19,12 @@ description: 워크스페이스 MCP 서버 가이드
 
 | 도구 | 입력 | 동작 | 어노테이션 |
 | --- | --- | --- | --- |
-| `archive_fetch` | `url`, `note?` | URL 본문을 `archive/raw/<host>/<YYYY-MM-DD>/`에 저장하고 SHA-256 산출 | `readOnlyHint: true` (외부 read) |
+| `archive_fetch` | `url`, `note?` | URL 본문을 `archive/raw/<host>/`에 저장하고 SHA-256 산출 | `readOnlyHint: true` (외부 read) |
 | `archive_search` | `query`, `scope?` | 로컬 archive에서 텍스트 grep | `readOnlyHint: true` |
 | `archive_cite` | `path` | 원본 URL·수집 시각·해시로 인용 메타 Markdown 생성 | `readOnlyHint: true` |
+
+- 파일명에는 수집 날짜를 자동 접두어로 붙이지 않습니다.
+- 저장 시 URL의 basename을 우선 사용하고, 시간순 추적은 `.meta.json`의 `collected_at`을 기준으로 합니다.
 
 > 모든 쓰기는 워크스페이스 루트의 `archive/raw/` 안으로만 제한됩니다(경로 트래버설 차단).
 

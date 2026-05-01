@@ -1,5 +1,6 @@
 ---
 description: 시스템 개요와 데이터 흐름
+---
 # 아키텍처
 
 ```
@@ -45,7 +46,7 @@ description: 시스템 개요와 데이터 흐름
 ### 데이터 흐름
 
 1. **Collect** — 어댑터(`adapters/*`) 또는 MCP 도구가 외부 자원을 가져옴.
-2. **Archive** — `archive/raw/<host>/<YYYY-MM-DD>/` 아래에 불변 보존.
+2. **Archive** — `archive/raw/<host>/` 아래에 불변 보존.
 3. **Process** — `pii-mask`, `hwp-to-text`, `pdf-extract` 등 스킬을 거쳐 Markdown 정제.
 4. **Publish** — `notebooks/<slug>/manifest.yml`을 만들고 NotebookLM에 동기화.
 5. **Retrospect** — 세션 종료 시 `retrospective-writer`가 회고를 누적.

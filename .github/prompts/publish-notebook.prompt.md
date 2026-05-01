@@ -1,6 +1,5 @@
 ---
 description: NotebookLM 노트북 묶음 생성·동기화
-mode: agent
 tools: ["filesystem"]
 ---
 

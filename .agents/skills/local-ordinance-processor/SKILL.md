@@ -25,7 +25,7 @@ argument-hint: "<지자체명> [조례명|주제|최신목록]"
 ## 입력과 산출물
 
 - 입력 예시: `성남시 최신 조례 목록`, `성남시 도시계획 조례`, `성남시 보건복지 조례 정리`
-- 원문 산출물: `archive/raw/<host>/<YYYY-MM-DD>/...`
+- 원문 산출물: `archive/raw/<host>/<basename>`
 - 정제 산출물: `data/processed/조례/<지자체>/<지자체>-<카테고리>-<조례명>.md`
 - 보조 산출물: 필요 시 `archive/processed/.../source.md`에 인용 메타 누적
 
@@ -64,6 +64,7 @@ argument-hint: "<지자체명> [조례명|주제|최신목록]"
 - `*.go.kr`는 `gokr-fetch` 또는 `gov-archive` 계열 도구를 우선 사용한다.
 - 지방의회처럼 `go.kr`가 아닌 보조 출처는 사용자가 명시적으로 요청했거나, 최신 조례안 확인에 꼭 필요한 경우에만 사용한다.
 - 원문 저장 시 가능한 한 본문 파일과 `.meta.json`을 함께 남긴다.
+- 파일명에는 수집일 접두어를 붙이지 않고, 시간순 추적은 `.meta.json`의 `collected_at`을 기준으로 한다.
 - 최소 메타 필드:
   - `source_url`
   - `collected_at`
@@ -192,5 +193,5 @@ argument-hint: "<지자체명> [조례명|주제|최신목록]"
 
 - 성남시는 `ELIS → 성남시의회 의안검색 → law.go.kr` 순으로 확인하면 최신성과 정확성을 함께 확보하기 좋다.
 - 성남시의회는 최신 조례안 확인에는 유용하지만, 최종 시행 조례 판정은 ELIS와 law.go.kr로 다시 확인해야 한다.
-- 의회 포털 원문도 `archive/raw/www.sncouncil.go.kr/<date>/...` 아래 HTML과 `.meta.json`으로 보존할 수 있다.
+- 의회 포털 원문도 `archive/raw/www.sncouncil.go.kr/<basename>` 형태로 HTML과 `.meta.json`을 함께 보존할 수 있다.
 - Semantic 저장 구조는 행정조직명이 아니라 조례 목적과 규율 대상을 기준으로 정하는 편이 검색성과 재사용성이 높다.

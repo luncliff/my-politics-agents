@@ -1,7 +1,6 @@
 ---
 description: 회의록을 사실/표결/쟁점으로 정리
-mode: agent
-tools: ["gov-archive/archive_search", "gov-archive/archive_cite", "filesystem"]
+tools: ["gov-archive/archive_search", "gov-archive/archive_cite", read, edit, search]
 ---
 
 # 회의록 요약 (summarize-minutes)

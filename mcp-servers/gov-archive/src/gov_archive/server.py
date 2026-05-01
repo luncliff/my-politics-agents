@@ -1,4 +1,5 @@
 """gov-archive MCP server — stdio, FastMCP based."""
+
 from __future__ import annotations
 
 from mcp.server.fastmcp import FastMCP
@@ -11,7 +12,9 @@ mcp = FastMCP("gov-archive")
 
 @mcp.tool(annotations={"readOnlyHint": True})
 def archive_fetch(url: str, note: str = "") -> dict:
-    """정부 도메인 등 외부 URL 본문을 archive/raw 아래에 보존하고 SHA-256을 반환합니다.
+    """외부 URL 본문을 archive/raw 아래에 보존하고 SHA-256을 반환합니다.
+
+    우선순위 도메인은 `*.go.kr`, `*.or.kr`이며, 그 외 도메인도 정책 범위에서 점진 지원합니다.
 
     Args:
         url: 가져올 URL (http/https).

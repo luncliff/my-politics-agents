@@ -1,4 +1,5 @@
 """Tool implementations for gov-archive."""
+
 from __future__ import annotations
 import hashlib
 import json
@@ -15,12 +16,53 @@ from .paths import (
     archive_raw_root,
     ensure_within,
     log,
-    today_dir,
     utc_now_iso,
 )
 
 USER_AGENT = "my-politics-agents/0.1 (+https://github.com/luncliff/my-politics-agents)"
 TIMEOUT_SEC = 30.0
+
+
+def _read_sidecar_meta(path: pathlib.Path) -> dict[str, Any]:
+    sidecar = path.with_suffix(path.suffix + ".meta.json")
+    if not sidecar.exists():
+        return {}
+    try:
+        return json.loads(sidecar.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+
+
+def _charset_from_meta(path: pathlib.Path) -> str | None:
+    meta = _read_sidecar_meta(path)
+    content_type = str(meta.get("content_type", ""))
+    match = re.search(
+        r"charset\s*=\s*['\"]?([A-Za-z0-9._-]+)", content_type, re.IGNORECASE
+    )
+    if not match:
+        return None
+    return match.group(1)
+
+
+def _read_searchable_text(path: pathlib.Path) -> str:
+    encodings: list[str] = []
+    detected = _charset_from_meta(path)
+    if detected:
+        encodings.append(detected)
+    encodings.extend(["utf-8", "utf-8-sig", "cp949", "euc-kr"])
+
+    seen: set[str] = set()
+    for encoding in encodings:
+        key = encoding.lower()
+        if key in seen:
+            continue
+        seen.add(key)
+        try:
+            return path.read_text(encoding=encoding)
+        except (LookupError, OSError, UnicodeDecodeError):
+            continue
+
+    return path.read_text(encoding="utf-8", errors="ignore")
 
 
 def _safe_basename(url: str) -> str:
@@ -31,7 +73,7 @@ def _safe_basename(url: str) -> str:
 
 
 def archive_fetch(url: str, note: str | None = None) -> dict[str, Any]:
-    """Fetch URL and store under archive/raw/<host>/<YYYY-MM-DD>/<basename>.
+    """Fetch URL and store under archive/raw/<host>/<basename>.
 
     Returns metadata: {path, sha256, status, bytes, source_url, collected_at, changed}
     """
@@ -43,7 +85,7 @@ def archive_fetch(url: str, note: str | None = None) -> dict[str, Any]:
         raise ValueError("missing host")
 
     raw_root = archive_raw_root()
-    target_dir = raw_root / host / today_dir()
+    target_dir = raw_root / host
     target_dir.mkdir(parents=True, exist_ok=True)
     target_dir = ensure_within(raw_root, target_dir)
 
@@ -51,8 +93,9 @@ def archive_fetch(url: str, note: str | None = None) -> dict[str, Any]:
     target = ensure_within(raw_root, target)
 
     log(f"fetch {url} → {target}")
-    with httpx.Client(timeout=TIMEOUT_SEC, follow_redirects=True,
-                      headers={"User-Agent": USER_AGENT}) as client:
+    with httpx.Client(
+        timeout=TIMEOUT_SEC, follow_redirects=True, headers={"User-Agent": USER_AGENT}
+    ) as client:
         resp = client.get(url)
         resp.raise_for_status()
         body = resp.content
@@ -86,7 +129,9 @@ def archive_fetch(url: str, note: str | None = None) -> dict[str, Any]:
     }
 
 
-def archive_search(query: str, scope: str = "all", limit: int = 50) -> list[dict[str, Any]]:
+def archive_search(
+    query: str, scope: str = "all", limit: int = 50
+) -> list[dict[str, Any]]:
     """Plain-text search across archive directories. Returns up to `limit` hits."""
     if not query:
         raise ValueError("query is required")
@@ -108,16 +153,18 @@ def archive_search(query: str, scope: str = "all", limit: int = 50) -> list[dict
             if not p.is_file() or p.suffix in (".meta.json",):
                 continue
             try:
-                text = p.read_text(encoding="utf-8", errors="ignore")
+                text = _read_searchable_text(p)
             except OSError:
                 continue
             for i, line in enumerate(text.splitlines(), start=1):
                 if pattern.search(line):
-                    hits.append({
-                        "path": str(p),
-                        "line": i,
-                        "preview": line.strip()[:240],
-                    })
+                    hits.append(
+                        {
+                            "path": str(p),
+                            "line": i,
+                            "preview": line.strip()[:240],
+                        }
+                    )
                     if len(hits) >= limit:
                         return hits
     return hits

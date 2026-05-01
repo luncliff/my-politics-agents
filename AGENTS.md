@@ -22,7 +22,8 @@
 ### 2.2 출처(Citation) 의무
 
 - 외부 데이터를 다루는 모든 산출물에는 **원본 URL · 수집 일시 · SHA-256 해시**를 footer에 포함한다.
-- `archive/raw/<YYYY-MM-DD> <filename>.<ext>`에 원본을 보존한다(재현성).
+- `archive/raw/<host>/<filename>.<ext>`에 원본을 보존한다(재현성).
+- 파일명에 날짜를 강제하지 않고, 시간순 추적은 같은 경로의 `.meta.json`에 기록된 `collected_at`을 기준으로 한다.
 - `gov-archive` MCP의 `archive_cite` 도구를 사용해 인용 메타를 생성한다.
 
 ### 2.3 PII·개인정보

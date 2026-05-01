@@ -1,7 +1,6 @@
 ---
 description: 세션 종료 시 회고 작성
-mode: agent
-tools: ["filesystem"]
+tools: [execute, read, edit, search]
 ---
 
 # 회고 작성 (session-retrospective)

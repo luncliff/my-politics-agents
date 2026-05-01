@@ -45,13 +45,14 @@ user-invocable: true
 1. 사용자 질의에서 **대상 기관·문서 유형·기간**을 식별(불명확하면 1회 질의).
 2. `web` 도구로 포털 검색 → 1차 후보 URL 수집.
 3. 각 후보에 대해 `HEAD` 또는 첫 응답으로 **파일 크기·Content-Type** 확인 후 보고.
-4. `gokr-fetch` 스킬로 `archive/raw/<host>/<YYYY-MM-DD>/<basename>`에 보존(SHA-256 기록).
-5. 변환:
+4. `gokr-fetch` 스킬로 `archive/raw/<host>/<basename>`에 보존(SHA-256 기록).
+5. 시간순 추적은 파일명이 아니라 `.meta.json`의 `collected_at` 기준으로 정리.
+6. 변환:
    - `.hwp` / `.hwpx` → `hwp-to-text` 스킬
    - `.pdf` → `pdf-extract` 스킬
    - `.xlsx` → 시트별 CSV 추출 (`execute`)
-6. 인명·연락처가 보이면 `pii-mask` 통과.
-7. 결과는 `archive/processed/<topic>/`에 누적(append).
+7. 인명·연락처가 보이면 `pii-mask` 통과.
+8. 결과는 `archive/processed/<topic>/`에 누적(append).
 
 ## 보고 형식 (Output)
 
@@ -61,7 +62,7 @@ user-invocable: true
 ### 정보 수집 및 가공 과정 (Extraction Path)
 1. {포털명} > {메뉴 경로} > {문서명}
 2. 다운로드: {URL} ({size}, {mime})
-3. 보존: archive/raw/{host}/{date}/{filename} · sha256:{짧은해시}
+3. 보존: archive/raw/{host}/{filename} · collected_at:{ISO-8601} · sha256:{짧은해시}
 4. 변환: {도구} → archive/processed/{topic}/{slug}.md
 
 ### 핵심 발췌

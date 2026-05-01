@@ -1,6 +1,5 @@
 ---
 description: 조례안 한 페이지 브리핑 작성
-mode: agent
 tools: ["gov-archive/archive_search", "gov-archive/archive_cite", "filesystem"]
 ---
 
