@@ -1,0 +1,15 @@
+{
+  "source_url": "http://theminjoo.kr/uploads_file/party_member_rule_file/%E2%98%852026.02.23.%20%EB%8D%94%EB%B6%88%EC%96%B4%EB%AF%BC%EC%A3%BC%EB%8B%B9%20%EA%B0%95%EB%A0%B9%EB%8B%B9%ED%97%8C%EB%8B%B9%EA%B7%9C.pdf",
+  "landing_url": "https://theminjoo.kr/main/sub/introduce/rule.php",
+  "category_urls": {
+    "doct": "https://theminjoo.kr/main/sub/introduce/rule.php?cate=doct",
+    "const": "https://theminjoo.kr/main/sub/introduce/rule.php?cate=const",
+    "regul": "https://theminjoo.kr/main/sub/introduce/rule.php?cate=regul",
+    "norm": "https://theminjoo.kr/main/sub/introduce/rule.php?cate=norm"
+  },
+  "collected_at": "2026-05-05T00:02:48.2650912+09:00",
+  "content_sha256": "7af6e5324f5b841829dc79efb7a1978bab12d1b8f286b0f778e784e88adce968",
+  "content_length": 2152735,
+  "verified_existing_file": true,
+  "verification_note": "2026-05-05에 공식 URL에서 재다운로드한 사본과 SHA-256이 일치함"
+}
