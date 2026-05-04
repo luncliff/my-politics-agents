@@ -16,9 +16,14 @@
 # --- 수집 산출물 (대용량) ---
 archive/raw/**
 !archive/raw/**/*.meta.json
+!archive/raw/**/README.md
 !archive/raw/.gitkeep
 archive/processed/**
 !archive/processed/.gitkeep
+!archive/processed/**/*.md
+!archive/processed/**/*.jsonl
+# Nemotron-Personas-Korea: parquet 원본은 절대 커밋하지 않음 (CC BY 4.0, 약 2GB)
+archive/raw/huggingface.co/datasets/nvidia/Nemotron-Personas-Korea/**/*.parquet
 
 # --- Python (uv) ---
 .venv/

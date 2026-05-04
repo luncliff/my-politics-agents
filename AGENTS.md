@@ -115,3 +115,4 @@ pii_masked: true
 - [docs/governance.md](docs/governance.md) — 데이터·라이선스·윤리 상세
 - [docs/security.md](docs/security.md) — 보안 모델·자격증명 정리
 - [docs/architecture.md](docs/architecture.md) — 시스템 개요
+- [docs/references-nemotron-personas.md](docs/references-nemotron-personas.md) — 합성 시민 페르소나 패널(CC BY 4.0)

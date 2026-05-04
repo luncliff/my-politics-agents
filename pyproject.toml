@@ -1,0 +1,16 @@
+[project]
+name = "civic-politics-agents"
+version = "0.1.0"
+description = "대한민국 지방정치에 참여하려는 시민을 위한 GitHub Copilot CLI + VS Code Chat 기반 다중 에이전트 도구 모음"
+requires-python = ">=3.12"
+dependencies = [
+    "huggingface_hub>=0.26",
+    "pyarrow>=17",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["adapters/py/nemotron_personas/"]

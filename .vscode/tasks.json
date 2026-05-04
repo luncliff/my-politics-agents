@@ -117,6 +117,119 @@
       "problemMatcher": []
     },
     {
+      "label": "civic: fetch nemotron personas (dry-run)",
+      "type": "shell",
+      "windows": {
+        "command": "pwsh",
+        "args": [
+          "-NoProfile",
+          "-ExecutionPolicy",
+          "Bypass",
+          "-File",
+          "scripts/fetch_nemotron_personas.ps1"
+        ]
+      },
+      "linux": {
+        "command": "bash",
+        "args": [
+          "-lc",
+          "uv run python -m nemotron_personas.fetch --dry-run"
+        ]
+      },
+      "osx": {
+        "command": "zsh",
+        "args": [
+          "-lc",
+          "uv run python -m nemotron_personas.fetch --dry-run"
+        ]
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "civic: fetch nemotron personas (download)",
+      "type": "shell",
+      "windows": {
+        "command": "pwsh",
+        "args": [
+          "-NoProfile",
+          "-ExecutionPolicy",
+          "Bypass",
+          "-File",
+          "scripts/fetch_nemotron_personas.ps1",
+          "-Confirm"
+        ]
+      },
+      "linux": {
+        "command": "bash",
+        "args": [
+          "-lc",
+          "uv run python -m nemotron_personas.fetch"
+        ]
+      },
+      "osx": {
+        "command": "zsh",
+        "args": [
+          "-lc",
+          "uv run python -m nemotron_personas.fetch"
+        ]
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "civic: sample nemotron panel (national 300)",
+      "type": "shell",
+      "windows": {
+        "command": "pwsh",
+        "args": [
+          "-NoProfile",
+          "-Command",
+          "uv run python -m nemotron_personas.sampler --panel national --size 300 --seed 20260504"
+        ]
+      },
+      "linux": {
+        "command": "bash",
+        "args": [
+          "-lc",
+          "uv run python -m nemotron_personas.sampler --panel national --size 300 --seed 20260504"
+        ]
+      },
+      "osx": {
+        "command": "zsh",
+        "args": [
+          "-lc",
+          "uv run python -m nemotron_personas.sampler --panel national --size 300 --seed 20260504"
+        ]
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "civic: sample nemotron panel (local from location.txt)",
+      "type": "shell",
+      "windows": {
+        "command": "pwsh",
+        "args": [
+          "-NoProfile",
+          "-Command",
+          "uv run python -m nemotron_personas.sampler --panel local --size 100 --seed 20260504"
+        ]
+      },
+      "linux": {
+        "command": "bash",
+        "args": [
+          "-lc",
+          "uv run python -m nemotron_personas.sampler --panel local --size 100 --seed 20260504"
+        ]
+      },
+      "osx": {
+        "command": "zsh",
+        "args": [
+          "-lc",
+          "uv run python -m nemotron_personas.sampler --panel local --size 100 --seed 20260504"
+        ]
+      },
+      "problemMatcher": []
+    },
+    {
       "label": "civic: lint prompts/skills",
       "type": "shell",
       "windows": {
