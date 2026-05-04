@@ -140,20 +140,20 @@ pwsh -ExecutionPolicy Bypass -File scripts/fetch_nemotron_personas.ps1 -Confirm 
 
 다운로드가 끝나면, 시민 관점 시뮬레이션에 쓸 카드 라이브러리를 만듭니다.
 
-- 전국 패널: 300명, 시도·성별·연령대 기준 stratified sampling
-- 지역 패널: `location.txt` 기준 지역에서 100명 추출
+- 전국 패널: 600명, 시도·성별·연령대 기준 stratified sampling
+- 지역 패널: `location.txt` 기준 지역에서 300명 추출
 
 ```pwsh
-uv run python -m nemotron_personas.sampler --panel national --size 300 --seed 20260504
-uv run python -m nemotron_personas.sampler --panel local --size 100 --seed 20260504
+uv run python -m nemotron_personas.sampler --panel national --size 600
+uv run python -m nemotron_personas.sampler --panel local --size 300
 ```
 
 생성 결과:
 
-- `archive/processed/nemotron-personas/panels/national-300.jsonl`
-- `archive/processed/nemotron-personas/panels/national-300.md`
-- `archive/processed/nemotron-personas/panels/<지역>-100.jsonl`
-- `archive/processed/nemotron-personas/panels/<지역>-100.md`
+- `archive/processed/nemotron-personas/panels/national-600.jsonl`
+- `archive/processed/nemotron-personas/panels/national-600.md`
+- `archive/processed/nemotron-personas/panels/<지역>-300.jsonl`
+- `archive/processed/nemotron-personas/panels/<지역>-300.md`
 
 ### 4. Copilot에서 시민 페르소나 검토 실행
 
@@ -180,8 +180,8 @@ PowerShell 7에서 아래 순서대로 붙여넣으면 됩니다.
 ```pwsh
 pwsh -ExecutionPolicy Bypass -File scripts/fetch_nemotron_personas.ps1
 pwsh -ExecutionPolicy Bypass -File scripts/fetch_nemotron_personas.ps1 -Confirm
-uv run python -m nemotron_personas.sampler --panel national --size 300 --seed 20260504
-uv run python -m nemotron_personas.sampler --panel local --size 100 --seed 20260504
+uv run python -m nemotron_personas.sampler --panel national --size 600
+uv run python -m nemotron_personas.sampler --panel local --size 300
 ```
 
 그 다음 VS Code Chat에서 아래 한 줄을 실행하면 됩니다.

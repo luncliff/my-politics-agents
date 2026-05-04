@@ -176,28 +176,28 @@
       "problemMatcher": []
     },
     {
-      "label": "civic: sample nemotron panel (national 300)",
+      "label": "civic: sample nemotron panel (national 600)",
       "type": "shell",
       "windows": {
         "command": "pwsh",
         "args": [
           "-NoProfile",
           "-Command",
-          "uv run python -m nemotron_personas.sampler --panel national --size 300 --seed 20260504"
+          "uv run python -m nemotron_personas.sampler --panel national --size 600"
         ]
       },
       "linux": {
         "command": "bash",
         "args": [
           "-lc",
-          "uv run python -m nemotron_personas.sampler --panel national --size 300 --seed 20260504"
+          "uv run python -m nemotron_personas.sampler --panel national --size 600"
         ]
       },
       "osx": {
         "command": "zsh",
         "args": [
           "-lc",
-          "uv run python -m nemotron_personas.sampler --panel national --size 300 --seed 20260504"
+          "uv run python -m nemotron_personas.sampler --panel national --size 600"
         ]
       },
       "problemMatcher": []
@@ -210,21 +210,21 @@
         "args": [
           "-NoProfile",
           "-Command",
-          "uv run python -m nemotron_personas.sampler --panel local --size 100 --seed 20260504"
+          "uv run python -m nemotron_personas.sampler --panel local --size 300"
         ]
       },
       "linux": {
         "command": "bash",
         "args": [
           "-lc",
-          "uv run python -m nemotron_personas.sampler --panel local --size 100 --seed 20260504"
+          "uv run python -m nemotron_personas.sampler --panel local --size 300"
         ]
       },
       "osx": {
         "command": "zsh",
         "args": [
           "-lc",
-          "uv run python -m nemotron_personas.sampler --panel local --size 100 --seed 20260504"
+          "uv run python -m nemotron_personas.sampler --panel local --size 300"
         ]
       },
       "problemMatcher": []

@@ -28,15 +28,15 @@ tools: [read, search, edit, agent]
 # 1) 원본 parquet (~2GB) 다운로드
 uv run python -m nemotron_personas.fetch
 # 2) 전국 패널
-uv run python -m nemotron_personas.sampler --panel national --size 300
+uv run python -m nemotron_personas.sampler --panel national --size 600
 # 3) 지역 패널 (location.txt 기반)
-uv run python -m nemotron_personas.sampler --panel local --size 100
+uv run python -m nemotron_personas.sampler --panel local --size 300
 ```
 
 ## 절차
 
 1. `civic-persona-panel` 에이전트(또는 `persona-perspective-review` 스킬)를 호출한다.
-2. 결정적 시드(기본 20260504)로 N명 추출, 서브에이전트로 4 항목 응답 생성.
+2. 패널에서 N명을 무작위로 추출(시드 미지정 시 매 실행마다 다른 표본). 서브에이전트로 4 항목 응답 생성.
 3. 산출물 저장:
    - 종합: `archive/processed/persona-reviews/<YYYY-MM-DD>-<slug>.md`
    - raw: 같은 폴더의 `responses/<YYYY-MM-DD>-<slug>.jsonl`
