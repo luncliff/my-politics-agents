@@ -5,9 +5,11 @@ and a human-readable Markdown summary with footer citation.
 
 Usage:
     uv run python -m nemotron_personas.sampler \\
-        --panel national --size 300 --seed 20260504
+        --panel national --size 600
     uv run python -m nemotron_personas.sampler \\
-        --panel local --district 분당구 --size 100 --seed 20260504
+        --panel local --district 분당구 --size 300
+
+Sampling is non-deterministic by default; pass ``--seed N`` for a reproducible draw.
 """
 
 from __future__ import annotations
@@ -198,11 +200,19 @@ def main(argv: list[str] | None = None) -> int:
     )
     ap.add_argument("--panel", choices=["national", "local"], required=True)
     ap.add_argument(
-        "--size", type=int, default=None, help="Target panel size (default: 300/100)"
+        "--size",
+        type=int,
+        default=None,
+        help="Target panel size (default: national=600, local=300)",
     )
     ap.add_argument("--district", default=None, help="Filter district (local panel)")
     ap.add_argument("--province", default=None, help="Filter province (local panel)")
-    ap.add_argument("--seed", type=int, default=20260504)
+    ap.add_argument(
+        "--seed",
+        type=int,
+        default=None,
+        help="Optional integer seed for reproducible sampling. Omit for non-deterministic draw.",
+    )
     ap.add_argument("--out-jsonl", type=pathlib.Path, default=None)
     ap.add_argument("--out-md", type=pathlib.Path, default=None)
     args = ap.parse_args(argv)
@@ -224,14 +234,15 @@ def main(argv: list[str] | None = None) -> int:
         # Heuristic: parse trailing tokens like "성남시 분당구"
         tokens = loc.split()
         if len(tokens) >= 2:
-            args.province = _normalize_province(tokens[-3] if len(tokens) >= 3 else None)
-            args.district = " ".join(tokens[-2:]) if len(tokens) >= 3 else tokens[-1]
-            print(
-                f"location.txt -> province={args.province} district={args.district}"
+            args.province = _normalize_province(
+                tokens[-3] if len(tokens) >= 3 else None
             )
+            args.district = " ".join(tokens[-2:]) if len(tokens) >= 3 else tokens[-1]
+            print(f"location.txt -> province={args.province} district={args.district}")
 
-    size = args.size or (300 if args.panel == "national" else 100)
-    rng = random.Random(args.seed)
+    size = args.size or (600 if args.panel == "national" else 300)
+    rng = random.Random(args.seed) if args.seed is not None else random.SystemRandom()
+    seed_label = str(args.seed) if args.seed is not None else "random"
 
     print(f"Loading {len(parquet_files)} parquet shard(s) from {RAW_DIR}")
     pool: list[dict] = []
@@ -264,7 +275,7 @@ def main(argv: list[str] | None = None) -> int:
     meta_items = _meta_for_sources(parquet_files)
     header = (
         f"# Nemotron-Personas-Korea — {args.panel} 패널 ({len(sampled)}명)\n\n"
-        f"- 시드: {args.seed}\n"
+        f"- 시드: {seed_label}\n"
         f"- 필터: panel={args.panel}, province={args.province or '-'}, district={args.district or '-'}\n"
         f"- 필드: {', '.join(DEFAULT_FIELDS)}\n\n"
     )
