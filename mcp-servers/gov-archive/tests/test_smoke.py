@@ -112,3 +112,47 @@ def test_archive_fetch_does_not_prepend_collection_date(monkeypatch, tmp_path):
     assert basename == "20250423_report.pdf"
     assert (tmp_path / rel_path).exists()
     assert (tmp_path / rel_path).with_suffix(".pdf.meta.json").exists()
+
+
+def test_archive_fetch_avoids_query_collisions(monkeypatch, tmp_path):
+    monkeypatch.setenv("CIVIC_REPO_ROOT", str(tmp_path))
+
+    class FakeResponse:
+        status_code = 200
+        headers = {"content-type": "application/octet-stream"}
+
+        def __init__(self, content: bytes):
+            self.content = content
+
+        def raise_for_status(self):
+            return None
+
+    class FakeClient:
+        def __init__(self, **_kwargs):
+            pass
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, exc_type, exc, tb):
+            return False
+
+        def get(self, url: str):
+            return FakeResponse(url.encode("utf-8"))
+
+    monkeypatch.setattr("gov_archive.tools.httpx.Client", FakeClient)
+
+    u1 = "https://example.go.kr/FileDown.do?atchFileId=A&fileSn=0"
+    u2 = "https://example.go.kr/FileDown.do?atchFileId=B&fileSn=0"
+
+    r1 = archive_fetch(u1)
+    r2 = archive_fetch(u2)
+
+    p1 = pathlib.Path(r1["path"])
+    p2 = pathlib.Path(r2["path"])
+
+    assert p1 != p2
+    assert p1.name.startswith("FileDown")
+    assert "__" in p1.name
+    assert (tmp_path / p1).exists()
+    assert (tmp_path / p2).exists()

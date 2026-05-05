@@ -1,6 +1,6 @@
 # 보고서 생성 참고문서 (Policy Brief · Technical Writing)
 
-기준: 2026-05 · 대표 출처: UN Editorial Manual, Microsoft Writing Style Guide, Google Technical Writing
+기준: 2026-05 · 대표 출처: UN Editorial Manual, Microsoft Writing Style Guide, Google Technical Writing, 행안부 정책실명제 사업내역서
 
 ## 0) 목적
 
@@ -29,6 +29,23 @@
 - 예시(형식):
   - `확인: {사업명}은 {계획/예산/의회}에 {연도/회기} 기준으로 반영됨 (근거: …)`
   - `미확인: {핵심값} (다음 탐색 경로: …)`
+
+### 1.3 대한민국 정부(행안부) ‘정책실명제 중점관리 대상사업 사업내역서’ 기반 최소 목차
+
+- (①) 정책사업명
+- (②) 추진배경
+- (③) 사업개요: **근거법령 / 대상(범위) / 지원(재원 구조) / 사업관장·운영(R&R)**
+- (④) 사업부서
+- (⑤) 담당자
+- (⑥) 선정기준(예: 대규모예산)
+- (⑦) 사업기간
+- <그간 주요 추진내용>: 문서번호·일자·결재라인 등 **추적 가능한 사실 단서**
+
+원페이지 보고서로의 매핑(권장):
+- 제목: 정책사업명(①)
+- BLUF/표: 사업개요(③)에서 “대상/지원/운영주체”를 사실로 쪼개어 채움
+- 프로세스: 사업기간(⑦)+주요 추진내용을 타임라인 축으로 표기
+- Glossary: 법령명, 보험료지원, 운영주체 같은 행정용어만 최소 풀이
 
 ## 2) Technical Writing 핵심 규칙(요약)
 
@@ -222,3 +239,26 @@ collected_at: "2026-05-05T06:36:20Z"
 content_sha256: "cd95a8e74f6e7774dcc977dc337c8e0c2cb0eba89181cd815c4ebca20a252dfe"
 ```
 
+### 행정안전부 정책실명제(안내 페이지)
+- 보존: `archive/raw/www.mois.go.kr/screen.do`
+```yaml
+source_url: "https://www.mois.go.kr/frt/sub/a05/policyRealName/screen.do"
+collected_at: "2026-05-05T06:57:45Z"
+content_sha256: "c227da4b15f7ad4a13926105a571a8b5261a66c8412c41f41573eb4b33d02e9a"
+```
+
+### 행정안전부 정책실명제 ‘중점관리 대상사업’ 게시물/첨부(사업내역서 예시)
+- 보존: `archive/raw/www.mois.go.kr/commonSelectBoardArticle__36f905d7e1b1.do`
+```yaml
+source_url: "https://www.mois.go.kr/frt/bbs/type014/commonSelectBoardArticle.do?bbsId=BBSMSTR_000000000003&nttId=122623"
+collected_at: "2026-05-05T06:57:44Z"
+content_sha256: "bf3df63e2181170b9b5c59ed66ff6dbc4cf6ad95cab4cf6dac4399dfb057b0b2"
+```
+
+### (예시) 정책실명제 중점관리 대상사업 ‘사업내역서’ (HWPX)
+- 보존: `archive/raw/www.mois.go.kr/_2025-26_t___5f474c9eadad.hwpx`
+```yaml
+source_url: "https://www.mois.go.kr/cmm/fms/FileDown.do?atchFileId=FILE_00141493RWD9xTE&fileSn=0"
+collected_at: "2026-05-05T06:57:44Z"
+content_sha256: "72e14eb510407e3fa399ef96151e790bc3d3d76d4ef4ca96fbabc911d08c6499"
+```

@@ -6,7 +6,7 @@ import json
 import pathlib
 import re
 from typing import Any
-from urllib.parse import urlparse
+from urllib.parse import unquote, urlparse
 
 import httpx
 
@@ -65,11 +65,80 @@ def _read_searchable_text(path: pathlib.Path) -> str:
     return path.read_text(encoding="utf-8", errors="ignore")
 
 
+def _sanitize_filename(name: str) -> str:
+    name = re.sub(r"\s+", "_", name.strip())
+    name = name.replace("/", "_").replace("\\", "_")
+    # allow Hangul for readability on Windows, but strip everything else risky
+    name = re.sub(r"[^A-Za-z0-9가-힣._-]+", "_", name)
+    name = re.sub(r"_+", "_", name)
+    return (name[:160] or "download")
+
+
 def _safe_basename(url: str) -> str:
     p = urlparse(url)
     name = pathlib.PurePosixPath(p.path).name or "index.html"
-    name = re.sub(r"[^A-Za-z0-9._-]+", "_", name)
-    return name[:160] or "index.html"
+    return _sanitize_filename(name)
+
+
+def _decode_header_filename(value: str) -> str:
+    """Best-effort decode for mojibake from latin-1 decoded header values."""
+    try:
+        raw = value.encode("latin-1")
+    except UnicodeEncodeError:
+        return value
+
+    for enc in ("utf-8", "cp949"):
+        try:
+            decoded = raw.decode(enc)
+        except UnicodeDecodeError:
+            continue
+        # prefer a decode that actually yields Hangul characters
+        if re.search(r"[가-힣]", decoded):
+            return decoded
+    # fallback: keep original
+    return value
+
+
+def _filename_from_content_disposition(cd: str) -> str | None:
+    if not cd:
+        return None
+
+    # Prefer RFC 5987 (filename*)
+    for part in cd.split(";"):
+        part = part.strip()
+        if part.lower().startswith("filename*="):
+            v = part.split("=", 1)[1].strip().strip('"')
+            # e.g. UTF-8''%ED%95%9C%EA%B8%80.hwpx
+            if "''" in v:
+                _charset, encoded = v.split("''", 1)
+                try:
+                    return unquote(encoded)
+                except Exception:
+                    return encoded
+            return v
+
+    for part in cd.split(";"):
+        part = part.strip()
+        if part.lower().startswith("filename="):
+            v = part.split("=", 1)[1].strip().strip('"')
+            return _decode_header_filename(v)
+
+    return None
+
+
+def _append_tag(filename: str, tag: str) -> str:
+    p = pathlib.PurePosixPath(filename)
+    stem, suffix = p.stem, p.suffix
+    candidate = f"{stem}__{tag}{suffix}"
+    if len(candidate) <= 160:
+        return candidate
+    # trim stem to fit
+    keep = max(1, 160 - len(tag) - len(suffix) - 2)
+    return f"{stem[:keep]}__{tag}{suffix}"
+
+
+def _url_tag(url: str) -> str:
+    return hashlib.sha256(url.encode("utf-8")).hexdigest()[:12]
 
 
 def archive_fetch(url: str, note: str | None = None) -> dict[str, Any]:
@@ -89,10 +158,7 @@ def archive_fetch(url: str, note: str | None = None) -> dict[str, Any]:
     target_dir.mkdir(parents=True, exist_ok=True)
     target_dir = ensure_within(raw_root, target_dir)
 
-    target = target_dir / _safe_basename(url)
-    target = ensure_within(raw_root, target)
-
-    log(f"fetch {url} → {target}")
+    log(f"fetch {url}")
     with httpx.Client(
         timeout=TIMEOUT_SEC, follow_redirects=True, headers={"User-Agent": USER_AGENT}
     ) as client:
@@ -101,6 +167,19 @@ def archive_fetch(url: str, note: str | None = None) -> dict[str, Any]:
         body = resp.content
 
     digest = hashlib.sha256(body).hexdigest()
+
+    cd = resp.headers.get("content-disposition", "")
+    cd_name = _filename_from_content_disposition(cd)
+    basename = _sanitize_filename(cd_name) if cd_name else _safe_basename(url)
+
+    # prevent collisions for query-driven endpoints (e.g., FileDown.do?atchFileId=...)
+    if parsed.query:
+        basename = _append_tag(basename, _url_tag(url))
+
+    target = target_dir / basename
+    target = ensure_within(raw_root, target)
+
+    log(f"  → {target}")
 
     changed = True
     if target.exists():
@@ -117,6 +196,7 @@ def archive_fetch(url: str, note: str | None = None) -> dict[str, Any]:
         "bytes": len(body),
         "status": resp.status_code,
         "content_type": resp.headers.get("content-type", ""),
+        "content_disposition": resp.headers.get("content-disposition", ""),
         "note": note or "",
     }
     sidecar = target.with_suffix(target.suffix + ".meta.json")
