@@ -18,7 +18,7 @@ tools: ["filesystem"]
 ## 절차
 
 1. 각 source의 frontmatter `source_url`이 인용 메타와 일치하는지 검증.
-2. `notebooks/<slug>/manifest.yml` 생성 (스펙: docs/reference/manifest-schema.md).
+2. `notebooks/<slug>/manifest.yml` 생성 (스펙: notebooks/README.md).
 3. `notebooklm-sync` 스킬 호출.
 4. 결과(notebook_id, 업로드 결과)를 manifest에 다시 기록.
 5. 회고에 변경 요약 1줄 추가 후보를 남긴다.
