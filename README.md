@@ -7,10 +7,10 @@
 - GitHub Copilot CLI · VS Code Copilot Chat · Codex CLI에서 같은 자산을 공유
 - Agentic + Harness: 자동 회고. 작업을 반복할수록 스킬·에이전트 개선
 
-TODO
+지원 범위
 
-- :construction: Google NotebookLM 공개 노트북과 동기화
-  - 정제 문서를 NotebookLM 노트북으로 업로드/갱신해 시민이 음성·Q&A로 열람.
+- Google NotebookLM CLI + MCP 연동
+  - 정제 문서를 NotebookLM 노트북으로 업로드/갱신하고 음성·Q&A로 열람.
 
 ### File Organization
 
@@ -98,7 +98,9 @@ gh auth login
 | --- | --- |
 | `civic: setup` | 환경 설정(또는 변경 후 재실행) |
 | `civic: copilot session continue` | Copilot CLI 세션 시작(정책 배너 포함) |
-| `civic: notebooklm-sync` | 정제본을 NotebookLM 노트북으로 동기화 |
+| `civic: notebooklm login` | NotebookLM 브라우저 로그인/세션 갱신 |
+| `civic: notebooklm doctor` | NotebookLM CLI/MCP 상태 점검 |
+| `civic: notebooklm notebook list` | 연결된 NotebookLM 노트북 목록 조회 |
 | `civic: mcp doctor` | 워크스페이스 MCP 서버 상태 점검 |
 | `civic: lint prompts/skills` | 프롬프트·스킬 형식 검사 |
 | `civic: auth-purge` | 자격증명·로컬 캐시 정리 |
@@ -161,7 +163,7 @@ Codex CLI는 같은 워크스페이스의 `agents/`·`.agents/skills/`·`.github
 - **국가법령정보센터 (law.go.kr)** — 대한민국 공식 법령·자치법규·판례 포털. legalize-kr의 1차 출처이자 최종 검증처. <https://www.law.go.kr/>
 - **ELIS** — 자치법규정보시스템. 지자체 조례·규칙 1차 검색 진입점. <https://www.elis.go.kr/>
 - **Google NotebookLM** — 정제 문서를 음성 개요·Q&A로 공개하는 노트북 서비스. 동기화 흐름은 [notebooks/README.md](notebooks/README.md). <https://notebooklm.google.com/>
-- **NotebookLM MCP (PleasePrompto)** — NotebookLM 업로드/갱신을 자동화하는 외부 MCP. 본 저장소는 placeholder 어댑터를 통해 위임 호출. <https://github.com/PleasePrompto/notebooklm-mcp>
+- **NotebookLM MCP CLI** — `nlm` CLI와 `notebooklm-mcp` 서버를 함께 제공하는 외부 패키지. 본 저장소는 `.vscode/mcp.json`과 Task에서 이 패키지를 직접 사용합니다. <https://github.com/jacob-bd/notebooklm-mcp-cli>
 - **Nemotron-Personas-Korea** — NVIDIA가 공개한 한국 합성 시민 페르소나 데이터셋(CC BY 4.0). 시민 관점 검토 패널의 기반. <https://huggingface.co/datasets/nvidia/Nemotron-Personas-Korea>
 - **Model Context Protocol** — 본 저장소의 모든 MCP 서버가 따르는 프로토콜 사양. <https://modelcontextprotocol.io/>
 - **GitHub Copilot CLI** — 워크스페이스에서 동작하는 Copilot 터미널 에이전트. <https://github.com/github/copilot-cli>

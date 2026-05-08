@@ -83,4 +83,4 @@ user-invocable: true
 
 - 회의록 정리 → `assembly-minutes`
 - 조례 정리 → `ordinance-processor` / `ordinance-reviewer`
-- NotebookLM 업로드 → `notebooklm-publisher`
+- NotebookLM 업로드 → `notebooks/README.md`의 CLI/MCP 흐름

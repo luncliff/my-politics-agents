@@ -7,10 +7,11 @@
 
 | 서버 | 위치 | 상태 | transport |
 | --- | --- | --- | --- |
+| `notebooklm` | 외부 `uvx --from notebooklm-mcp-cli notebooklm-mcp` | **동작** | stdio |
 | `gov-archive` | `mcp-servers/gov-archive/` | **동작** | stdio |
+| `legalize-kr` | 외부 `uvx --from legalize-cli[mcp] legalize-mcp` | **동작** | stdio |
 | `hwp-toolkit` | (미생성) | placeholder | (후속) |
 | `pdf-loader` | (미생성) | placeholder | (후속) |
-| `notebooklm-bridge` | (미생성) | placeholder | (후속) |
 
 ## gov-archive 도구 표면
 
@@ -30,6 +31,7 @@
 - 핫 리로드·디버그: `.vscode/mcp.json`의 `dev.watch` / `dev.debug` 사용.
   - 서버 정의에서 코드 렌즈로 Start/Stop/Restart 가능.
 - 상태 점검: `Tasks: Run Task` → `civic: mcp doctor`.
+- NotebookLM 인증/점검: `civic: notebooklm login`, `civic: notebooklm doctor`.
 - 도구 출력 로그: `MCP: List Servers` → 서버 선택 → `Show Output`.
 
 ## 작성 시 권장사항

@@ -6,7 +6,7 @@ tools: ["filesystem"]
 # 노트북 출판 (publish-notebook)
 
 목표: `archive/processed/...`의 정제본을 골라 `notebooks/<slug>/manifest.yml`을 만들고,
-`notebooklm-sync` 스킬로 NotebookLM에 업로드한다.
+외부 `nlm` CLI 또는 `notebooklm` MCP로 NotebookLM에 업로드한다.
 
 ## 입력
 
@@ -19,6 +19,6 @@ tools: ["filesystem"]
 
 1. 각 source의 frontmatter `source_url`이 인용 메타와 일치하는지 검증.
 2. `notebooks/<slug>/manifest.yml` 생성 (스펙: notebooks/README.md).
-3. `notebooklm-sync` 스킬 호출.
+3. `uvx --from notebooklm-mcp-cli nlm ...` 또는 MCP 클라이언트에서 업로드/갱신.
 4. 결과(notebook_id, 업로드 결과)를 manifest에 다시 기록.
 5. 회고에 변경 요약 1줄 추가 후보를 남긴다.

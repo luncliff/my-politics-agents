@@ -67,4 +67,4 @@ user-invocable: true
 ## 핸드오프
 
 - 한 페이지 브리핑이 필요하면 `ordinance-reviewer`에게 위임.
-- NotebookLM 동기화가 필요하면 `notebooklm-publisher`에게 위임.
+- NotebookLM 동기화가 필요하면 `notebooks/README.md`의 CLI/MCP 흐름을 따른다.

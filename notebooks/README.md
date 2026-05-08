@@ -17,9 +17,7 @@ notebooks/
 archive/processed/*.md  ──►  notebooks/<slug>/manifest.yml
                           │
                           ▼
-              notebooklm-publisher.agent
-                          │
-                  notebooklm MCP (업로드/갱신)
+                    nlm CLI / notebooklm MCP
                           │
                           ▼
                   공개 NotebookLM 노트북
@@ -28,7 +26,7 @@ archive/processed/*.md  ──►  notebooks/<slug>/manifest.yml
 
 1. `archive/processed/` 아래에서 노트북에 올릴 문서를 선정한다.
 2. `notebooks/<slug>/manifest.yml`로 묶음을 정의한다.
-3. `civic: notebooklm-sync` Task 또는 `notebooklm-publisher` 에이전트로 동기화한다.
+3. `nlm` CLI 또는 `notebooklm` MCP 클라이언트로 동기화한다.
 4. 변경분만 업로드되며, 결과는 회고에 기록된다.
 
 ## 운영 규칙
@@ -89,7 +87,10 @@ sources:
 
 ## MCP 서버
 
-저장소의 `notebooklm-bridge` 서버는 placeholder입니다.
-실 업로드는 [PleasePrompto/notebooklm-mcp]를 직접 등록하거나 후속 단계에서 자체 래퍼를 추가합니다.
+저장소는 mock publisher를 두지 않고 외부 NotebookLM CLI/MCP를 직접 사용합니다.
 
-[PleasePrompto/notebooklm-mcp]: https://github.com/PleasePrompto/notebooklm-mcp
+- VS Code / Copilot Chat MCP: `.vscode/mcp.json`의 `notebooklm`
+- CLI: `uvx --from notebooklm-mcp-cli nlm --help`
+- 최초 인증: `uvx --from notebooklm-mcp-cli nlm login`
+
+[notebooklm-mcp-cli]: https://github.com/jacob-bd/notebooklm-mcp-cli
