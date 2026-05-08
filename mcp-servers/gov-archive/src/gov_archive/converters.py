@@ -10,7 +10,12 @@ import zipfile
 import zlib
 from typing import Callable
 
-from .paths import archive_processed_root, ensure_within, workspace_root
+from .paths import (
+    archive_processed_root,
+    archive_raw_root,
+    ensure_within,
+    workspace_root,
+)
 
 SUPPORTED_EXTENSIONS = {".hwp", ".hwpx", ".docx", ".pdf"}
 
@@ -22,7 +27,10 @@ def convert_to_markdown(path: pathlib.Path) -> dict[str, str | bool]:
     """
     ext = path.suffix.lower()
     if ext not in SUPPORTED_EXTENSIONS:
-        return {"converted": False, "reason": f"unsupported extension: {ext or '(none)'}"}
+        return {
+            "converted": False,
+            "reason": f"unsupported extension: {ext or '(none)'}",
+        }
 
     extractors: dict[str, Callable[[pathlib.Path], str]] = {
         ".docx": _extract_docx_text,
@@ -34,9 +42,15 @@ def convert_to_markdown(path: pathlib.Path) -> dict[str, str | bool]:
     try:
         text = extractors[ext](path)
     except zipfile.BadZipFile as exc:
-        return {"converted": False, "reason": f"BadZipFile: invalid or corrupted archive ({exc})"}
+        return {
+            "converted": False,
+            "reason": f"BadZipFile: invalid or corrupted archive ({exc})",
+        }
     except ET.ParseError as exc:
-        return {"converted": False, "reason": f"ParseError: invalid XML structure ({exc})"}
+        return {
+            "converted": False,
+            "reason": f"ParseError: invalid XML structure ({exc})",
+        }
     except (RuntimeError, ValueError, KeyError, OSError) as exc:
         return {"converted": False, "reason": f"{type(exc).__name__}: {exc}"}
 
@@ -45,7 +59,7 @@ def convert_to_markdown(path: pathlib.Path) -> dict[str, str | bool]:
 
     processed_root = archive_processed_root()
     processed_root.mkdir(parents=True, exist_ok=True)
-    relative_parent = path.relative_to(workspace_root() / "archive" / "raw").parent
+    relative_parent = path.relative_to(archive_raw_root().resolve()).parent
     output_dir = ensure_within(processed_root, processed_root / relative_parent)
     output_dir.mkdir(parents=True, exist_ok=True)
     output = ensure_within(processed_root, output_dir / f"{path.stem}.md")
@@ -55,7 +69,10 @@ def convert_to_markdown(path: pathlib.Path) -> dict[str, str | bool]:
         f"{text.strip()}\n",
         encoding="utf-8",
     )
-    return {"converted": True, "markdown_path": str(output.relative_to(workspace_root()))}
+    return {
+        "converted": True,
+        "markdown_path": str(output.relative_to(workspace_root())),
+    }
 
 
 def _extract_docx_text(path: pathlib.Path) -> str:
@@ -81,13 +98,17 @@ def _extract_hwp_text(path: pathlib.Path) -> str:
     try:
         import olefile  # type: ignore[import-not-found]
     except ImportError as exc:
-        raise RuntimeError("Failed to import olefile dependency; reinstall project dependencies") from exc
+        raise RuntimeError(
+            "Failed to import olefile dependency; reinstall project dependencies"
+        ) from exc
 
     with olefile.OleFileIO(str(path)) as ole:
         section_paths = sorted(
             "/".join(parts)
             for parts in ole.listdir(streams=True, storages=False)
-            if len(parts) >= 2 and parts[0] == "BodyText" and parts[1].startswith("Section")
+            if len(parts) >= 2
+            and parts[0] == "BodyText"
+            and parts[1].startswith("Section")
         )
 
         if not section_paths:

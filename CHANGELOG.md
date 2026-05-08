@@ -19,7 +19,7 @@
 
 ### Changed
 - `gov-archive` MCP 서버에 문서 변환 기능을 내장하고 `archive_convert` 도구를 추가
-- `archive_fetch`가 HTML 페이지 내 HWP/HWPX/PDF 링크를 자동 수집하도록 확장
+- `archive_fetch`가 HTML 페이지 내 HWP/HWPX/DOCX/PDF 링크를 자동 수집하도록 확장
 
 ### Removed
 - 스킬 `hwp-to-text`, `pdf-extract` 제거 (기능을 `gov-archive`로 통합)

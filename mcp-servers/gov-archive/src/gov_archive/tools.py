@@ -14,12 +14,20 @@ import httpx
 
 from .citation import cite
 from .converters import SUPPORTED_EXTENSIONS, convert_to_markdown
-from .paths import archive_processed_root, archive_raw_root, ensure_within, log, utc_now_iso, workspace_root
+from .paths import (
+    archive_processed_root,
+    archive_raw_root,
+    ensure_within,
+    log,
+    utc_now_iso,
+    workspace_root,
+)
 
 USER_AGENT = "my-politics-agents/0.1 (+https://github.com/luncliff/my-politics-agents)"
 TIMEOUT_SEC = 30.0
 AUTO_DOWNLOAD_EXTENSIONS = {".hwp", ".hwpx", ".docx", ".pdf"}
 HTML_EXTENSIONS = {".html", ".htm"}
+MAX_LINKED_DOWNLOADS = 20
 
 
 def _read_sidecar_meta(path: pathlib.Path) -> dict[str, Any]:
@@ -175,7 +183,7 @@ def _persist_payload(
 
     convert_result = (
         convert_to_markdown(target)
-        if auto_convert and target.suffix.lower() in SUPPORTED_EXTENSIONS
+        if auto_convert and changed and target.suffix.lower() in SUPPORTED_EXTENSIONS
         else None
     )
 
@@ -189,7 +197,9 @@ def _persist_payload(
     return result
 
 
-def archive_fetch(url: str, note: str | None = None, auto_convert: bool = True) -> dict[str, Any]:
+def archive_fetch(
+    url: str, note: str | None = None, auto_convert: bool = True
+) -> dict[str, Any]:
     """Fetch URL and store under archive/raw/<host>/<basename>.
 
     Returns metadata: {path, sha256, status, bytes, source_url, collected_at, changed}
@@ -216,9 +226,11 @@ def archive_fetch(url: str, note: str | None = None, auto_convert: bool = True) 
         )
 
         linked_downloads: list[dict[str, Any]] = []
+        linked_skipped = 0
         if _looks_like_html(content_type, body):
             links = _extract_document_links(url, body)
-            for link in links:
+            linked_skipped = max(0, len(links) - MAX_LINKED_DOWNLOADS)
+            for link in links[:MAX_LINKED_DOWNLOADS]:
                 try:
                     linked = client.get(link)
                     linked.raise_for_status()
@@ -242,6 +254,8 @@ def archive_fetch(url: str, note: str | None = None, auto_convert: bool = True) 
 
     if linked_downloads:
         primary["linked_downloads"] = linked_downloads
+    if linked_skipped:
+        primary["linked_downloads_skipped"] = linked_skipped
     return primary
 
 

@@ -40,6 +40,7 @@
     "rmdir": false,
     "del": false,
     "Remove-Item": false,
+    "/git push --force/": false,
     "curl": false
   },
   "files.encoding": "utf8",

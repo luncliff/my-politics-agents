@@ -46,7 +46,7 @@ def archive_cite(path: str) -> str:
     return T.archive_cite(path)
 
 
-@mcp.tool(annotations={"readOnlyHint": True})
+@mcp.tool(annotations={"readOnlyHint": False})
 def archive_convert(path: str) -> dict:
     """HWP/HWPX/DOCX/PDF 원문을 Markdown으로 변환해 archive/processed에 저장합니다.
 

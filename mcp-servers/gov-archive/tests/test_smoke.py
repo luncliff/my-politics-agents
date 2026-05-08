@@ -161,6 +161,7 @@ def test_archive_fetch_downloads_links_from_html(monkeypatch, tmp_path):
         def raise_for_status(self):
             return None
 
+    _hwpx_bytes = _generate_hwpx_bytes("한글 HWPX 테스트")
     responses = {
         page_url: FakeResponse(
             200,
@@ -177,7 +178,7 @@ def test_archive_fetch_downloads_links_from_html(monkeypatch, tmp_path):
         hwpx_url: FakeResponse(
             200,
             {"content-type": "application/octet-stream"},
-            _generate_hwpx_bytes("한글 HWPX 테스트"),
+            _hwpx_bytes,
         ),
     }
 
@@ -199,11 +200,14 @@ def test_archive_fetch_downloads_links_from_html(monkeypatch, tmp_path):
     result = archive_fetch(page_url)
     linked = result.get("linked_downloads", [])
     assert len(linked) == 2
-    assert {pathlib.Path(item["path"]).name for item in linked} == {"report.pdf", "notice.hwpx"}
+    assert {pathlib.Path(item["path"]).name for item in linked} == {
+        "report.pdf",
+        "notice.hwpx",
+    }
     pdf_file = tmp_path / "archive" / "raw" / "example.go.kr" / "report.pdf"
     hwpx_file = tmp_path / "archive" / "raw" / "example.go.kr" / "notice.hwpx"
     assert pdf_file.read_bytes() == b"%PDF-1.4"
-    assert hwpx_file.read_bytes() == _generate_hwpx_bytes("한글 HWPX 테스트")
+    assert hwpx_file.read_bytes() == _hwpx_bytes
 
 
 def test_archive_convert_docx(monkeypatch, tmp_path):
@@ -232,6 +236,42 @@ def test_archive_convert_hwpx(monkeypatch, tmp_path):
     output = tmp_path / result["markdown_path"]
     assert output.exists()
     assert "HWPX 테스트 문장" in output.read_text(encoding="utf-8")
+
+
+def test_archive_convert_pdf(monkeypatch, tmp_path):
+    monkeypatch.setenv("CIVIC_REPO_ROOT", str(tmp_path))
+    src = tmp_path / "archive" / "raw" / "example.go.kr" / "sample.pdf"
+    src.parent.mkdir(parents=True, exist_ok=True)
+    src.write_bytes(b"dummy-pdf-bytes")
+
+    monkeypatch.setattr(
+        "gov_archive.converters._extract_pdf_text", lambda _path: "PDF 테스트 문장"
+    )
+
+    result = archive_convert("example.go.kr/sample.pdf")
+
+    assert result["converted"] is True
+    output = tmp_path / result["markdown_path"]
+    assert output.exists()
+    assert "PDF 테스트 문장" in output.read_text(encoding="utf-8")
+
+
+def test_archive_convert_hwp(monkeypatch, tmp_path):
+    monkeypatch.setenv("CIVIC_REPO_ROOT", str(tmp_path))
+    src = tmp_path / "archive" / "raw" / "example.go.kr" / "sample.hwp"
+    src.parent.mkdir(parents=True, exist_ok=True)
+    src.write_bytes(b"dummy-hwp-bytes")
+
+    monkeypatch.setattr(
+        "gov_archive.converters._extract_hwp_text", lambda _path: "HWP 테스트 문장"
+    )
+
+    result = archive_convert("example.go.kr/sample.hwp")
+
+    assert result["converted"] is True
+    output = tmp_path / result["markdown_path"]
+    assert output.exists()
+    assert "HWP 테스트 문장" in output.read_text(encoding="utf-8")
 
 
 def _generate_docx_bytes(text: str) -> bytes:
