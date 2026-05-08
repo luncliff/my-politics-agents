@@ -1,20 +1,16 @@
 # my-politics-agents
 
 대한민국 지방정치에 참여하려는 시민을 위한 다중 에이전트 도구 모음.
-`*.go.kr` 자료를 수집·정제해 인용 가능한 문서로 만들고, Google NotebookLM에
-공개 노트북으로 동기화합니다. GitHub Copilot CLI · VS Code Copilot Chat · Codex CLI에서
-같은 워크스페이스 자산(에이전트·스킬·프롬프트·MCP)을 공유합니다.
 
-> 1차 시범 데이터 소스는 [law.go.kr] / [legalize-kr]. 다른 사이트는 어댑터(skill + MCP)로 점진 확장합니다.
+- 자료를 수집·정제해 인용 가능한 문서로 만들기(자산화)
+  - 의안·회의록·예산서 PDF/HWP -> Markdown, 출처(URL·해시·시각) 기록
+- GitHub Copilot CLI · VS Code Copilot Chat · Codex CLI에서 같은 자산을 공유
+- Agentic + Harness: 자동 회고. 작업을 반복할수록 스킬·에이전트 개선
 
-[law.go.kr]: https://www.law.go.kr/
-[legalize-kr]: https://github.com/legalize-kr/legalize-kr
+TODO
 
-## What you can do
-
-- 의안·회의록·예산서 PDF/HWP를 Markdown으로 변환하고 출처(URL·해시·시각)를 함께 기록.
-- 정제 문서를 NotebookLM 노트북으로 업로드/갱신해 시민이 음성·Q&A로 열람.
-- 같은 작업을 반복할수록 회고·스킬·에이전트가 누적되어 다음 사용이 빨라짐.
+- :construction: Google NotebookLM 공개 노트북과 동기화
+  - 정제 문서를 NotebookLM 노트북으로 업로드/갱신해 시민이 음성·Q&A로 열람.
 
 ### File Organization
 
