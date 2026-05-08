@@ -108,12 +108,84 @@
       ]
     },
     {
-      "label": "civic: notebooklm-sync",
+      "label": "civic: notebooklm login",
       "type": "shell",
-      "command": "echo",
-      "args": [
-        "Use Copilot Chat: '/publish-notebook' prompt."
-      ],
+      "windows": {
+        "command": "pwsh",
+        "args": [
+          "-NoProfile",
+          "-Command",
+          "uvx --from notebooklm-mcp-cli nlm login"
+        ]
+      },
+      "linux": {
+        "command": "bash",
+        "args": [
+          "-lc",
+          "uvx --from notebooklm-mcp-cli nlm login"
+        ]
+      },
+      "osx": {
+        "command": "zsh",
+        "args": [
+          "-lc",
+          "uvx --from notebooklm-mcp-cli nlm login"
+        ]
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "civic: notebooklm doctor",
+      "type": "shell",
+      "windows": {
+        "command": "pwsh",
+        "args": [
+          "-NoProfile",
+          "-Command",
+          "uvx --from notebooklm-mcp-cli nlm doctor"
+        ]
+      },
+      "linux": {
+        "command": "bash",
+        "args": [
+          "-lc",
+          "uvx --from notebooklm-mcp-cli nlm doctor"
+        ]
+      },
+      "osx": {
+        "command": "zsh",
+        "args": [
+          "-lc",
+          "uvx --from notebooklm-mcp-cli nlm doctor"
+        ]
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "civic: notebooklm notebook list",
+      "type": "shell",
+      "windows": {
+        "command": "pwsh",
+        "args": [
+          "-NoProfile",
+          "-Command",
+          "uvx --from notebooklm-mcp-cli nlm notebook list"
+        ]
+      },
+      "linux": {
+        "command": "bash",
+        "args": [
+          "-lc",
+          "uvx --from notebooklm-mcp-cli nlm notebook list"
+        ]
+      },
+      "osx": {
+        "command": "zsh",
+        "args": [
+          "-lc",
+          "uvx --from notebooklm-mcp-cli nlm notebook list"
+        ]
+      },
       "problemMatcher": []
     },
     {

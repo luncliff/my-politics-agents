@@ -2,9 +2,12 @@
   "$schema": "https://aka.ms/vscode-mcp-servers-schema",
   "servers": {
     "notebooklm": {
-      "command": "npx",
+      "type": "stdio",
+      "command": "uvx",
       "args": [
-        "notebooklm-mcp@latest"
+        "--from",
+        "notebooklm-mcp-cli",
+        "notebooklm-mcp"
       ]
     },
     "gov-archive": {
