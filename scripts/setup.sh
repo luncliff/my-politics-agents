@@ -88,7 +88,7 @@ if ! have copilot; then
 fi
 
 # 3) workspace
-step "git submodule update --init --recursive" git submodule update --init --recursive
+step "legalize-kr shallow clone (data/legalize-kr)" bash scripts/fetch_legalize_kr.sh
 
 if [ -f "mcp-servers/gov-archive/pyproject.toml" ]; then
   step "uv sync (mcp-servers/gov-archive)" sh -c "cd mcp-servers/gov-archive && uv sync"

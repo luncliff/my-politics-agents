@@ -66,7 +66,7 @@ description: 시스템 개요와 데이터 흐름
 | `archive/` | 원본/정제본 |
 | `notebooks/` | NotebookLM 업로드 묶음 |
 | `retrospectives/` | 세션 회고 누적 |
-| `data/legalize-kr/` | 법령 데이터 submodule |
+| `data/legalize-kr/` | 법령 데이터 shallow clone |
 
 ## 의존성 정책
 

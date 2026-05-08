@@ -16,7 +16,7 @@ GitHub Copilot CLI + VS Code Chat 기반 다중 에이전트 도구 모음입니
 1. **사전 준비** — Git, Visual Studio Code 설치.
 2. **저장소 받기**
    ```
-   git clone --recurse-submodules https://github.com/luncliff/my-politics-agents.git
+   git clone https://github.com/luncliff/my-politics-agents.git
    cd my-politics-agents
    ```
 3. **환경 설정 (한 번만)** — 운영체제에 맞춰 한 줄 실행.
@@ -59,7 +59,7 @@ GitHub Copilot CLI + VS Code Chat 기반 다중 에이전트 도구 모음입니
 | [`archive/`](archive/) | 원본(`raw/`) · 정제본(`processed/`) 보관소 |
 | [`notebooks/`](notebooks/) | NotebookLM 업로드 매니페스트 |
 | [`retrospectives/`](retrospectives/) | 세션 회고 누적 (자동 생성) |
-| [`data/legalize-kr/`](data/) | 법령 데이터 git submodule |
+| [`data/legalize-kr/`](data/) | 법령 데이터 shallow clone |
 | [`docs/`](docs/) | 한국어 문서 |
 
 ## 라이선스

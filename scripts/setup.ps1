@@ -100,8 +100,8 @@ if (-not $status['copilot']) {
 }
 
 # 4) workspace local setup
-Invoke-Step "git submodule update --init --recursive" {
-  git submodule update --init --recursive
+Invoke-Step "legalize-kr shallow clone (data/legalize-kr)" {
+  & (Join-Path $PSScriptRoot 'fetch_legalize_kr.ps1')
 }
 
 if (Test-Path "mcp-servers/gov-archive/pyproject.toml") {

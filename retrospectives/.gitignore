@@ -1,0 +1,4 @@
+# force add files if they need to be tracked
+*.md
+*.log
+*.txt

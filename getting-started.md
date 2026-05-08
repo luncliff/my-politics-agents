@@ -29,16 +29,11 @@ description: 비개발자를 위한 시작 가이드
 ### 2. 저장소 받기
 
 ```pwsh
-git clone --recurse-submodules https://github.com/luncliff/my-politics-agents.git
+git clone https://github.com/luncliff/my-politics-agents.git
 cd my-politics-agents
 ```
 
-`--recurse-submodules`는 `data/legalize-kr` 같은 서브모듈을 함께 받기 위해서입니다.
-이미 받았다면 다음 명령으로 보완할 수 있습니다.
-
-```pwsh
-git submodule update --init --recursive
-```
+`data/legalize-kr`는 설정 단계에서 shallow clone으로 준비됩니다.
 
 ### 3. 환경 설정
 
