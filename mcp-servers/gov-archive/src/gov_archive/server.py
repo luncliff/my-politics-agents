@@ -11,7 +11,7 @@ mcp = FastMCP("gov-archive")
 
 
 @mcp.tool(annotations={"readOnlyHint": True})
-def archive_fetch(url: str, note: str = "") -> dict:
+def archive_fetch(url: str, note: str = "", auto_convert: bool = True) -> dict:
     """외부 URL 본문을 archive/raw 아래에 보존하고 SHA-256을 반환합니다.
 
     우선순위 도메인은 `*.go.kr`, `*.or.kr`이며, 그 외 도메인도 정책 범위에서 점진 지원합니다.
@@ -19,8 +19,9 @@ def archive_fetch(url: str, note: str = "") -> dict:
     Args:
         url: 가져올 URL (http/https).
         note: 수집 의도 한 줄 (선택).
+        auto_convert: 저장 후 문서 변환 자동 실행 여부 (기본 true).
     """
-    return T.archive_fetch(url, note=note or None)
+    return T.archive_fetch(url, note=note or None, auto_convert=auto_convert)
 
 
 @mcp.tool(annotations={"readOnlyHint": True})

@@ -8,7 +8,7 @@ import pathlib
 import re
 from html.parser import HTMLParser
 from typing import Any
-from urllib.parse import urljoin, urlparse
+from urllib.parse import urljoin, urlparse, urlunparse
 
 import httpx
 
@@ -18,7 +18,7 @@ from .paths import archive_processed_root, archive_raw_root, ensure_within, log,
 
 USER_AGENT = "my-politics-agents/0.1 (+https://github.com/luncliff/my-politics-agents)"
 TIMEOUT_SEC = 30.0
-DOWNLOADABLE_LINK_EXTENSIONS = {".hwp", ".hwpx", ".pdf"}
+AUTO_DOWNLOAD_EXTENSIONS = {".hwp", ".hwpx", ".docx", ".pdf"}
 HTML_EXTENSIONS = {".html", ".htm"}
 
 
@@ -116,9 +116,11 @@ def _extract_document_links(url: str, body: bytes) -> list[str]:
         if parsed.scheme not in ("http", "https"):
             continue
         suffix = pathlib.PurePosixPath(parsed.path).suffix.lower()
-        if suffix not in DOWNLOADABLE_LINK_EXTENSIONS:
+        if suffix not in AUTO_DOWNLOAD_EXTENSIONS:
             continue
-        normalized = parsed._replace(fragment="").geturl()
+        normalized = urlunparse(
+            (parsed.scheme, parsed.netloc, parsed.path, parsed.params, parsed.query, "")
+        )
         if normalized in seen:
             continue
         seen.add(normalized)
@@ -137,6 +139,7 @@ def _persist_payload(
     status: int,
     content_type: str,
     note: str | None = None,
+    auto_convert: bool = True,
 ) -> dict[str, Any]:
     parsed = urlparse(url)
     host = parsed.netloc.lower()
@@ -170,7 +173,11 @@ def _persist_payload(
     sidecar = target.with_suffix(target.suffix + ".meta.json")
     sidecar.write_text(json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8")
 
-    convert_result = convert_to_markdown(target) if target.suffix.lower() in SUPPORTED_EXTENSIONS else None
+    convert_result = (
+        convert_to_markdown(target)
+        if auto_convert and target.suffix.lower() in SUPPORTED_EXTENSIONS
+        else None
+    )
 
     result = {
         "path": _to_workspace_relative(target),
@@ -182,7 +189,7 @@ def _persist_payload(
     return result
 
 
-def archive_fetch(url: str, note: str | None = None) -> dict[str, Any]:
+def archive_fetch(url: str, note: str | None = None, auto_convert: bool = True) -> dict[str, Any]:
     """Fetch URL and store under archive/raw/<host>/<basename>.
 
     Returns metadata: {path, sha256, status, bytes, source_url, collected_at, changed}
@@ -205,6 +212,7 @@ def archive_fetch(url: str, note: str | None = None) -> dict[str, Any]:
             status=resp.status_code,
             content_type=content_type,
             note=note,
+            auto_convert=auto_convert,
         )
 
         linked_downloads: list[dict[str, Any]] = []
@@ -221,10 +229,16 @@ def archive_fetch(url: str, note: str | None = None) -> dict[str, Any]:
                             status=linked.status_code,
                             content_type=linked.headers.get("content-type", ""),
                             note=f"linked_from={url}",
+                            auto_convert=auto_convert,
                         )
                     )
                 except httpx.HTTPError as exc:
-                    linked_downloads.append({"source_url": link, "error": str(exc)})
+                    linked_downloads.append(
+                        {
+                            "source_url": link,
+                            "error": f"Failed to download linked document: {exc}",
+                        }
+                    )
 
     if linked_downloads:
         primary["linked_downloads"] = linked_downloads

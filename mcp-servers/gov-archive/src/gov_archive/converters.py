@@ -16,7 +16,10 @@ SUPPORTED_EXTENSIONS = {".hwp", ".hwpx", ".docx", ".pdf"}
 
 
 def convert_to_markdown(path: pathlib.Path) -> dict[str, str | bool]:
-    """Convert supported documents to Markdown under archive/processed."""
+    """Convert supported documents to Markdown under archive/processed.
+
+    When extraction returns empty content, a placeholder `(추출 텍스트 없음)` is written.
+    """
     ext = path.suffix.lower()
     if ext not in SUPPORTED_EXTENSIONS:
         return {"converted": False, "reason": f"unsupported extension: {ext or '(none)'}"}
@@ -30,8 +33,12 @@ def convert_to_markdown(path: pathlib.Path) -> dict[str, str | bool]:
 
     try:
         text = extractors[ext](path)
-    except Exception as exc:  # noqa: BLE001
-        return {"converted": False, "reason": str(exc)}
+    except zipfile.BadZipFile as exc:
+        return {"converted": False, "reason": f"BadZipFile: invalid or corrupted archive ({exc})"}
+    except ET.ParseError as exc:
+        return {"converted": False, "reason": f"ParseError: invalid XML structure ({exc})"}
+    except (RuntimeError, ValueError, KeyError, OSError) as exc:
+        return {"converted": False, "reason": f"{type(exc).__name__}: {exc}"}
 
     if not text.strip():
         text = "(추출 텍스트 없음)"
@@ -65,7 +72,7 @@ def _extract_hwpx_text(path: pathlib.Path) -> str:
             if name.startswith("Contents/section") and name.endswith(".xml")
         )
         if not names:
-            raise ValueError("HWPX section XML not found")
+            raise ValueError("HWPX section XML not found in Contents/section*.xml")
         sections = [_extract_xml_text(zf.read(name)) for name in names]
     return "\n\n".join(section for section in sections if section.strip())
 
@@ -74,7 +81,7 @@ def _extract_hwp_text(path: pathlib.Path) -> str:
     try:
         import olefile  # type: ignore[import-not-found]
     except ImportError as exc:
-        raise RuntimeError("HWP conversion requires olefile package") from exc
+        raise RuntimeError("Failed to import olefile dependency; reinstall project dependencies") from exc
 
     with olefile.OleFileIO(str(path)) as ole:
         section_paths = sorted(
@@ -84,7 +91,7 @@ def _extract_hwp_text(path: pathlib.Path) -> str:
         )
 
         if not section_paths:
-            raise ValueError("HWP BodyText sections not found")
+            raise ValueError("HWP BodyText/Section* streams not found in OLE structure")
 
         lines: list[str] = []
         for section_path in section_paths:
@@ -121,6 +128,7 @@ def _extract_hwp_paragraph_text(data: bytes) -> list[str]:
 
 def _maybe_inflate_raw_deflate(data: bytes) -> bytes:
     try:
+        # HWP section streams are often raw DEFLATE blocks without zlib headers.
         return zlib.decompress(data, -15)
     except zlib.error:
         return data
@@ -155,10 +163,14 @@ def _extract_pdf_text_with_opendataloader(path: pathlib.Path) -> str | None:
 def _extract_pdf_text_with_pypdf(path: pathlib.Path) -> str:
     try:
         from pypdf import PdfReader  # type: ignore[import-not-found]
+        from pypdf.errors import PdfReadError, PdfStreamError  # type: ignore[import-not-found]
     except ImportError as exc:
-        raise RuntimeError("PDF conversion requires pypdf package") from exc
+        raise RuntimeError("Failed to import pypdf dependency") from exc
 
-    reader = PdfReader(str(path))
+    try:
+        reader = PdfReader(str(path))
+    except (PdfReadError, PdfStreamError, ValueError, OSError) as exc:
+        raise RuntimeError(f"pypdf parse failure: {exc}") from exc
     pages = [(page.extract_text() or "").strip() for page in reader.pages]
     return "\n\n".join(text for text in pages if text)
 

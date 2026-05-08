@@ -177,7 +177,7 @@ def test_archive_fetch_downloads_links_from_html(monkeypatch, tmp_path):
         hwpx_url: FakeResponse(
             200,
             {"content-type": "application/octet-stream"},
-            _sample_hwpx_bytes("한글 HWPX 테스트"),
+            _generate_hwpx_bytes("한글 HWPX 테스트"),
         ),
     }
 
@@ -200,13 +200,17 @@ def test_archive_fetch_downloads_links_from_html(monkeypatch, tmp_path):
     linked = result.get("linked_downloads", [])
     assert len(linked) == 2
     assert {pathlib.Path(item["path"]).name for item in linked} == {"report.pdf", "notice.hwpx"}
+    pdf_file = tmp_path / "archive" / "raw" / "example.go.kr" / "report.pdf"
+    hwpx_file = tmp_path / "archive" / "raw" / "example.go.kr" / "notice.hwpx"
+    assert pdf_file.read_bytes() == b"%PDF-1.4"
+    assert hwpx_file.read_bytes() == _generate_hwpx_bytes("한글 HWPX 테스트")
 
 
 def test_archive_convert_docx(monkeypatch, tmp_path):
     monkeypatch.setenv("CIVIC_REPO_ROOT", str(tmp_path))
     src = tmp_path / "archive" / "raw" / "example.go.kr" / "sample.docx"
     src.parent.mkdir(parents=True, exist_ok=True)
-    src.write_bytes(_sample_docx_bytes("DOCX 테스트 문장"))
+    src.write_bytes(_generate_docx_bytes("DOCX 테스트 문장"))
 
     result = archive_convert("example.go.kr/sample.docx")
 
@@ -220,7 +224,7 @@ def test_archive_convert_hwpx(monkeypatch, tmp_path):
     monkeypatch.setenv("CIVIC_REPO_ROOT", str(tmp_path))
     src = tmp_path / "archive" / "raw" / "example.go.kr" / "sample.hwpx"
     src.parent.mkdir(parents=True, exist_ok=True)
-    src.write_bytes(_sample_hwpx_bytes("HWPX 테스트 문장"))
+    src.write_bytes(_generate_hwpx_bytes("HWPX 테스트 문장"))
 
     result = archive_convert("example.go.kr/sample.hwpx")
 
@@ -230,7 +234,7 @@ def test_archive_convert_hwpx(monkeypatch, tmp_path):
     assert "HWPX 테스트 문장" in output.read_text(encoding="utf-8")
 
 
-def _sample_docx_bytes(text: str) -> bytes:
+def _generate_docx_bytes(text: str) -> bytes:
     from io import BytesIO
 
     buf = BytesIO()
@@ -248,7 +252,7 @@ def _sample_docx_bytes(text: str) -> bytes:
     return buf.getvalue()
 
 
-def _sample_hwpx_bytes(text: str) -> bytes:
+def _generate_hwpx_bytes(text: str) -> bytes:
     from io import BytesIO
 
     buf = BytesIO()
