@@ -12,7 +12,7 @@ user-invocable: true
 
 작업 시작 전 저장소 루트의 `location.txt`를 읽어 대상 지자체와 상위 광역자치단체를 확인한다. 사용자가 채팅에서 다른 지자체를 명시하면 그 지시가 우선한다.
 
-스킬 의존: [gokr-fetch](../../.agents/skills/gokr-fetch/SKILL.md), [hwp-to-text](../../.agents/skills/hwp-to-text/SKILL.md), [pdf-extract](../../.agents/skills/pdf-extract/SKILL.md), [pii-mask](../../.agents/skills/pii-mask/SKILL.md)
+스킬 의존: [gokr-fetch](../../.agents/skills/gokr-fetch/SKILL.md), [pii-mask](../../.agents/skills/pii-mask/SKILL.md)
 
 ## 목표
 
@@ -48,8 +48,7 @@ user-invocable: true
 4. `gokr-fetch` 스킬로 `archive/raw/<host>/<basename>`에 보존(SHA-256 기록).
 5. 시간순 추적은 파일명이 아니라 `.meta.json`의 `collected_at` 기준으로 정리.
 6. 변환:
-   - `.hwp` / `.hwpx` → `hwp-to-text` 스킬
-   - `.pdf` → `pdf-extract` 스킬
+   - `.hwp` / `.hwpx` / `.docx` / `.pdf` → `gov-archive/archive_convert`
    - `.xlsx` → 시트별 CSV 추출 (`execute`)
 7. 인명·연락처가 보이면 `pii-mask` 통과.
 8. 결과는 `archive/processed/<topic>/`에 누적(append).
