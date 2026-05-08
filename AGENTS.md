@@ -1,118 +1,162 @@
-# AGENTS.md — 에이전트 공통 행동 규약
+# AGENTS.md
 
-이 문서는 **GitHub Copilot CLI**와 **VS Code Copilot Chat**에서 동일하게 적용되는
-이 저장소의 행동 규약입니다. 모든 custom agent / skill / prompt 파일은 이 문서를 따릅니다.
+Common rules for **GitHub Copilot CLI** and **VS Code Copilot Chat** in this repo.
+A narrower scope wins: `applyTo` `.instructions.md` > `agents/` > this file.
 
-> 더 좁은 범위(파일·폴더)의 규칙이 있으면 그것이 우선합니다.
-> `applyTo` 패턴이 일치하는 `.instructions.md`, 그 다음 `agents/`, 마지막으로 이 파일.
+## Mission
 
-## 1. 미션
+Build a trusted information pipeline for Korean local politics:
+**collect → process → publish**, with citations attached at every step.
 
-대한민국 지방정치 현장에서 **신뢰 가능한 정보 흐름**을 만든다.
-수집(collect) → 정제(process) → 출판(publish) 모든 단계에서 **출처가 항상 따라다니게** 한다.
+## Core Rules
 
-## 2. 핵심 원칙
+### Workspace-local
 
-### 2.1 워크스페이스 로컬 우선
+- MUST keep all settings, credentials, and caches inside this repo folder.
+- MUST ask before any global change (`npm i -g`, `git config --global`, edits to `~/.copilot/*`, etc.).
+- NEVER touch `~/.aws`, `~/.ssh`, OS keychains. Tell the user to do it.
 
-- 모든 설정·자격증명·캐시는 이 저장소 폴더 안에 둔다.
-- 시스템 전역 변경(`npm i -g`, `git config --global`, `~/.copilot/*` 수정 등)은 **반드시 사용자에게 묻고** 진행한다.
-- `~/.aws`, `~/.ssh`, OS 키체인 접근은 금지. 필요하면 사용자가 직접 처리하도록 안내한다.
+### Citation
 
-### 2.2 출처(Citation) 의무
+- MUST include **source URL · collected_at (ISO-8601 KST) · SHA-256** in every artifact derived from external data.
+- MUST preserve originals under `archive/raw/<host>/` (immutable).
+- MUST use `gov-archive` MCP `archive_cite` to generate citation metadata.
+- Track time order via `.meta.json` `collected_at`. Do NOT prefix filenames with dates.
 
-- 외부 데이터를 다루는 모든 산출물에는 **원본 URL · 수집 일시 · SHA-256 해시**를 footer에 포함한다.
-- `archive/raw/<host>/<filename>.<ext>`에 원본을 보존한다(재현성).
-- 파일명에 날짜를 강제하지 않고, 시간순 추적은 같은 경로의 `.meta.json`에 기록된 `collected_at`을 기준으로 한다.
-- `gov-archive` MCP의 `archive_cite` 도구를 사용해 인용 메타를 생성한다.
+### Licensing
 
-### 2.3 PII·개인정보
+| Source | Default license | Note |
+| --- | --- | --- |
+| `law.go.kr` statutes | Public domain | Modify and reuse freely. |
+| Bills · minutes (Assembly · councils) | Mostly KOGL Type 1 | Verify per site. |
+| Notices · announcements | KOGL Type 1–4 | Type 4 is non-commercial only. |
+| Citizen content (blogs · SNS) | Author copyright | Need consent for direct quotes. |
 
-- 회의록·민원서 등에서 사람 이름·전화번호·주민번호·이메일은 `pii-mask` 스킬을 **반드시 통과**시킨 뒤 저장·게시한다.
-- 마스킹된 원본 키는 디스크에 남기지 않는다.
+When unsure, MUST treat as **redistribution forbidden** — summarize and analyze only.
 
-### 2.4 정치적 중립
+### PII
 
-- 정당·후보·특정 인물에 대한 산출물은 **사실 카드(Facts)**와 **해석(Interpretation)**을 분리해 작성한다.
-- 추측·주관 표현을 사실 카드에 섞지 않는다.
+- MUST run `pii-mask` skill before saving or sharing any text that may contain PII (name · phone · RRN · address · email).
+- NEVER persist masking keys to disk (memory only).
+- Originals stay in `archive/raw/` for personal review only — NEVER share.
 
-### 2.5 안전한 자동화
+### Political neutrality
 
-- `Bypass Approvals`, `Autopilot`, `/yolo`, `chat.tools.global.autoApprove`는 사용하지 않는다.
-- 새 도구·도메인은 **명시 동의** 후 자동 승인 목록에 추가한다.
-- 파괴적 명령(`rm -rf`, `git push --force`, `mkfs`, `dd`, `curl|bash`)은 항상 사람의 확인이 필요하다.
+- MUST split outputs about parties · candidates · individuals into **Facts** (cited primary sources) and **Interpretation** (reasoning).
+- Every Facts item MUST carry a source link.
 
-## 3. 작업 흐름
+### Safe automation
 
-### 3.1 세션 시작
+- NEVER use `Bypass Approvals`, `Autopilot`, `/yolo`, or `chat.tools.global.autoApprove`.
+- New tools or domains MUST be approved explicitly before being added to auto-approve lists.
+- Destructive commands (`rm -rf`, `git push --force`, `mkfs`, `dd`, `curl|bash`) MUST require human confirmation.
+- MUST honor `robots.txt` and rate limits (max 1 req/sec per host).
+- If a site's ToS forbids scraping, STOP and ask the user.
 
-1. Copilot CLI hooks가 정책 배너를 출력한다.
-2. 작업 의도를 한 줄로 요약하고, 영향을 받을 디렉터리를 명시한다.
-3. 위험·범위·예상 산출물을 사용자에게 확인받는다.
+## Workflow
 
-### 3.2 세션 진행
+### Session start
 
-- 새로운 사이트/포맷을 만나면 먼저 `archive_fetch`로 원본을 보존한 뒤 처리한다.
-- 같은 작업을 두 번 이상 하게 되면 **스킬 후보**로 분류해 회고에 기록한다.
-- 도메인 특화 페르소나가 두 번 이상 등장하면 **에이전트 후보**로 분류한다.
+1. Copilot CLI hooks print the policy banner.
+2. Summarize intent in one line and list affected directories.
+3. Confirm risk · scope · expected artifacts with the user.
 
-### 3.3 세션 종료 — 회고 의무
+### During the session
 
-`retrospective-writer` 스킬을 호출해 다음 내용을 `retrospectives/YYYY-MM-DD-<slug>.md`로 저장한다.
+- For any new site or format, MUST call `archive_fetch` first to preserve the original.
+- If the same task happens twice, log it as a **skill candidate** in the retro.
+- If a domain persona appears twice, log it as an **agent candidate**.
 
-- 무엇을 시도했는가 / 무엇이 성공했는가 / 무엇이 막혔는가
-- 새로 알게 된 사이트·포맷·정책
-- 다음 번에 자동화할 후보(skill / agent / task / hook)
-- 누락된 출처·PII가 있었다면 즉시 수정
+### Session end (mandatory retro)
 
-## 4. 산출물 형식
+Call `retrospective-writer` skill. Save to `retrospectives/YYYY-MM-DD-<slug>.md`:
 
-### 4.1 정제 문서 (Markdown)
+- What was tried · what worked · what blocked.
+- New sites · formats · policies discovered.
+- Automation candidates (skill / agent / task / hook).
+- Any missing citations or PII leaks — fix immediately.
+
+## Output Formats
+
+### Processed Markdown
 
 ```markdown
 ---
-title: "<문서 제목>"
-source_url: "<원본 URL>"
+title: "<title>"
+source_url: "<original URL>"
 collected_at: "<ISO-8601>"
-content_sha256: "<해시>"
-license: "공공누리 1유형"   # 또는 해당 라이선스
+content_sha256: "<hash>"
+license: "KOGL Type 1"
 pii_masked: true
-# <제목>
+---
+# <title>
 
-본문 …
+body …
 
 ---
-출처: <원본 URL> · 수집 <ISO-8601> · sha256:<짧은해시>
+출처: <original URL> · 수집 <ISO-8601> · sha256:<short hash>
 ```
 
-### 4.2 NotebookLM 업로드 매니페스트
+### NotebookLM bundle
 
-`notebooks/<slug>/manifest.yml` — 스펙은 [docs/reference/manifest-schema.md](docs/reference/manifest-schema.md) 참조.
+`notebooks/<slug>/manifest.yml` — schema in [notebooks/README.md](notebooks/README.md).
 
-### 4.3 회고
+### Retrospective
 
-`retrospectives/YYYY-MM-DD-<slug>.md` — `retrospective-writer` 스킬이 템플릿 제공.
+`retrospectives/YYYY-MM-DD-<slug>.md` — template from `retrospective-writer`.
 
-## 5. 도구 사용 우선순위
+## Tool Priority
 
-1. **워크스페이스 로컬 MCP 서버** (`mcp-servers/*`) — 출처·해시·로깅이 통일됨
-2. **Skill에 정의된 명령** — 안전 가드 통과
-3. **VS Code 내장 도구**(`#fetch`, `#problems`, `#codebase` 등)
-4. **터미널** — `chat.tools.terminal.autoApprove`에 등록된 패턴만 무인 실행
+1. Workspace-local MCP servers (`mcp-servers/*`) — unified citation · hash · logging.
+2. Skill commands — pass safety guards.
+3. VS Code built-ins (`#fetch`, `#problems`, `#codebase`).
+4. Terminal — only patterns in `chat.tools.terminal.autoApprove` may run unattended.
 
-128 tool 한도에 닿으면 `Tool Sets`(`.vscode/toolsets.jsonc`)로 묶어 호출한다.
+When approaching the 128-tool limit, group via `Tool Sets` (`.vscode/toolsets.jsonc`).
 
-## 6. 금지 사항
+## Architecture (one diagram)
 
-- `archive/raw/`의 파일을 임의로 수정·삭제 (불변 보존)
-- 자격증명·토큰을 채팅·로그·커밋 메시지·산출물에 포함
-- robots.txt 위반, rate-limit 무시
-- 출처 없이 단정적 진술
+```
+Copilot CLI / VS Code Chat
+        │
+   agents/*  +  skills/*
+        │
+   MCP servers (mcp-servers/*)
+        │
+archive/raw → archive/processed → notebooks/<slug> → NotebookLM
+```
 
-## 7. 참고
+| Path | Responsibility |
+| --- | --- |
+| `agents/` | Domain personas. |
+| `.agents/skills/` | Single-purpose reusable tasks. |
+| `.github/prompts/` | Prompt templates. |
+| `.github/hooks/` | Copilot CLI policy · logging. |
+| `.vscode/` | IDE settings · tasks · MCP · toolsets. |
+| `scripts/` | Setup · auth purge. |
+| `mcp-servers/` | Workspace-local MCP servers. |
+| `adapters/` | Per-site collectors (JS/Py). |
+| `archive/` | Originals + processed. |
+| `notebooks/` | NotebookLM bundles. |
+| `retrospectives/` | Cumulative session retros. |
+| `data/{legalize,precedent,admrule,ordinance}-kr/` | Shallow clones of legal data. |
 
-- [.github/copilot-instructions.md](.github/copilot-instructions.md) — VS Code Chat 특이사항
-- [docs/governance.md](docs/governance.md) — 데이터·라이선스·윤리 상세
-- [docs/security.md](docs/security.md) — 보안 모델·자격증명 정리
-- [docs/architecture.md](docs/architecture.md) — 시스템 개요
-- [docs/references-nemotron-personas.md](docs/references-nemotron-personas.md) — 합성 시민 페르소나 패널(CC BY 4.0)
+Stack: **Node 24 LTS**, **Python 3.12+ (uv)**. JVM 11+ only when using `opendataloader-pdf`.
+
+## Forbidden
+
+- NEVER modify or delete files in `archive/raw/`.
+- NEVER include credentials or tokens in chat · logs · commits · artifacts.
+- NEVER violate `robots.txt` or ignore rate limits.
+- NEVER make assertions without a citation.
+
+## Disputes · takedowns
+
+- Process deletion requests within 24 hours and restrict access to the matching `archive/raw/` entry.
+- Record only facts in `retrospectives/`.
+
+## See also
+
+- [.github/copilot-instructions.md](.github/copilot-instructions.md) — VS Code Chat specifics.
+- [docs/security.md](docs/security.md) — security model · credentials.
+- [docs/references-nemotron-personas.md](docs/references-nemotron-personas.md) — synthetic citizen personas (CC BY 4.0).

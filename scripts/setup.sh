@@ -88,7 +88,7 @@ if ! have copilot; then
 fi
 
 # 3) workspace
-step "git submodule update --init --recursive" git submodule update --init --recursive
+step "legalize-kr repos shallow clone (data/*)" bash scripts/fetch_legalize_kr.sh
 
 if [ -f "mcp-servers/gov-archive/pyproject.toml" ]; then
   step "uv sync (mcp-servers/gov-archive)" sh -c "cd mcp-servers/gov-archive && uv sync"
@@ -108,4 +108,4 @@ done
 echo
 ok "setup 완료. 다음 단계:"
 echo "  1) gh auth login"
-echo "  2) Tasks: Run Task → 'civic: copilot session'"
+echo "  2) Tasks: Run Task → 'civic: copilot session continue'"

@@ -23,7 +23,10 @@
       "approveRequest": true,
       "approveResponse": false
     },
-    "https://*.go.kr": true,
+    "https://*.go.kr": {
+      "approveRequest": true,
+      "approveResponse": false
+    },
     "https://*.co.kr": true,
     "https://*.or.kr/*": true,
     "https://namu.wiki/*": false,

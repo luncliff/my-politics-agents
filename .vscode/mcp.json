@@ -24,6 +24,18 @@
           "type": "python"
         }
       }
+    },
+    "legalize-kr": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": [
+        "--from",
+        "legalize-cli[mcp]",
+        "legalize-mcp"
+      ],
+      "env": {
+        "GITHUB_TOKEN": "${env:GITHUB_TOKEN}"
+      }
     }
   }
 }

@@ -100,8 +100,8 @@ if (-not $status['copilot']) {
 }
 
 # 4) workspace local setup
-Invoke-Step "git submodule update --init --recursive" {
-  git submodule update --init --recursive
+Invoke-Step "legalize-kr repos shallow clone (data/*)" {
+  & (Join-Path $PSScriptRoot 'fetch_legalize_kr.ps1')
 }
 
 if (Test-Path "mcp-servers/gov-archive/pyproject.toml") {
@@ -127,4 +127,4 @@ foreach ($k in @('git','node','gh','uv','copilot')) {
 Write-Host ""
 Write-Ok "setup 완료. 다음 단계:"
 Write-Host "  1) gh auth login"
-Write-Host "  2) Tasks: Run Task → 'civic: copilot session'"
+Write-Host "  2) Tasks: Run Task → 'civic: copilot session continue'"

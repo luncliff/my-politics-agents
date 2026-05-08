@@ -30,6 +30,33 @@
       "problemMatcher": []
     },
     {
+      "label": "civic: fetch legalize-kr repos (shallow clone)",
+      "type": "shell",
+      "windows": {
+        "command": "pwsh",
+        "args": [
+          "-NoProfile",
+          "-ExecutionPolicy",
+          "Bypass",
+          "-File",
+          "scripts/fetch_legalize_kr.ps1"
+        ]
+      },
+      "linux": {
+        "command": "bash",
+        "args": [
+          "scripts/fetch_legalize_kr.sh"
+        ]
+      },
+      "osx": {
+        "command": "bash",
+        "args": [
+          "scripts/fetch_legalize_kr.sh"
+        ]
+      },
+      "problemMatcher": []
+    },
+    {
       "label": "civic: auth-purge",
       "type": "shell",
       "windows": {

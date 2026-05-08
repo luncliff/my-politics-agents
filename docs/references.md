@@ -144,9 +144,9 @@ LLM은 아래 규칙에 따라 자료원을 선택한다.
 | 경기도 링크 모음 | `docs/references-경기도.md` |
 | 성남시 링크 모음 | `docs/references-성남시.md` |
 | 데이터셋별 활용 판단 | `docs/references-성남시-공개데이터.md` |
-| NotebookLM 업로드 규칙 | `docs/manifest-schema.md` |
-| 저장소 구조와 역할 | `docs/architecture.md` |
-| 정책·보안 원칙 | `docs/governance.md`, `docs/security.md` |
+| NotebookLM 업로드 규칙 | `notebooks/README.md` |
+| 저장소 구조와 역할·운영 규칙 | `AGENTS.md` |
+| 보안 모델·자격증명 정리 | `docs/security.md` |
 
 ## 8. Known Constraints
 
