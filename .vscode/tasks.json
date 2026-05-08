@@ -30,7 +30,7 @@
       "problemMatcher": []
     },
     {
-      "label": "civic: fetch legalize-kr (shallow clone)",
+      "label": "civic: fetch legalize-kr repos (shallow clone)",
       "type": "shell",
       "windows": {
         "command": "pwsh",

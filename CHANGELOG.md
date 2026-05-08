@@ -14,5 +14,5 @@
   - Skills 7종 (gokr-fetch, hwp-to-text, pdf-extract, pii-mask, notebooklm-sync, vscode-task-author, retrospective-writer)
   - 환경 설정·자격증명 정리 스크립트 (Win/macOS)
   - `gov-archive` MCP 서버 (Python/uv/FastMCP, stdio) — `archive_fetch`, `archive_search`, `archive_cite`
-  - `data/legalize-kr` shallow clone (git)
+  - `data/legalize-kr`, `precedent-kr`, `admrule-kr`, `ordinance-kr` shallow clone (git)
   - GitHub Actions: YAML frontmatter lint, gitleaks

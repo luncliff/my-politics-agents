@@ -60,6 +60,9 @@ GitHub Copilot CLI + VS Code Chat 기반 다중 에이전트 도구 모음입니
 | [`notebooks/`](notebooks/) | NotebookLM 업로드 매니페스트 |
 | [`retrospectives/`](retrospectives/) | 세션 회고 누적 (자동 생성) |
 | [`data/legalize-kr/`](data/) | 법령 데이터 shallow clone |
+| [`data/precedent-kr/`](data/) | 판례 데이터 shallow clone |
+| [`data/admrule-kr/`](data/) | 행정규칙 데이터 shallow clone |
+| [`data/ordinance-kr/`](data/) | 자치법규 데이터 shallow clone |
 | [`docs/`](docs/) | 한국어 문서 |
 
 ## 라이선스

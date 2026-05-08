@@ -100,7 +100,7 @@ if (-not $status['copilot']) {
 }
 
 # 4) workspace local setup
-Invoke-Step "legalize-kr shallow clone (data/legalize-kr)" {
+Invoke-Step "legalize-kr repos shallow clone (data/*)" {
   & (Join-Path $PSScriptRoot 'fetch_legalize_kr.ps1')
 }
 

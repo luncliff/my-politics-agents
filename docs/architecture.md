@@ -67,6 +67,9 @@ description: 시스템 개요와 데이터 흐름
 | `notebooks/` | NotebookLM 업로드 묶음 |
 | `retrospectives/` | 세션 회고 누적 |
 | `data/legalize-kr/` | 법령 데이터 shallow clone |
+| `data/precedent-kr/` | 판례 데이터 shallow clone |
+| `data/admrule-kr/` | 행정규칙 데이터 shallow clone |
+| `data/ordinance-kr/` | 자치법규 데이터 shallow clone |
 
 ## 의존성 정책
 

@@ -33,7 +33,7 @@ git clone https://github.com/luncliff/my-politics-agents.git
 cd my-politics-agents
 ```
 
-`data/legalize-kr`는 설정 단계에서 shallow clone으로 준비됩니다.
+`data/legalize-kr` 및 연관 저장소는 설정 단계에서 shallow clone으로 준비됩니다.
 
 ### 3. 환경 설정
 

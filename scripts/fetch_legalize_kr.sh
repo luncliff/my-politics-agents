@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# scripts/fetch_legalize_kr.sh — Shallow clone legalize-kr to data/legalize-kr
+# scripts/fetch_legalize_kr.sh — Shallow clone legalize-kr repos to data/
 set -eu
 
 DRY_RUN=0
@@ -16,27 +16,40 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 cd "$(repo_root)"
 
-REPO_URL="https://github.com/legalize-kr/legalize-kr.git"
 DATA_DIR="data"
-TARGET_DIR="$DATA_DIR/legalize-kr"
+REPOS=(
+  "legalize-kr|https://github.com/legalize-kr/legalize-kr.git"
+  "precedent-kr|https://github.com/legalize-kr/precedent-kr.git"
+  "admrule-kr|https://github.com/legalize-kr/admrule-kr.git"
+  "ordinance-kr|https://github.com/legalize-kr/ordinance-kr.git"
+)
 
 if [ "$DRY_RUN" = "1" ]; then
-  info "(dry-run) would shallow clone $REPO_URL into $TARGET_DIR"
+  for repo in "${REPOS[@]}"; do
+    name="${repo%%|*}"
+    url="${repo##*|}"
+    info "(dry-run) would shallow clone $url into $DATA_DIR/$name"
+  done
   exit 0
 fi
 
 mkdir -p "$DATA_DIR"
 
-if [ -d "$TARGET_DIR/.git" ]; then
-  warn "already exists: $TARGET_DIR"
-  exit 0
-fi
+for repo in "${REPOS[@]}"; do
+  name="${repo%%|*}"
+  url="${repo##*|}"
+  target="$DATA_DIR/$name"
 
-if [ -e "$TARGET_DIR" ]; then
-  warn "target exists (not a git repo): $TARGET_DIR"
-  exit 0
-fi
+  if [ -d "$target/.git" ]; then
+    warn "already exists: $target"
+    continue
+  fi
 
-git clone --depth 1 "$REPO_URL" "$TARGET_DIR"
+  if [ -e "$target" ]; then
+    warn "target exists (not a git repo): $target"
+    continue
+  fi
 
-ok "legalize-kr ready at $TARGET_DIR"
+  git clone --depth 1 "$url" "$target"
+  ok "ready: $target"
+done

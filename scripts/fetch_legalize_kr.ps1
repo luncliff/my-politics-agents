@@ -1,7 +1,7 @@
 #requires -Version 7.0
 <#!
 .SYNOPSIS
-  Shallow clone legalize-kr into data/legalize-kr.
+  Shallow clone legalize-kr repositories into data/.
 
 .PARAMETER DryRun
   Print planned actions only.
@@ -16,27 +16,36 @@ $ErrorActionPreference = 'Stop'
 $repoRoot = Get-RepoRoot
 Set-Location $repoRoot
 
-$repoUrl = 'https://github.com/legalize-kr/legalize-kr.git'
+$repos = @(
+  @{ Name = 'legalize-kr'; Url = 'https://github.com/legalize-kr/legalize-kr.git' }
+  @{ Name = 'precedent-kr'; Url = 'https://github.com/legalize-kr/precedent-kr.git' }
+  @{ Name = 'admrule-kr'; Url = 'https://github.com/legalize-kr/admrule-kr.git' }
+  @{ Name = 'ordinance-kr'; Url = 'https://github.com/legalize-kr/ordinance-kr.git' }
+)
 $dataDir = Join-Path $repoRoot 'data'
-$targetDir = Join-Path $dataDir 'legalize-kr'
 
 if ($DryRun) {
-  Write-Info "(dry-run) would shallow clone $repoUrl into $targetDir"
+  foreach ($repo in $repos) {
+    $targetDir = Join-Path $dataDir $repo.Name
+    Write-Info "(dry-run) would shallow clone $($repo.Url) into $targetDir"
+  }
   return
 }
 
 New-Item -ItemType Directory -Path $dataDir -Force | Out-Null
 
-if (Test-Path (Join-Path $targetDir '.git')) {
-  Write-Warn2 "already exists: $targetDir"
-  return
+foreach ($repo in $repos) {
+  $targetDir = Join-Path $dataDir $repo.Name
+  if (Test-Path (Join-Path $targetDir '.git')) {
+    Write-Warn2 "already exists: $targetDir"
+    continue
+  }
+
+  if (Test-Path $targetDir) {
+    Write-Warn2 "target exists (not a git repo): $targetDir"
+    continue
+  }
+
+  git clone --depth 1 $repo.Url $targetDir
+  Write-Ok "ready: $targetDir"
 }
-
-if (Test-Path $targetDir) {
-  Write-Warn2 "target exists (not a git repo): $targetDir"
-  return
-}
-
-git clone --depth 1 $repoUrl $targetDir
-
-Write-Ok "legalize-kr ready at $targetDir"
