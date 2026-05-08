@@ -45,6 +45,16 @@ def archive_cite(path: str) -> str:
     return T.archive_cite(path)
 
 
+@mcp.tool(annotations={"readOnlyHint": True})
+def archive_convert(path: str) -> dict:
+    """HWP/HWPX/DOCX/PDF 원문을 Markdown으로 변환해 archive/processed에 저장합니다.
+
+    Args:
+        path: archive/raw 기준 상대 경로 또는 절대 경로.
+    """
+    return T.archive_convert(path)
+
+
 def describe() -> str:
     """Used by `civic: mcp doctor` task to verify the server can be loaded."""
     return f"gov-archive ok @ {workspace_root()}"
