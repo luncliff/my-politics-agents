@@ -108,4 +108,4 @@ done
 echo
 ok "setup 완료. 다음 단계:"
 echo "  1) gh auth login"
-echo "  2) Tasks: Run Task → 'civic: copilot session'"
+echo "  2) Tasks: Run Task → 'civic: copilot session continue'"

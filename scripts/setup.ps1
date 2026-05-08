@@ -127,4 +127,4 @@ foreach ($k in @('git','node','gh','uv','copilot')) {
 Write-Host ""
 Write-Ok "setup 완료. 다음 단계:"
 Write-Host "  1) gh auth login"
-Write-Host "  2) Tasks: Run Task → 'civic: copilot session'"
+Write-Host "  2) Tasks: Run Task → 'civic: copilot session continue'"

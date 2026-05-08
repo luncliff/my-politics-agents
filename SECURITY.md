@@ -31,7 +31,7 @@ Deletion requests for accidentally exposed personal data are processed within **
 | Credential / token leak | `.env`, `*.token`, `.copilot/credentials*` in `.gitignore`; [gitleaks](https://github.com/gitleaks/gitleaks) scans every push and PR (`.github/workflows/gitleaks.yml`) |
 | Prompt injection from external pages | `*.go.kr/*` URLs: request auto-approved, **response requires human review** (`approveResponse: false` in `chat.tools.urls.autoApprove`) |
 | Unintended global system changes | `scripts/setup.*` and Copilot CLI hooks gate every global change behind explicit consent |
-| Unattended destructive commands | `Bypass Approvals` / `Autopilot` / `/yolo` disabled; `preToolUse` hook blocks known destructive patterns |
+| Unattended destructive commands | `Bypass Approvals` / `Autopilot` / `/yolo` disabled; `preToolUse` hook logs by default, blocks demo patterns when `COPILOT_HOOKS_DENY_DEMO=1` |
 | Arbitrary external domain calls | `chat.agent.networkFilter` domain whitelist + explicit approval flow for new domains |
 | PII in artifacts | `pii-mask` skill is mandatory before any artifact is saved or shared |
 | Dependency vulnerabilities | Dependabot alerts enabled; `pyproject.toml` + `package.json` dependency graph monitored |
@@ -108,7 +108,7 @@ Covers: `gh auth logout`, `.copilot/credentials*`, shell profile environment var
 | --- | --- |
 | `sessionStart` | Prints the policy banner |
 | `userPromptSubmitted` | Logs timestamp + cwd to `.github/hooks/logs/audit.jsonl` (gitignored) |
-| `preToolUse` | Blocks/warns on destructive patterns; demo deny via `COPILOT_HOOKS_DENY_DEMO` |
+| `preToolUse` | Logs by default (logging-first); blocks demo patterns only when `COPILOT_HOOKS_DENY_DEMO=1` is set |
 
 Default policy is **logging-first**. Harden deny patterns in `pre-tool-policy.{sh,ps1}` incrementally for production use.
 

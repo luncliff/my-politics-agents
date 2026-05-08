@@ -5,7 +5,7 @@
 
 ## 등록된 서버
 
-| 서버 | 위치 | 상태 | 트랜스폿 |
+| 서버 | 위치 | 상태 | transport |
 | --- | --- | --- | --- |
 | `gov-archive` | `mcp-servers/gov-archive/` | **동작** | stdio |
 | `hwp-toolkit` | (미생성) | placeholder | (후속) |

@@ -14,7 +14,7 @@ notebooks/
 ## 동기화 흐름
 
 ```
-processed/*.md  ──►  notebooks/<slug>/manifest.yml
+archive/processed/*.md  ──►  notebooks/<slug>/manifest.yml
                           │
                           ▼
               notebooklm-publisher.agent
