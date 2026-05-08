@@ -11,6 +11,7 @@ description: 워크스페이스 MCP 서버 가이드
 | 서버 | 위치 | 상태 | 트랜스폿 |
 | --- | --- | --- | --- |
 | `gov-archive` | `mcp-servers/gov-archive/` | **동작** | stdio |
+| `legalize-kr` | `legalize-kr/cli-tools` | **동작** | stdio |
 | `hwp-toolkit` | `mcp-servers/hwp-toolkit/` | placeholder | (후속) |
 | `pdf-loader` | `mcp-servers/pdf-loader/` | placeholder | (후속) |
 | `notebooklm-bridge` | `mcp-servers/notebooklm-bridge/` | placeholder | (후속) |
