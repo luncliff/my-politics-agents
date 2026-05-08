@@ -8,7 +8,7 @@ import pathlib
 import re
 from html.parser import HTMLParser
 from typing import Any
-from urllib.parse import urljoin, urlparse, urlunparse
+from urllib.parse import unquote, urljoin, urlparse, urlunparse
 
 import httpx
 
@@ -75,7 +75,10 @@ def _read_searchable_text(path: pathlib.Path) -> str:
 def _safe_basename(url: str) -> str:
     p = urlparse(url)
     name = pathlib.PurePosixPath(p.path).name or "index.html"
-    name = re.sub(r"[^A-Za-z0-9._-]+", "_", name)
+    # URL-decode percent-encoded sequences (e.g. %ED%95%9C%EA%B8%80 → 한글)
+    name = unquote(name, encoding="utf-8", errors="replace")
+    # Strip only characters that are actually unsafe on filesystems
+    name = re.sub(r'[\x00-\x1F\x7F/\\:*?"<>|]+', "_", name)
     return name[:160] or "index.html"
 
 
@@ -111,9 +114,28 @@ class _LinkExtractor(HTMLParser):
                 break
 
 
-def _extract_document_links(url: str, body: bytes) -> list[str]:
+def _detect_html_charset(body: bytes, content_type: str = "") -> str:
+    """Detect charset from Content-Type header or HTML <meta> tags."""
+    match = re.search(r"charset\s*=\s*['\"]?([A-Za-z0-9._-]+)", content_type, re.IGNORECASE)
+    if match:
+        return match.group(1)
+    head = body[:2048]
+    match = re.search(rb'<meta[^>]+charset\s*=\s*["\']?([A-Za-z0-9._-]+)', head, re.IGNORECASE)
+    if match:
+        return match.group(1).decode("ascii", errors="ignore")
+    match = re.search(rb'charset\s*=\s*([A-Za-z0-9._-]+)', head, re.IGNORECASE)
+    if match:
+        return match.group(1).decode("ascii", errors="ignore")
+    return "utf-8"
+
+
+def _extract_document_links(url: str, body: bytes, content_type: str = "") -> list[str]:
+    charset = _detect_html_charset(body, content_type)
+    try:
+        html = body.decode(charset, errors="ignore")
+    except LookupError:
+        html = body.decode("utf-8", errors="ignore")
     parser = _LinkExtractor()
-    html = body.decode("utf-8", errors="ignore")
     parser.feed(html)
 
     out: list[str] = []
@@ -228,7 +250,7 @@ def archive_fetch(
         linked_downloads: list[dict[str, Any]] = []
         linked_skipped = 0
         if _looks_like_html(content_type, body):
-            links = _extract_document_links(url, body)
+            links = _extract_document_links(url, body, content_type)
             linked_skipped = max(0, len(links) - MAX_LINKED_DOWNLOADS)
             for link in links[:MAX_LINKED_DOWNLOADS]:
                 try:

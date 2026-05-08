@@ -115,6 +115,89 @@ def test_archive_fetch_does_not_prepend_collection_date(monkeypatch, tmp_path):
     assert (tmp_path / rel_path).with_suffix(".pdf.meta.json").exists()
 
 
+def test_archive_fetch_preserves_korean_filename(monkeypatch, tmp_path):
+    monkeypatch.setenv("CIVIC_REPO_ROOT", str(tmp_path))
+
+    class FakeResponse:
+        status_code = 200
+        headers = {"content-type": "application/octet-stream"}
+        content = b"hwp-bytes"
+
+        def raise_for_status(self):
+            return None
+
+    class FakeClient:
+        def __init__(self, **_kwargs):
+            pass
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, exc_type, exc, tb):
+            return False
+
+        def get(self, _url):
+            return FakeResponse()
+
+    monkeypatch.setattr("gov_archive.tools.httpx.Client", FakeClient)
+
+    # URL with percent-encoded Korean filename
+    result = archive_fetch("https://example.go.kr/%EA%B3%B5%EC%A7%80%EC%82%AC%ED%95%AD.hwp")
+    basename = pathlib.Path(result["path"]).name
+    # Korean characters should be preserved after URL-decoding
+    assert basename == "공지사항.hwp"
+
+
+def test_archive_fetch_stores_euckr_html_links(monkeypatch, tmp_path):
+    monkeypatch.setenv("CIVIC_REPO_ROOT", str(tmp_path))
+
+    pdf_url = "https://example.go.kr/files/doc.pdf"
+    # EUC-KR encoded HTML page with a PDF link
+    html_body = (
+        b"<html><head>"
+        b'<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">'
+        b"</head><body>"
+        b'<a href="/files/doc.pdf">\xB9\xAC\xBC\xAD</a>'  # EUC-KR for "보서" (example)
+        b"</body></html>"
+    )
+
+    class FakeResponse:
+        def __init__(self, status_code, headers, content):
+            self.status_code = status_code
+            self.headers = headers
+            self.content = content
+
+        def raise_for_status(self):
+            return None
+
+    responses = {
+        "https://example.go.kr/list.do": FakeResponse(
+            200, {"content-type": "text/html; charset=euc-kr"}, html_body
+        ),
+        pdf_url: FakeResponse(200, {"content-type": "application/pdf"}, b"%PDF-1.4"),
+    }
+
+    class FakeClient:
+        def __init__(self, **_kwargs):
+            pass
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, exc_type, exc, tb):
+            return False
+
+        def get(self, url):
+            return responses[url]
+
+    monkeypatch.setattr("gov_archive.tools.httpx.Client", FakeClient)
+
+    result = archive_fetch("https://example.go.kr/list.do")
+    linked = result.get("linked_downloads", [])
+    assert len(linked) == 1
+    assert pathlib.Path(linked[0]["path"]).name == "doc.pdf"
+
+
 def test_archive_fetch_stores_struts_do_html_as_html(monkeypatch, tmp_path):
     monkeypatch.setenv("CIVIC_REPO_ROOT", str(tmp_path))
 
