@@ -1,0 +1,33 @@
+{
+  "notebooks": [
+    {
+      "id": "shared-08d2bf71",
+      "url": "https://notebooklm.google.com/notebook/08d2bf71-10c1-461a-9901-7c177e36c8c3",
+      "name": "천만의 연결: 12개 분야 118개 사회대개혁 과제",
+      "description": "12.3 내란 사태 이후 시민사회가 도출한 사회 전 분야 개혁 과제를 바탕으로, 헌정 질서 회복과 민주주의 실현을 위한 법제도 대안과 정책 방향을 정리한 노트북.",
+      "topics": [
+        "사회대개혁",
+        "민주공화국 개혁",
+        "경제·민생",
+        "평화·역사정의",
+        "기후·생태",
+        "돌봄·복지",
+        "노동권"
+      ],
+      "content_types": [
+        "notebooklm",
+        "reference"
+      ],
+      "use_cases": [
+        "Answer questions against the linked shared notebook"
+      ],
+      "tags": [
+        "notebooklm",
+        "shared",
+        "사회대개혁",
+        "내란청산",
+        "민주주의"
+      ]
+    }
+  ]
+}
