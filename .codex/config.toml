@@ -1,0 +1,7 @@
+# Workspace-local Codex configuration.
+# Project configs apply only in trusted projects and take precedence over user config.
+
+[mcp_servers."gov-archive"]
+command = "uv"
+args = ["run", "--directory", "mcp-servers/gov-archive", "gov-archive"]
+required = false
