@@ -34,6 +34,9 @@ if ($DryRun) {
 
 New-Item -ItemType Directory -Path $dataDir -Force | Out-Null
 
+# ordinance-kr and other repositories contain files with special characters in their names, which causes issues on Windows.
+git config --global core.protectNTFS false
+
 foreach ($repo in $repos) {
   $targetDir = Join-Path $dataDir $repo.Name
   if (Test-Path (Join-Path $targetDir '.git')) {
@@ -49,3 +52,6 @@ foreach ($repo in $repos) {
   git clone --depth 1 $repo.Url $targetDir
   Write-Ok "ready: $targetDir"
 }
+
+# back to default value for safety
+git config --global core.protectNTFS true
