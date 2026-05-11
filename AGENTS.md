@@ -78,6 +78,17 @@ Call `retrospective-writer` skill. Save to `retrospectives/YYYY-MM-DD-<slug>.md`
 
 ## Output Formats
 
+### File naming
+
+- MUST use **Korean filenames** for user-facing generated Korean documents under `archive/processed/`, `data/processed/`, `notebooks/`, `retrospectives/`, and similar artifact folders.
+- MUST use `<YYYY-MM> <한글 파일명>.md` as the default filename shape for processed Korean Markdown unless a narrower instruction explicitly overrides it. (ex. `2026-04 경기도 환승센터 교통사업 프로세스.md`, `2026-04 경기도 성남시 초등교육 및 아동지원 예산결산 분석.md`)
+- Use Korean filename for human readers and reviewers. But use English for machine files(code, metadata, logs, tool configurations, etc.) to avoid encoding issues.
+
+### File organization
+
+- MUST keep `archive/processed/` **flat**. Store generated files directly under `archive/processed/` and do **not** create topic subfolders such as `archive/processed/transport/`.
+- MAY use subfolders in other artifact trees only when an existing repo rule explicitly requires them.
+
 ### Processed Markdown
 
 ```markdown
