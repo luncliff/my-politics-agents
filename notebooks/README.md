@@ -9,7 +9,7 @@ notebooks/
     cover.md          # (선택) 노트북 표지/소개
 ```
 
-예시: [`_example/manifest.yml`](_example/manifest.yml).
+예시: [`shared-notebooks.json`](shared-notebooks.json).
 
 ## 동기화 흐름
 
