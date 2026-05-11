@@ -72,5 +72,6 @@
     "editor.codeActionsOnSave": {
       "source.organizeImports": "explicit"
     }
-  }
+  },
+  "markdown-pdf.outputDirectory": "."
 }
