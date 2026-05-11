@@ -12,6 +12,7 @@
     "https://*.vworld.kr": true,
     "https://*.molit.go.kr": true,
     "https://*.law.go.kr": true,
+    "https://*.gg.go.kr": true,
     "https://*.kdi.re.kr": true,
     "https://*.re.kr": true,
     "https://*.moef.go.kr": true,
@@ -19,14 +20,8 @@
     "https://*.1gan.co.kr": true,
     "https://*.metroseoul.co.kr": true,
     "https://*.mcst.go.kr": true,
-    "https://open.assembly.go.kr/*": {
-      "approveRequest": true,
-      "approveResponse": false
-    },
-    "https://*.go.kr": {
-      "approveRequest": true,
-      "approveResponse": false
-    },
+    "https://open.assembly.go.kr/*": true,
+    "https://*.go.kr": true,
     "https://*.co.kr": true,
     "https://*.or.kr/*": true,
     "https://namu.wiki/*": false,
@@ -66,7 +61,6 @@
   "python.envFile": "${workspaceFolder}/.env",
   "python.terminal.useEnvFile": true,
   "python.terminal.activateEnvInCurrentTerminal": true,
-  "python.analysis.typeCheckingMode": "basic",
   "[python]": {
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
