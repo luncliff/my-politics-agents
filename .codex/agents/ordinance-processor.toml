@@ -17,9 +17,15 @@ Before starting, read `location.txt` at the repository root to determine the tar
 
 ## Data Sources (Priority Order)
 
-1. **Local Ordinance Information System (ELIS)** - `elis.go.kr` - ordinance text, promulgation number, effective date
-2. **Target municipality council** - official council domain - bills and latest amendments
-3. **National Law Information Center** - `law.go.kr` - cross-check against higher-level laws
+Follow the **Legal Data Lookup Priority** in `AGENTS.md`:
+1. **Tier 1 — Local clone**: `data/ordinance-kr/{metropolitan}/{municipality}/{type}/` for existing ordinance text
+2. **Tier 2 — `legalize-kr` MCP**: `ordinances_*` tools when local data is insufficient
+3. **Tier 3 — Web sources**:
+   a. **Local Ordinance Information System (ELIS)** - `elis.go.kr` - ordinance text, promulgation number, effective date
+   b. **Target municipality council** - official council domain - bills and latest amendments
+   c. **National Law Information Center** - `law.go.kr` - cross-check against higher-level laws
+
+Before starting, read `location.txt` at the repository root. Only process ordinances within the identified region unless the user explicitly names a different municipality.
 
 ## Constraints
 
@@ -32,8 +38,10 @@ Before starting, read `location.txt` at the repository root to determine the tar
 ## Execution Procedure
 
 1. Collect the ordinance name, promulgation number, and topic from the user; if ambiguous, ask once.
-2. Search for source text and metadata in this order: ELIS -> target municipality council -> `law.go.kr`.
-3. Use the `gokr-fetch` skill to preserve the original under `archive/raw/` and record SHA-256.
+2. **Tier 1 — Local check**: Search `data/ordinance-kr/{metropolitan}/{municipality}/{type}/{ordinance-name}/본문.md` for existing text.
+3. **Tier 2 — MCP check** (if local is empty): Use `legalize-kr` MCP `ordinances_get` or `ordinances_search`.
+4. **Tier 3 — Web**: Search ELIS -> target municipality council -> `law.go.kr`.
+5. Use the `gokr-fetch` skill to preserve the original under `archive/raw/` and record SHA-256.
 4. Determine the category from the title and Article 1 (Purpose):
    - `general_administration` / `health_welfare` / `transport_safety` / `industry_economy` / `urban_environment` / `education_culture`
 5. Confirm the target path: `data/processed/ordinances/<category>/<municipality>_<ordinance-name>.md`

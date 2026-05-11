@@ -42,6 +42,21 @@ argument-hint: "<지자체명> [조례명|주제|최신목록]"
 
 ### 2. 자료원 선택 규칙
 
+`AGENTS.md`의 **Legal Data Lookup Priority**를 따른다:
+
+**Tier 1 — 로컬 클론 확인**
+- `data/ordinance-kr/{광역}/{기초}/{종류}/{조례명}/본문.md`에 해당 조례가 있는지 먼저 확인한다.
+- `location.txt`에서 읽은 광역·기초 지자체 내 경로만 검색한다.
+  (ex. `data/ordinance-kr/경기도/성남시/조례/`)
+- 로컬에 최신 본문이 있으면 교차검증 단계(Tier 3)로 바로 진행할 수 있다.
+- `data/ordinance-kr/.git`가 없으면 Tier 2로 진행한다.
+
+**Tier 2 — `legalize-kr` MCP** (로컬에 데이터가 없을 때)
+- `ordinances_search`, `ordinances_get`으로 조례 본문·메타 조회.
+- MCP가 미설정이거나 결과가 부족하면 Tier 3으로 진행.
+
+**Tier 3 — 외부 웹 소스**
+
 아래 우선순위를 기본으로 한다.
 
 1. `elis.go.kr`

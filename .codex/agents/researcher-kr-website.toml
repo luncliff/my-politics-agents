@@ -18,6 +18,8 @@ Skill dependencies: [gokr-fetch](../../.agents/skills/gokr-fetch/SKILL.md), [pii
 
 ## Domain Knowledge (Domain Whitelist)
 
+> When legal data (statutes, precedents, administrative rules) is needed, follow the **Legal Data Lookup Priority** in `AGENTS.md` (Local clone -> `legalize-kr` MCP -> Web) before going directly to web sources.
+
 | Category | Sites |
 |---|---|
 | Municipal and metropolitan governments | `*.go.kr`, and official local council domains under `*.go.kr` / `*.or.kr` |

@@ -63,7 +63,7 @@ LLM은 아래 규칙에 따라 자료원을 선택한다.
 
 | If the task is about... | Prefer... | Avoid / Note |
 | --- | --- | --- |
-| 법률, 시행령, 시행규칙 | law.go.kr, `legal-data-retrieval` | 조례와 혼동하지 말 것 |
+| 법률, 시행령, 시행규칙 | `data/legalize-kr/` → `legalize-kr` MCP → law.go.kr (Legal Data Lookup Priority) | 조례와 혼동하지 말 것 |
 | 조례, 시 규칙, 자치법규 | ELIS, 광역의회 및 지방의회 의안검색, law.go.kr | ELIS로 최신 목록 확인 → 의회로 최신 입법 동향 확인 → law.go.kr로 최종 본문 검증 |
 | 성남시 통계 | 성남통계, KOSIS | 블로그·2차 가공자료 우선 사용 금지 |
 | 성남시 예산·결산·기금 | 성남시 재정정보, 지방재정365 | 게시판 자료는 보조 근거로 사용 |
