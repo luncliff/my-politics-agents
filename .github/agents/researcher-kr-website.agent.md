@@ -23,6 +23,8 @@ user-invocable: true
 
 ## 도메인 지식 (도메인 화이트리스트)
 
+> 법령·판례·행정규칙 데이터가 필요한 경우, web 직행 전에 `AGENTS.md`의 **Legal Data Lookup Priority**(Local clone → `legalize-kr` MCP → Web)를 먼저 따른다.
+
 | 분류 | 사이트 |
 |---|---|
 | 지자체·광역 | `*.go.kr`, 지방의회 `*.go.kr` / `*.or.kr` 계열 공식 도메인 |

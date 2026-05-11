@@ -69,7 +69,7 @@ When unsure, MUST treat as **redistribution forbidden** — summarize and analyz
 
 ### Session end (mandatory retro)
 
-Call `retrospective-writer` skill. Save to `retrospectives/YYYY-MM-DD-<slug>.md`:
+Call `retrospective-writer` skill. Save to `retrospectives/YYYY-MM-DD <slug>.md`:
 
 - What was tried · what worked · what blocked.
 - New sites · formats · policies discovered.
@@ -108,13 +108,38 @@ body …
 출처: <original URL> · 수집 <ISO-8601> · sha256:<short hash>
 ```
 
-### NotebookLM bundle
+## Legal Data Lookup Priority
 
-`notebooks/<slug>/manifest.yml` — schema in [notebooks/README.md](notebooks/README.md).
+When searching for statutes, precedents, administrative rules, or local ordinances,
+follow this fixed priority order. **Stop at the first tier that returns adequate data.**
 
-### Retrospective
+| Tier | Source | Covers |
+| --- | --- | --- |
+| 1 — Local clone | `data/legalize-kr/kr/{법령명}/` | Statutes · decrees · enforcement rules |
+|  | `data/precedent-kr/{사건종류}/{법원등급}/` | Precedents |
+|  | `data/admrule-kr/{기관경로}/{종류}/` | Administrative rules (notices · directives) |
+|  | `data/ordinance-kr/{광역}/{기초}/{종류}/` | Local ordinances · regulations |
+| 2 — `legalize-kr` MCP | `legalize-kr` MCP tools (`laws_*`, `precedents_*`, `admrules_*`, `ordinances_*`) | Same scope as above, via MCP when configured |
+| 3 — Web | `law.go.kr`, `elis.go.kr`, court sites, web search | Official sources when local and MCP are insufficient |
 
-`retrospectives/YYYY-MM-DD-<slug>.md` — template from `retrospective-writer`.
+### Bootstrap — missing `data/*-kr/` folders
+
+If any `data/*-kr/.git` directory does not exist:
+
+1. Inform the user that the legal-data clones are missing.
+2. Suggest running **one** of the following to set them up:
+   - VS Code Task: `civic: fetch legalize-kr repos (shallow clone)`
+   - PowerShell: `pwsh -ExecutionPolicy Bypass -File scripts/fetch_legalize_kr.ps1`
+   - Bash: `bash scripts/fetch_legalize_kr.sh`
+3. While the clone is pending or unavailable, fall back to Tier 2 (MCP) or Tier 3 (Web).
+
+### Ordinance region scope
+
+When querying `data/ordinance-kr/` or `legalize-kr` MCP `ordinances_*`:
+
+- MUST read `location.txt` first to determine the target metropolitan / municipality.
+- MUST restrict search paths to `data/ordinance-kr/{광역}/{기초}/` matching the location.
+- MUST NOT reference ordinances from regions outside the location unless the user explicitly requests a different region.
 
 ## Tool Priority
 

@@ -10,3 +10,8 @@ required = false
 command = "uvx"
 args = ["--from", "notebooklm-mcp-cli", "notebooklm-mcp"]
 required = false
+
+[mcp_servers."legalize-kr"]
+command = "uvx"
+args = ["--from", "legalize-cli[mcp]", "legalize-mcp"]
+required = false
