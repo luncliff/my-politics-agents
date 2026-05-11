@@ -5,3 +5,8 @@
 command = "uv"
 args = ["run", "--directory", "mcp-servers/gov-archive", "gov-archive"]
 required = false
+
+[mcp_servers."notebooklm"]
+command = "uvx"
+args = ["--from", "notebooklm-mcp-cli", "notebooklm-mcp"]
+required = false

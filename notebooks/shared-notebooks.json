@@ -3,6 +3,7 @@
     {
       "id": "shared-08d2bf71",
       "url": "https://notebooklm.google.com/notebook/08d2bf71-10c1-461a-9901-7c177e36c8c3",
+      "notebook_id": "08d2bf71-10c1-461a-9901-7c177e36c8c3",
       "name": "천만의 연결: 12개 분야 118개 사회대개혁 과제",
       "description": "12.3 내란 사태 이후 시민사회가 도출한 사회 전 분야 개혁 과제를 바탕으로, 헌정 질서 회복과 민주주의 실현을 위한 법제도 대안과 정책 방향을 정리한 노트북.",
       "topics": [
@@ -27,6 +28,40 @@
         "사회대개혁",
         "내란청산",
         "민주주의"
+      ]
+    },
+    {
+      "id": "shared-83efdcd0",
+      "url": "https://notebooklm.google.com/notebook/83efdcd0-6ac6-4f25-81fc-f9ae4f4f2276",
+      "notebook_id": "83efdcd0-6ac6-4f25-81fc-f9ae4f4f2276",
+      "name": "더불어민주당 강령, 당헌, 당규, 윤리규범",
+      "description": "더불어민주당 강령·당헌·당규·윤리규범 질의응답용 NotebookLM 노트북.",
+      "updated_at": "2026-05-11T03:06:43Z",
+      "topics": [
+        "더불어민주당",
+        "강령",
+        "당헌",
+        "당규",
+        "윤리규범",
+        "지방선거"
+      ],
+      "content_types": [
+        "notebooklm",
+        "party-rules",
+        "election-guidance"
+      ],
+      "use_cases": [
+        "Answer questions about party rules, campaign messaging, and local-election compliance"
+      ],
+      "tags": [
+        "notebooklm",
+        "shared",
+        "더불어민주당",
+        "강령",
+        "당규",
+        "윤리규범",
+        "공직선거법",
+        "지방선거"
       ]
     }
   ]
