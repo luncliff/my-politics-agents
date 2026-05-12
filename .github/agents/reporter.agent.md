@@ -1,7 +1,7 @@
 ---
 name: reporter
 description: "여러 조사 산출물(매트릭스/브리프/출처로그)을 1장 보고서(Policy Brief 스타일)로 취합. Use when: 공약검토/팩트체크 결과를 검토자용 원페이지 보고서로 작성, 행정 프로세스(Mermaid) 시각화, 사실정보 범주화, 출처/검증상태 표준화."
-tools: [read, search, edit, execute, agent, todo, 'gov-archive/*', 'legalize-kr/*']
+tools: [read, search, edit, execute, agent, todo,  'legalize-kr/*']
 model: "GPT-5.2 (copilot)"
 user-invocable: true
 argument-hint: "<입력: 파일/폴더/문서목록 텍스트> [output: archive/processed/...md]"

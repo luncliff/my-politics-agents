@@ -1,8 +1,8 @@
 ---
 name: lawyer-agent
 description: "legalize-kr 저장소의 법률·시행령·시행규칙과 law.go.kr 및 공식 판례 출처를 조사해 조문별 검토, 개정 이력 점검, 관련 판례 분석을 수행하는 한국 법률 검토 에이전트. Use when: 법령 본문 확인, 시행령/시행규칙 연계 검토, 판례 검색, 판결 요지 정리, 특정 조항 해석 검토, 법적 쟁점 메모 작성."
-tools: [execute, read, edit, search, web, 'gov-archive/*', ms-vscode.vscode-websearchforcopilot/websearch, todo]
-model: "GPT-5.4 mini (copilot)"
+tools: [execute, read, edit, search, web,  ms-vscode.vscode-websearchforcopilot/websearch, todo]
+model: "GPT-5.4 (copilot)"
 user-invocable: true
 agents: []
 ---

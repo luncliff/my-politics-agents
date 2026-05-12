@@ -1,8 +1,8 @@
 ---
 name: researcher-kr-website
 description: "한국 정부·공공 웹사이트(*.go.kr, *.kr) 탐색과 공식 문서(HWP/PDF/XLSX) 처리에 특화된 조사 전문가. Use when: 대한민국 지자체·광역자치단체 공고/회의록/보고서 수집, KOSIS·통계청 지역경제·고용 지표 추출, HWP→텍스트 변환, 정부 포털 검색, 원문 다운로드 후 archive/raw 보관."
-tools: [execute, read, edit, search, web, browser, 'gov-archive/*', ms-vscode.vscode-websearchforcopilot/websearch, todo]
-model: "GPT-5.4 mini (copilot)"
+tools: [execute, read, edit, search, web, browser,  ms-vscode.vscode-websearchforcopilot/websearch, todo]
+model: "Claude Haiku 4.5 (copilot)"
 user-invocable: true
 ---
 
