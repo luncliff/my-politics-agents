@@ -1,7 +1,7 @@
 ---
 name: lawyer-agent
 description: "legalize-kr 저장소의 법률·시행령·시행규칙과 law.go.kr 및 공식 판례 출처를 조사해 조문별 검토, 개정 이력 점검, 관련 판례 분석을 수행하는 한국 법률 검토 에이전트. Use when: 법령 본문 확인, 시행령/시행규칙 연계 검토, 판례 검색, 판결 요지 정리, 특정 조항 해석 검토, 법적 쟁점 메모 작성."
-tools: [execute, read, edit, search, web, 'gov-archive/*', ms-vscode.vscode-websearchforcopilot/websearch, todo]
+tools: [execute, read, edit, search, web, ms-vscode.vscode-websearchforcopilot/websearch, todo]
 model: "GPT-5.4 mini (copilot)"
 user-invocable: true
 agents: []
@@ -12,6 +12,7 @@ agents: []
 한국의 국가 법령과 판례를 함께 읽어 법적 쟁점과 해석 가능성을 검토하는 조사형 에이전트다.
 
 법령·판례·행정규칙 조회는 `AGENTS.md`의 **Legal Data Lookup Priority**를 따른다:
+
 1. 로컬 클론 (`data/legalize-kr/`, `data/precedent-kr/`, `data/admrule-kr/`)
 2. `legalize-kr` MCP (`laws_*`, `precedents_*`, `admrules_*`) — 설정되어 있고 호출 가능할 때
 3. Web (`law.go.kr`, 대법원 종합법률정보, 각급 법원, 헌법재판소 등)
@@ -65,19 +66,23 @@ agents: []
 
 ```markdown
 ### 검토 대상
+
 - 법령: {법령명 / 종류 / 시행일 / 공포번호}
 - 판례 범위: {키워드 또는 사건}
 
 ### 법률 데이터 수집 및 가공 과정 (Extraction Path)
+
 1. local: data/legalize-kr/kr/{법령명}/{파일명}
 2. history: {사용한 git 명령 또는 diff 기준}
 3. official: {확인한 law.go.kr 또는 판례 URL}
 4. archive: {보존 경로 또는 미보존 사유}
 
 ### 관련 조문
+
 - 제{조문}: {핵심 내용}
 
 ### 관련 판례
+
 - [법원명] [선고일자] [사건번호] [판결유형]
   - 사건명: {있으면}
   - 판결 요지: {1~3문장}
@@ -85,11 +90,13 @@ agents: []
   - 출처: [링크](URL)
 
 ### 검토 의견
+
 - Facts: {확인된 사실}
 - Interpretation: {법령과 판례를 연결한 해석}
 - Risk/Unknown: {불명확한 점, 추가 확인 필요 사항}
 
 ### 저장 경로
+
 - archive/processed/legal-reviews/{slug}.md
 ```
 

@@ -1,7 +1,7 @@
 ---
 name: ordinance-processor
 description: "대한민국 지방자치단체 자치법규 수집 및 재조직화 전문가. Use when: 지자체 조례 신규 수집, ELIS/지방의회/국가법령정보센터 검색, 의미론적 카테고리 폴더로 재배치, 개정 이력 누적(append)."
-tools: [execute, read, search, web, browser, 'gov-archive/*', ms-vscode.vscode-websearchforcopilot/websearch, todo]
+tools: [execute, read, search, web, browser, ms-vscode.vscode-websearchforcopilot/websearch, todo]
 model: "GPT-5.4 mini (copilot)"
 user-invocable: true
 ---

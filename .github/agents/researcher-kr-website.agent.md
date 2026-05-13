@@ -1,7 +1,8 @@
 ---
 name: researcher-kr-website
 description: "한국 정부·공공 웹사이트(*.go.kr, *.kr) 탐색과 공식 문서(HWP/PDF/XLSX) 처리에 특화된 조사 전문가. Use when: 대한민국 지자체·광역자치단체 공고/회의록/보고서 수집, KOSIS·통계청 지역경제·고용 지표 추출, HWP→텍스트 변환, 정부 포털 검색, 원문 다운로드 후 archive/raw 보관."
-tools: [execute, read, edit, search, web, browser, 'gov-archive/*', ms-vscode.vscode-websearchforcopilot/websearch, todo]
+tools:
+  [execute, read, edit, search, web, browser, ms-vscode.vscode-websearchforcopilot/websearch, todo]
 model: "GPT-5.4 mini (copilot)"
 user-invocable: true
 ---
@@ -25,12 +26,12 @@ user-invocable: true
 
 > 법령·판례·행정규칙 데이터가 필요한 경우, web 직행 전에 `AGENTS.md`의 **Legal Data Lookup Priority**(Local clone → `legalize-kr` MCP → Web)를 먼저 따른다.
 
-| 분류 | 사이트 |
-|---|---|
+| 분류        | 사이트                                                     |
+| ----------- | ---------------------------------------------------------- |
 | 지자체·광역 | `*.go.kr`, 지방의회 `*.go.kr` / `*.or.kr` 계열 공식 도메인 |
-| 통계·경제 | `kosis.kr`, `kostat.go.kr`, `wagework.go.kr`, `gri.re.kr` |
-| 중앙부처 | `molit.go.kr`, `moel.go.kr`, `mss.go.kr` |
-| 입법·법령 | `law.go.kr`, `elis.go.kr`, `likms.assembly.go.kr` |
+| 통계·경제   | `kosis.kr`, `kostat.go.kr`, `wagework.go.kr`, `gri.re.kr`  |
+| 중앙부처    | `molit.go.kr`, `moel.go.kr`, `mss.go.kr`                   |
+| 입법·법령   | `law.go.kr`, `elis.go.kr`, `likms.assembly.go.kr`          |
 
 신규 도메인은 명시 동의 후 `chat.tools.urls.autoApprove`에 등록.
 

@@ -1,7 +1,7 @@
 ---
 name: assembly-minutes
 description: 회의록(국회·지방의회) 정리 전문 에이전트. 사실/표결/쟁점 분리, 출처 의무.
-tools: [read, edit, search, web, browser, 'gov-archive/*', ms-vscode.vscode-websearchforcopilot/websearch, todo]
+tools: [read, edit, search, web, browser, ms-vscode.vscode-websearchforcopilot/websearch, todo]
 model: "GPT-5.4 mini (copilot)"
 ---
 

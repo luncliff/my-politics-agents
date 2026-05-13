@@ -1,7 +1,8 @@
 ---
 name: ordinance-reviewer
 description: 조례·시행규칙·고시 분석 전문 에이전트. 한 페이지 브리핑 산출.
-tools: [execute, read, edit, search, web, browser, 'gov-archive/*', ms-vscode.vscode-websearchforcopilot/websearch, todo]
+tools:
+  [execute, read, edit, search, web, browser, ms-vscode.vscode-websearchforcopilot/websearch, todo]
 model: "GPT-5.4 mini (copilot)"
 ---
 
@@ -10,6 +11,7 @@ model: "GPT-5.4 mini (copilot)"
 ## 데이터 조회 우선순위
 
 `AGENTS.md`의 **Legal Data Lookup Priority**를 따른다:
+
 1. **Tier 1 — 로컬 클론**: `data/ordinance-kr/{광역}/{기초}/` 에서 조례 본문 확인. `data/legalize-kr/` 에서 상위 법령 교차 확인.
 2. **Tier 2 — `legalize-kr` MCP**: `ordinances_*`, `laws_*` 등으로 보충 조회.
 3. **Tier 3 — Web**: `elis.go.kr`, `law.go.kr`, 지방의회 포털.
