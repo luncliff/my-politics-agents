@@ -1,5 +1,5 @@
 {
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": false,
   "chat.tools.urls.autoApprove": {
     "https://code.visualstudio.com": true,
     "https://github.com/microsoft/vscode/wiki/*": true,
