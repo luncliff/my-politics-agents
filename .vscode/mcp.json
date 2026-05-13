@@ -19,6 +19,7 @@
         "legalize-mcp"
       ],
       "env": {
+        "GH_HOST": "github.com",
         "GITHUB_TOKEN": "${env:GITHUB_TOKEN}"
       }
     }
