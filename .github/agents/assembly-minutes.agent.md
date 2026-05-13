@@ -24,7 +24,7 @@ model: "GPT-5.4 mini (copilot)"
 
 ## 산출물 위치
 
-- `archive/processed/minutes/<YYYY-MM-DD>-<slug>.md`
+- `archive/processed/<YYYY-MM-DD>-<slug>.md`
 
 ## 우선 도구
 

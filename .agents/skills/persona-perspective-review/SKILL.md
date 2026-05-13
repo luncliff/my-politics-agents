@@ -47,8 +47,8 @@ argument-hint: "<문서 경로|초안> [national|local|both] [N]"
    - 정치적 중립 점검(특정 정당·후보 옹호/공격 표현이 응답에 섞였는지)
 5. 산출물 양식은 [review-template](./references/review-template.md)을 따른다.
 6. 출력 경로:
-   - 종합: `archive/processed/persona-reviews/<YYYY-MM-DD>-<slug>.md`
-   - raw 응답: 같은 폴더의 `responses/<YYYY-MM-DD>-<slug>.jsonl`
+   - 종합: `archive/processed/<YYYY-MM-DD>-<slug>.md`
+   - raw 응답: 같은 폴더의 `<YYYY-MM-DD>-<slug>.jsonl`
 
 ## 금지
 
