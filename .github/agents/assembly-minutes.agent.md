@@ -28,8 +28,8 @@ model: "GPT-5.4 mini (copilot)"
 
 ## 우선 도구
 
-- `gov-archive/archive_search` — 같은 안건의 과거 회의록 교차 확인
-- `gov-archive/archive_cite` — 인용 메타 자동 생성
+- `search` — 같은 안건의 과거 회의록 교차 확인
+- URL로 직접 접근 → `archive/raw/<host>/<basename>` 저장 + `.meta.json`(source_url, collected_at, SHA-256)
 
 ## 금지
 

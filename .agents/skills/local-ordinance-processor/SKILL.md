@@ -76,7 +76,7 @@ argument-hint: "<지자체명> [조례명|주제|최신목록]"
 ### 3. 원문 보존
 
 - 원문은 반드시 먼저 `archive/raw/`에 보존한다.
-- `*.go.kr`는 `gokr-fetch` 또는 `gov-archive` 계열 도구를 우선 사용한다.
+- `*.go.kr` 원본은 URL로 직접 접근해 `archive/raw/<host>/<basename>`에 저장하고 `.meta.json`(source_url, collected_at, SHA-256)을 기록한다.
 - 지방의회처럼 `go.kr`가 아닌 보조 출처는 사용자가 명시적으로 요청했거나, 최신 조례안 확인에 꼭 필요한 경우에만 사용한다.
 - 원문 저장 시 가능한 한 본문 파일과 `.meta.json`을 함께 남긴다.
 - 파일명에는 수집일 접두어를 붙이지 않고, 시간순 추적은 `.meta.json`의 `collected_at`을 기준으로 한다.

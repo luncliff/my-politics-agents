@@ -31,7 +31,7 @@ agents: []
 - DO NOT 지방자치단체 조례나 자치법규를 직접 처리한다. 그 경우 `ordinance-processor` 또는 `ordinance-reviewer`가 필요하다고 명시한다.
 - DO NOT 판례 문구나 조문 내용을 추측해서 인용한다. 확인한 원문만 인용한다.
 - DO NOT 최종 법률 자문처럼 단정한다. 항상 근거 조문과 판례, 해석상 불확실성을 함께 적는다.
-- DO NOT 외부 자료를 인용만 하고 끝내지 않는다. 가능하면 `gov-archive`로 원문을 보존하고 SHA-256을 남긴다.
+- DO NOT 외부 자료를 인용만 하고 끝내지 않는다. 가능하면 URL로 직접 접근해 `archive/raw/<host>/<basename>`에 저장하고 SHA-256을 남긴다.
 - DO NOT 승인되지 않은 새 외부 도메인을 임의로 확장한다. 판례 소스가 새 도메인이면 먼저 사용자에게 알린다.
 
 ## 실행 절차
@@ -50,7 +50,7 @@ agents: []
    - `law.go.kr` 원문과 메타데이터를 대조한다.
    - 판례는 대법원 종합법률정보, 각급 법원, 헌법재판소 등 공식 사이트에서 찾고 법원명, 선고일자, 사건번호, 판결유형을 확인한다.
 5. 필요하면 `git log`, `git show`, `git diff`로 개정 이력과 변경 조문을 확인한다.
-6. 외부 판결문이나 해설 페이지를 쓴 경우 `gov-archive`로 원문을 보존하고 인용 메타를 만든다.
+6. 외부 판결문이나 해설 페이지를 쓴 경우 해당 URL로 직접 접근해 `archive/raw/<host>/<basename>`에 저장하고 `.meta.json`(source_url, collected_at, SHA-256)을 만든다.
 7. 법령과 판례를 연결해 다음을 분리해서 작성한다: 사실, 관련 조문, 판례 요지, 해석, 남는 쟁점.
 8. 사용자가 원하면 검토 메모를 `archive/processed/legal-reviews/<slug>.md`에 저장한다.
 
@@ -105,4 +105,4 @@ agents: []
 - `read`, `search` — `data/legalize-kr/`와 워크스페이스 문서 탐색
 - `execute` — `git log`, `git show`, `git diff`로 입법 이력 확인
 - `ms-vscode.vscode-websearchforcopilot/websearch`, `web` — `law.go.kr` 및 공식 판례 출처 탐색
-- `gov-archive/*` — 외부 원문 보존, SHA-256 기록, 인용 메타 생성
+- `web` / `fetch` — URL로 직접 접근해 `archive/raw/<host>/<basename>` 저장 + `.meta.json`(source_url, collected_at, SHA-256)

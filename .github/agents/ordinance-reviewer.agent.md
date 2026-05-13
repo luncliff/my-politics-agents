@@ -38,4 +38,4 @@ model: "GPT-5.4 mini (copilot)"
 - `data/ordinance-kr/` — 조례 로컬 본문 우선 확인 (location.txt 지역 범위 내)
 - `data/legalize-kr` — 법령 본문 교차 확인
 - `legalize-kr` MCP (`ordinances_*`, `laws_*`) — 로컬에 없는 조례 보충
-- `gov-archive/archive_search` — 동일/유사 조문의 과거 사례 탐색
+- `search` — 동일/유사 조문의 과거 사례 탐색

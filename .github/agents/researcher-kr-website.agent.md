@@ -13,7 +13,7 @@ user-invocable: true
 
 작업 시작 전 저장소 루트의 `location.txt`를 읽어 대상 지자체와 상위 광역자치단체를 확인한다. 사용자가 채팅에서 다른 지자체를 명시하면 그 지시가 우선한다.
 
-스킬 의존: [gokr-fetch](../../.agents/skills/gokr-fetch/SKILL.md), [pii-mask](../../.agents/skills/pii-mask/SKILL.md)
+스킬 의존: [pii-mask](../../.agents/skills/pii-mask/SKILL.md)
 
 ## 목표
 
@@ -48,10 +48,10 @@ user-invocable: true
 1. 사용자 질의에서 **대상 기관·문서 유형·기간**을 식별(불명확하면 1회 질의).
 2. `web` 도구로 포털 검색 → 1차 후보 URL 수집.
 3. 각 후보에 대해 `HEAD` 또는 첫 응답으로 **파일 크기·Content-Type** 확인 후 보고.
-4. `gokr-fetch` 스킬로 `archive/raw/<host>/<basename>`에 보존(SHA-256 기록).
+4. 대상 URL로 직접 접근해 `archive/raw/<host>/<basename>`에 저장하고 `.meta.json`(source_url, collected_at, SHA-256)을 기록한다.
 5. 시간순 추적은 파일명이 아니라 `.meta.json`의 `collected_at` 기준으로 정리.
 6. 변환:
-   - `.hwp` / `.hwpx` / `.docx` / `.pdf` → `gov-archive/archive_convert`
+   - `.hwp` / `.hwpx` / `.docx` / `.pdf` → `execute` (uv run markitdown) 또는 `markitdown` MCP
    - `.xlsx` → 시트별 CSV 추출 (`execute`)
 7. 인명·연락처가 보이면 `pii-mask` 통과.
 8. 결과는 `archive/processed/<topic>/`에 누적(append).
