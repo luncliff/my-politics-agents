@@ -22,8 +22,7 @@
 !보관함/결과/.gitkeep
 !보관함/결과/**/*.md
 !보관함/결과/**/*.jsonl
-# Nemotron-Personas-Korea: 외부 서비스 경로(huggingface.co/datasets/nvidia)는 원본 식별을 위해 영문 유지
-# parquet 원본은 절대 커밋하지 않음 (CC BY 4.0, 약 2GB)
+# Nemotron-Personas-Korea: 원본 식별용 서비스 경로는 영문 유지, parquet 원본은 커밋 금지
 보관함/다운로드/huggingface.co/datasets/nvidia/Nemotron-Personas-Korea/**/*.parquet
 
 # --- 외부 데이터 저장소 ---
