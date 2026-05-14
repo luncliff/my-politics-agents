@@ -88,7 +88,7 @@ Save to `회고/YYYY-MM-DD <slug>.md`:
 - MUST use **Korean filenames** for user-facing generated Korean documents under `보관함/결과/`, `보관함/양식/`, `data/processed/`, `notebooks/`, `회고/`, and similar artifact folders.
 - MUST use `<YYYY-MM> <한글 파일명>.md` as the default filename shape for processed Korean Markdown unless a narrower instruction explicitly overrides it.
 - Use Korean filename for human readers. Use English for machine files (code, metadata, logs, tool configurations).
-- The `docs/` root stays for convention, but newly added citizen-facing subfolders/files under it MUST use Korean names.
+- The `docs/` root stays for convention. Newly added citizen-facing subfolders/files under it MUST use Korean names; existing legacy paths stay until a separate migration changes them.
 
 ### File organization
 

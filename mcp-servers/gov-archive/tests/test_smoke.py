@@ -37,7 +37,7 @@ def test_ensure_within_blocks_traversal(tmp_path):
         raise AssertionError("expected ValueError for traversal")
 
 
-def test_archive_root_uses_korean_path():
+def test_storage_root_uses_korean_path():
     assert "보관함" in str(archive_raw_root())
 
 
