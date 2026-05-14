@@ -16,7 +16,7 @@
 | 도구 | 입력 | 동작 | 어노테이션 |
 | --- | --- | --- | --- |
 | `archive_fetch` | `url`, `note?`, `auto_convert?` | URL 본문 저장 + HTML 내 HWP/HWPX/DOCX/PDF 링크 자동 다운로드 시도 | `readOnlyHint: true` |
-| `archive_search` | `query`, `scope?` | 로컬 archive에서 텍스트 grep | `readOnlyHint: true` |
+| `archive_search` | `query`, `scope?` | 로컬 보관함에서 텍스트 grep | `readOnlyHint: true` |
 | `archive_cite` | `path` | 원본 URL·수집 시각·해시로 인용 메타 Markdown 생성 | `readOnlyHint: true` |
 | `archive_convert` | `path` | HWP/HWPX/DOCX/PDF를 Markdown으로 변환해 `보관함/결과/`에 저장 | `readOnlyHint: true` |
 

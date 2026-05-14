@@ -26,7 +26,7 @@ Copilot CLI / VS Code Chat / Codex CLI / Claude Code CLI
 | `.vscode/` | IDE settings · tasks · MCP · toolsets. |
 | `scripts/` | Setup · auth purge · hook scripts. |
 | `adapters/` | Per-site collectors (JS/Py). |
-| `archive/` | Originals + processed. |
+| `보관함/` | 원본 · 결과 · 양식 보관. |
 | `notebooks/` | NotebookLM bundles. |
 | `회고/` | Cumulative session retros. |
 | `data/{legalize,precedent,admrule,ordinance}-kr/` | Shallow clones of legal data. |

@@ -9,7 +9,7 @@ export default tseslint.config(
       "dist/**",
       "build/**",
       "data/**",
-      "archive/**",
+      "보관함/**",
       "회고/**",
       "**/.venv/**",
     ],

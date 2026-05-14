@@ -2,7 +2,7 @@
 {
   "toolSets": {
     "collect": {
-      "description": "외부 자료 수집·archive 보존",
+      "description": "외부 자료 수집·보관함 보존",
       "tools": [
         "fetch",
         "filesystem"

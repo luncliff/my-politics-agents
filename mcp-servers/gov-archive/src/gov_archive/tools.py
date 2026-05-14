@@ -284,7 +284,7 @@ def archive_fetch(
 def archive_search(
     query: str, scope: str = "all", limit: int = 50
 ) -> list[dict[str, Any]]:
-    """Plain-text search across archive directories. Returns up to `limit` hits."""
+    """Plain-text search across storage directories. Returns up to `limit` hits."""
     if not query:
         raise ValueError("query is required")
 
