@@ -55,6 +55,9 @@ build/
 Thumbs.db
 desktop.ini
 
+# --- 세션 로컬 상태 ---
+.goals/
+
 # --- 기타 임시 ---
 *.tmp
 *.bak
