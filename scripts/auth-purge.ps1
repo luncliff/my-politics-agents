@@ -27,6 +27,19 @@ if (Confirm-Action -Question "사용자 홈의 ~/.copilot/credentials* 파일 �
     ForEach-Object { Write-Info "remove $($_.FullName)"; Remove-Item $_.FullName -Force }
 }
 
+if (Confirm-Action -Question "NotebookLM CLI/MCP 인증 데이터 삭제?" -DryRun:$DryRun) {
+  @(
+    (Join-Path $HOME ".notebooklm-mcp-cli"),
+    (Join-Path $HOME "AppData/Roaming/notebooklm-mcp"),
+    (Join-Path $HOME ".config/notebooklm-mcp")
+  ) | ForEach-Object {
+    if (Test-Path $_) {
+      Write-Info "remove $_"
+      Remove-Item $_ -Recurse -Force
+    }
+  }
+}
+
 Write-Info "현재 셸의 토큰성 환경변수 (값은 표시하지 않음):"
 'GH_TOKEN','GITHUB_TOKEN','OPENAI_API_KEY','ANTHROPIC_API_KEY' | ForEach-Object {
   if (Get-Item -ErrorAction SilentlyContinue "Env:$_") { Write-Host "  set: $_" } else { Write-Host "  unset: $_" }

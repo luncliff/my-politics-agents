@@ -1,4 +1,5 @@
 {
+  "editor.formatOnSave": false,
   "chat.tools.urls.autoApprove": {
     "https://code.visualstudio.com": true,
     "https://github.com/microsoft/vscode/wiki/*": true,
@@ -7,7 +8,7 @@
     "https://modelcontextprotocol.io/*": true,
     "https://*.readthedocs.io": true,
     "https://*.githubusercontent.com": true,
-        "https://*.youtube.com": true,
+    "https://*.youtube.com": true,
     "https://docs.astral.sh/*": true,
     "https://*.vworld.kr": true,
     "https://*.molit.go.kr": true,
@@ -63,10 +64,22 @@
     "markdown": true,
     "scminput": false
   },
+  "claudeCode.environmentVariables": [
+    {
+      "name": "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS",
+      "value": "1"
+    },
+    {
+      "name": "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC",
+      "value": "1"
+    }
+  ],
+  "claudeCode.allowDangerouslySkipPermissions": true,
+  "claudeCode.usePythonEnvironment": true,
+  "claudeCode.initialPermissionMode": "bypassPermissions",
   "python.envFile": "${workspaceFolder}/.env",
   "python.terminal.useEnvFile": true,
   "python.terminal.activateEnvInCurrentTerminal": true,
-  "python.analysis.typeCheckingMode": "basic",
   "[python]": {
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {

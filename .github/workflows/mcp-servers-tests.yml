@@ -1,0 +1,37 @@
+name: mcp-servers-tests
+
+on:
+  push:
+    paths:
+      - mcp-servers/gov-archive/**
+  pull_request:
+    paths:
+      - mcp-servers/gov-archive/**
+  workflow_dispatch:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: mcp-servers/gov-archive
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+ 
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+          cache-dependency-glob: mcp-servers/gov-archive/pyproject.toml
+
+      - name: "Install dependencies"
+        run: |
+          uv sync --dev
+
+      - name: "Run tests"
+        run: |
+          uv run pytest -q tests

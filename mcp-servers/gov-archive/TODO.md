@@ -46,3 +46,28 @@
 - [ ] `archive_cite`가 원본 파일 없이 `.meta.json`만으로도 동작하도록 옵션 확장
 - [ ] `.meta.json` 기준 시간순 인덱스 생성 스크립트 추가 (`archive/processed/...`)
 - [ ] 도메인 정책(우선/확장/예외)을 `docs/`에 별도 표준 문서로 분리
+
+## 2026-05 추가 요구사항 개발계획
+
+1. `archive_fetch` 확장
+   - HTML 응답 페이지에서 `.hwp`, `.hwpx`, `.pdf` 링크를 파싱해 다운로드 시도
+   - Struts `.do` URL이라도 HTML 응답이면 `.html`로 저장
+2. 변환 기능 내장
+   - `archive_convert` 도구 추가
+   - `archive_fetch` 저장 파일이 `.hwp/.hwpx/.docx/.pdf`이면 Markdown 자동 변환
+3. Python 유지보수성 강화
+   - 변환 로직을 `converters.py`로 분리
+   - 테스트를 링크 다운로드/Struts/변환 케이스까지 확장
+4. Agent/Skill 정리
+   - `pdf-extract`, `hwp-to-text` 스킬 제거
+   - 관련 에이전트 문서에서 gov-archive 내장 기능 기준으로 갱신
+5. 참고자료 조사 결과 반영
+   - OpenAPI 기반 유사 프로젝트 목록을 검토 대상으로 등록
+
+## OpenAPI/MCP 참고자료 검토 대상 (2026-05)
+
+- [modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk) — MCP Python 서버/클라이언트 공식 SDK
+- [opendataloader-project/opendataloader-pdf](https://github.com/opendataloader-project/opendataloader-pdf) — PDF → Markdown/JSON/HTML 변환, Java 11+ 요구
+- [WooilJeong/PublicDataReader](https://github.com/WooilJeong/PublicDataReader) — data.go.kr, KOSIS, VWorld 등 한국 공공 OpenAPI 래퍼
+- [yybmion/public-apis-4Kr](https://github.com/yybmion/public-apis-4Kr) — 한국 Public API 카탈로그
+- [dl0312/open-apis-korea](https://github.com/dl0312/open-apis-korea) — 한국 오픈 API 목록 정리 저장소

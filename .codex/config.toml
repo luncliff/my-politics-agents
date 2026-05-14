@@ -1,0 +1,12 @@
+# Workspace-local Codex configuration.
+# Project configs apply only in trusted projects and take precedence over user config.
+
+[mcp_servers."notebooklm"]
+command = "uvx"
+args = ["--from", "notebooklm-mcp-cli", "notebooklm-mcp"]
+required = false
+
+[mcp_servers."legalize-kr"]
+command = "uvx"
+args = ["--from", "legalize-cli[mcp]", "legalize-mcp"]
+required = false

@@ -6,16 +6,25 @@
 
 | 도구 | 입력 | 동작 | 어노테이션 |
 | --- | --- | --- | --- |
-| `archive_fetch` | `url`, `note?` | URL 본문을 `archive/raw/<host>/`에 저장 + SHA-256 | `readOnlyHint: true` |
+| `archive_fetch` | `url`, `note?`, `auto_convert?` | URL 본문 저장 + HTML 페이지의 HWP/HWPX/DOCX/PDF 링크 자동 다운로드 시도 | `readOnlyHint: true` |
 | `archive_search` | `query`, `scope?` (`raw`\|`processed`\|`all`) | 로컬 archive grep | `readOnlyHint: true` |
 | `archive_cite` | `path` | 인용 메타 Markdown | `readOnlyHint: true` |
+| `archive_convert` | `path` | HWP/HWPX/DOCX/PDF를 Markdown으로 변환해 `archive/processed/` 저장 | `readOnlyHint: true` |
 
 ### 저장 규칙
 
 - 파일 저장 경로: `archive/raw/<host>/<basename>`
+- Struts `.do` URL이라도 HTML 응답이면 `.html` 확장자로 저장
 - 파일명에는 수집일 접두어를 자동으로 붙이지 않음
 - 시간순 추적 기준: 같은 파일의 `.meta.json` 안 `collected_at` (ISO-8601)
 - URL basename에 이미 날짜/시각이 있으면 원문 파일명을 그대로 재사용
+
+### 변환 규칙
+
+- 지원 확장자: `.hwp`, `.hwpx`, `.docx`, `.pdf`
+- `archive_fetch(..., auto_convert=false)`로 자동 변환 비활성화 가능
+- PDF 변환은 `opendataloader-pdf` 설치 시 우선 사용, 미설치 시 `pypdf` fallback
+- `opendataloader-pdf` 사용 시 Java 11+ 필요
 
 ### 도메인 지원 방향
 

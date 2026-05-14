@@ -26,6 +26,19 @@ if confirm "사용자 홈의 ~/.copilot/credentials* 파일 삭제?"; then
   find "$HOME/.copilot" -maxdepth 1 -name 'credentials*' -print -delete 2>/dev/null || true
 fi
 
+if confirm "NotebookLM CLI/MCP 인증 데이터 삭제?"; then
+  for path in \
+    "$HOME/.notebooklm-mcp-cli" \
+    "$HOME/.local/share/notebooklm-mcp" \
+    "$HOME/.config/notebooklm-mcp"
+  do
+    if [ -e "$path" ]; then
+      echo "remove $path"
+      rm -rf "$path"
+    fi
+  done
+fi
+
 info "현재 셸의 토큰성 환경변수 (값은 표시하지 않음):"
 for v in GH_TOKEN GITHUB_TOKEN OPENAI_API_KEY ANTHROPIC_API_KEY; do
   if [ -n "${!v:-}" ]; then echo "  set: $v"; else echo "  unset: $v"; fi

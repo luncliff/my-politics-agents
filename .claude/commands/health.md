@@ -1,0 +1,54 @@
+# 환경 상태 점검
+
+MCP 서버, 데이터 클론, 필수 파일 상태를 확인하고 문제를 보고한다.
+
+## 절차
+
+다음 항목을 순서대로 점검하고 결과를 표로 출력한다.
+
+### 1. 필수 파일
+
+- [ ] `location.txt` 존재 여부
+- [ ] `AGENTS.md` 존재 여부
+- [ ] `.mcp.json` 존재 여부
+
+### 2. 데이터 클론 (`data/*-kr/`)
+
+각 경로에서 `.git` 디렉토리 존재 여부 확인:
+- `data/legalize-kr/`
+- `data/ordinance-kr/`
+- `data/precedent-kr/`
+- `data/admrule-kr/`
+
+없으면: `civic: fetch legalize-kr repos (shallow clone)` 태스크 실행 안내.
+
+### 3. MCP 서버
+
+`/mcp` 상태를 참조해 다음 서버 연결 여부 확인:
+- `notebooklm`
+- `legalize-kr`
+
+### 4. 아카이브 디렉토리
+
+- `archive/raw/` 존재 여부
+- `archive/processed/` 존재 여부
+- `retrospectives/` 존재 여부
+
+### 5. Nemotron 패널 데이터
+
+- `archive/processed/nemotron-personas/panels/national-300.*` 존재 여부
+
+## 출력 형식
+
+```
+## 환경 상태 점검 결과 (<날짜>)
+
+| 항목 | 상태 | 비고 |
+|------|------|------|
+| location.txt | ✅/❌ | |
+| data/legalize-kr | ✅/❌ | |
+| ...
+
+### 조치 필요 사항
+- ...
+```

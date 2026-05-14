@@ -4,8 +4,6 @@
     "collect": {
       "description": "외부 자료 수집·archive 보존",
       "tools": [
-        "gov-archive/archive_fetch",
-        "gov-archive/archive_cite",
         "fetch",
         "filesystem"
       ]
@@ -13,8 +11,6 @@
     "review": {
       "description": "정제·검색·인용 검증",
       "tools": [
-        "gov-archive/archive_search",
-        "gov-archive/archive_cite",
         "filesystem",
         "problems"
       ]

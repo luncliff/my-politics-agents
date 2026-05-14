@@ -45,8 +45,8 @@ agents: [researcher-kr-website, party-advisor]
 
 ## 산출물
 
-- 종합 리뷰: `archive/processed/persona-reviews/<YYYY-MM-DD>-<slug>.md`
-- raw 시뮬레이션 응답: 같은 폴더 `responses/<YYYY-MM-DD>-<slug>.jsonl`
+- 종합 리뷰: `archive/processed/<YYYY-MM-DD>-<slug>.md`
+- raw 시뮬레이션 응답: 같은 폴더 `<YYYY-MM-DD>-<slug>.jsonl`
 
 ## 금지
 
