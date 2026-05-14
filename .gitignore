@@ -22,7 +22,7 @@
 !보관함/결과/.gitkeep
 !보관함/결과/**/*.md
 !보관함/결과/**/*.jsonl
-# Nemotron-Personas-Korea: 원본 식별용 서비스 경로는 영문 유지, parquet 원본은 커밋 금지
+# Nemotron-Personas-Korea: AGENTS.md 예외 규칙처럼 원본 식별용 서비스 경로는 영문 유지, parquet 원본은 커밋 금지
 보관함/다운로드/huggingface.co/datasets/nvidia/Nemotron-Personas-Korea/**/*.parquet
 
 # --- 외부 데이터 저장소 ---
