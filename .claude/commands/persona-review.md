@@ -1,0 +1,56 @@
+# 시민 페르소나 패널 리뷰
+
+Nemotron-Personas-Korea 기반 합성 시민 패널로 대상 문서를 다각도 검토한다.
+
+## 입력
+
+`$ARGUMENTS` — 검토 대상 파일 경로 또는 주제. 예: `archive/processed/2026-05 성남시 버스 조례.md`
+
+## 절차
+
+1. 대상 문서가 파일 경로면 읽어서 내용을 파악한다.
+2. `persona-panel` 서브에이전트에 위임한다:
+   - `archive/processed/nemotron-personas/panels/national-300.*` (또는 local 패널) 존재 여부 확인.
+   - 없으면 사용자에게 `civic: sample nemotron panel` 태스크 실행 안내.
+3. 패널에서 N명(기본 5명)을 샘플링해 각자의 관점에서 4가지 응답 생성:
+   a. 이 정책/문서에서 내가 직접 영향받는 부분
+   b. 찬성 이유 (사실 근거)
+   c. 반대·우려 이유 (사실 근거)
+   d. 추가로 알고 싶은 정보
+4. 종합 리뷰를 작성하고 정치적 중립 점검(특정 정당·후보 옹호/공격 표현 제거).
+5. `archive/processed/<YYYY-MM> <slug> 시민패널리뷰.md`로 저장.
+6. raw JSONL은 같은 경로에 `<YYYY-MM-DD>-<slug>.jsonl`로 저장.
+
+## 출력 형식
+
+```markdown
+---
+title: "<대상> 시민 패널 리뷰"
+panel_size: <N>
+panel_seed: <시드값>
+collected_at: "<ISO-8601>"
+pii_masked: true
+---
+
+## 검토 대상 요약
+
+## 패널 구성 (샘플)
+
+| ID | 연령대 | 지역 | 직군 |
+|----|--------|------|------|
+
+## 종합 평가
+
+### 공통 관심사
+
+### 주요 찬성 논거
+
+### 주요 반대·우려 논거
+
+### 추가 정보 요구
+
+## 정치적 중립 점검 결과
+
+---
+패널 데이터: archive/processed/nemotron-personas/panels/
+```

@@ -42,6 +42,21 @@ argument-hint: "<지자체명> [조례명|주제|최신목록]"
 
 ### 2. 자료원 선택 규칙
 
+`AGENTS.md`의 **Legal Data Lookup Priority**를 따른다:
+
+**Tier 1 — 로컬 클론 확인**
+- `data/ordinance-kr/{광역}/{기초}/{종류}/{조례명}/본문.md`에 해당 조례가 있는지 먼저 확인한다.
+- `location.txt`에서 읽은 광역·기초 지자체 내 경로만 검색한다.
+  (ex. `data/ordinance-kr/경기도/성남시/조례/`)
+- 로컬에 최신 본문이 있으면 교차검증 단계(Tier 3)로 바로 진행할 수 있다.
+- `data/ordinance-kr/.git`가 없으면 Tier 2로 진행한다.
+
+**Tier 2 — `legalize-kr` MCP** (로컬에 데이터가 없을 때)
+- `ordinances_search`, `ordinances_get`으로 조례 본문·메타 조회.
+- MCP가 미설정이거나 결과가 부족하면 Tier 3으로 진행.
+
+**Tier 3 — 외부 웹 소스**
+
 아래 우선순위를 기본으로 한다.
 
 1. `elis.go.kr`
@@ -61,7 +76,7 @@ argument-hint: "<지자체명> [조례명|주제|최신목록]"
 ### 3. 원문 보존
 
 - 원문은 반드시 먼저 `archive/raw/`에 보존한다.
-- `*.go.kr`는 `gokr-fetch` 또는 `gov-archive` 계열 도구를 우선 사용한다.
+- `*.go.kr` 원본은 URL로 직접 접근해 `archive/raw/<host>/<basename>`에 저장하고 `.meta.json`(source_url, collected_at, SHA-256)을 기록한다.
 - 지방의회처럼 `go.kr`가 아닌 보조 출처는 사용자가 명시적으로 요청했거나, 최신 조례안 확인에 꼭 필요한 경우에만 사용한다.
 - 원문 저장 시 가능한 한 본문 파일과 `.meta.json`을 함께 남긴다.
 - 파일명에는 수집일 접두어를 붙이지 않고, 시간순 추적은 `.meta.json`의 `collected_at`을 기준으로 한다.

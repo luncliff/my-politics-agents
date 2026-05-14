@@ -1,6 +1,6 @@
 ---
 description: 조례안 한 페이지 브리핑 작성
-tools: ["gov-archive/archive_search", "gov-archive/archive_cite", "filesystem"]
+tools: [read, search, web, legalize-kr/ordinances_get, legalize-kr/ordinances_list, legalize-kr/search, todo]
 ---
 
 # 조례 브리핑 (ordinance-brief)

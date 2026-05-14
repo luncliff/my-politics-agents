@@ -1,7 +1,7 @@
 ---
 name: ordinance-processor
 description: "대한민국 지방자치단체 자치법규 수집 및 재조직화 전문가. Use when: 지자체 조례 신규 수집, ELIS/지방의회/국가법령정보센터 검색, 의미론적 카테고리 폴더로 재배치, 개정 이력 누적(append)."
-tools: [execute, read, search, web, browser, 'gov-archive/*', ms-vscode.vscode-websearchforcopilot/websearch, todo]
+tools: [read, search, web, browser, 'legalize-kr/*', todo]
 model: "GPT-5.4 mini (copilot)"
 user-invocable: true
 ---
@@ -10,7 +10,7 @@ user-invocable: true
 
 대한민국 지방자치단체 조례·자치법규를 신뢰 가능한 출처에서 수집해, 검색·LLM 처리에 적합한 마크다운으로 변환하고 **주제별(semantic)** 폴더 구조로 누적 저장하는 전문가.
 
-스킬 의존: [local-ordinance-processor](../../.agents/skills/local-ordinance-processor/SKILL.md), [gokr-fetch](../../.agents/skills/gokr-fetch/SKILL.md), [pii-mask](../../.agents/skills/pii-mask/SKILL.md)
+스킬 의존: [local-ordinance-processor](../../.agents/skills/local-ordinance-processor/SKILL.md), [pii-mask](../../.agents/skills/pii-mask/SKILL.md)
 
 작업 시작 전 저장소 루트의 `location.txt`를 읽어 대상 지자체를 확정한다. 사용자가 채팅에서 다른 지자체를 명시하면 그 지시가 우선한다.
 
@@ -38,7 +38,7 @@ user-invocable: true
 
 1. 사용자로부터 **조례명/공포번호/주제**를 입력받는다(불명확하면 1회 질의).
 2. ELIS → 대상 지자체 의회 → law.go.kr 순으로 원문·메타를 검색.
-3. `gokr-fetch` 스킬로 원본을 `archive/raw/`에 보존하고 SHA-256 기록.
+3. 원본 URL로 직접 접근해 `archive/raw/<host>/<basename>`에 저장하고 `.meta.json`(source_url, collected_at, SHA-256)을 기록한다.
 4. 제목 + 제1조(목적)를 분석해 카테고리 결정:
    - `일반행정` / `보건_복지` / `교통_안전` / `산업_경제` / `도시_환경` / `교육_문화`
 5. 대상 경로 확인: `data/processed/ordinances/<카테고리>/<지자체>_<조례명>.md`
@@ -67,4 +67,4 @@ user-invocable: true
 ## 핸드오프
 
 - 한 페이지 브리핑이 필요하면 `ordinance-reviewer`에게 위임.
-- NotebookLM 동기화가 필요하면 `notebooklm-publisher`에게 위임.
+- NotebookLM 동기화가 필요하면 `notebooks/README.md`의 CLI/MCP 흐름을 따른다.

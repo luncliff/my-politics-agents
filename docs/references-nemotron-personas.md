@@ -28,7 +28,7 @@ license: CC BY 4.0
 | 인용 메타 | 같은 경로 `*.parquet.meta.json` (sha256, source_url, license) |
 | 전국 패널 | `archive/processed/nemotron-personas/panels/national-300.{jsonl,md}` |
 | 지역 패널 | `archive/processed/nemotron-personas/panels/<district>-100.{jsonl,md}` |
-| 시민 검토 | `archive/processed/persona-reviews/<YYYY-MM-DD>-<slug>.md` |
+| 시민 검토 | `archive/processed/<YYYY-MM-DD>-<slug>.md` |
 
 ## 어댑터·도구
 

@@ -98,7 +98,7 @@ pwsh -File scripts/auth-purge.ps1
 zsh scripts/auth-purge.sh
 ```
 
-Covers: `gh auth logout`, `.copilot/credentials*`, shell profile environment variable audit, Windows Credential Manager, macOS Keychain, NotebookLM MCP token/session files.
+Covers: `gh auth logout`, `.copilot/credentials*`, shell profile environment variable audit, Windows Credential Manager, macOS Keychain, NotebookLM CLI/MCP auth data.
 
 ## Copilot CLI Hooks
 

@@ -2,28 +2,13 @@
   "$schema": "https://aka.ms/vscode-mcp-servers-schema",
   "servers": {
     "notebooklm": {
-      "command": "npx",
-      "args": [
-        "notebooklm-mcp@latest"
-      ]
-    },
-    "gov-archive": {
       "type": "stdio",
-      "command": "uv",
+      "command": "uvx",
       "args": [
-        "run",
-        "--directory",
-        "mcp-servers/gov-archive",
-        "gov-archive"
-      ],
-      "dev": {
-        "watch": [
-          "mcp-servers/gov-archive/src/**/*.py"
-        ],
-        "debug": {
-          "type": "python"
-        }
-      }
+        "--from",
+        "notebooklm-mcp-cli",
+        "notebooklm-mcp"
+      ]
     },
     "legalize-kr": {
       "type": "stdio",
@@ -34,6 +19,7 @@
         "legalize-mcp"
       ],
       "env": {
+        "GH_HOST": "github.com",
         "GITHUB_TOKEN": "${env:GITHUB_TOKEN}"
       }
     }
