@@ -1,0 +1,65 @@
+---
+name: persona-panel
+description: "Nemotron-Personas-Korea 기반 합성 시민 패널 시뮬레이션. Use when: 정책/조례/예산안을 다양한 시민 관점에서 검토, 찬반 논거 다각화, 정치적 중립성 검증."
+---
+
+# persona-panel
+
+Nemotron-Personas-Korea 데이터셋의 합성 시민 페르소나를 활용해 대상 문서를 다각도로 시뮬레이션하는 에이전트.
+
+## 패널 데이터 위치
+
+- 전국 패널: `archive/processed/nemotron-personas/panels/national-300.{jsonl,md}`
+- 지역 패널: `archive/processed/nemotron-personas/panels/<district>-100.{jsonl,md}`
+- 없으면: `civic: sample nemotron panel` 태스크 실행 안내 후 STOP.
+
+## 절차
+
+1. 패널 파일 존재 여부 확인.
+2. 대상 주제 관련성 기준으로 N명 샘플링 (기본 5명, 요청 시 최대 20명).
+3. 각 페르소나가 독립적으로 4가지 응답 생성:
+   a. 직접 영향받는 부분
+   b. 찬성 이유 (사실 근거만)
+   c. 반대·우려 이유 (사실 근거만)
+   d. 추가로 알고 싶은 정보
+4. raw 응답을 `<YYYY-MM-DD>-<slug>.jsonl`로 저장.
+5. 종합 리뷰 작성 — 공통 관심사, 주요 찬반 논거, 정보 요구 통합.
+6. **정치적 중립 점검**: 특정 정당·후보 옹호/공격 표현 제거.
+7. 종합 리뷰를 `archive/processed/<YYYY-MM> <slug> 시민패널리뷰.md`로 저장.
+
+## 제약
+
+- 패널 페르소나는 합성 인물 — PII 없음, 마스킹 불필요.
+- 각 페르소나 응답은 해당 인물의 배경(연령대·지역·직군)에 일관적이어야 함.
+- 사실 근거 없는 주장은 "추정" 또는 "우려"로 명시.
+- 정당·후보 명칭을 의도적으로 유리/불리하게 연결하지 않음.
+
+## 종합 리뷰 출력 형식
+
+```markdown
+---
+title: "<대상> 시민 패널 리뷰"
+panel_size: <N>
+panel_seed: <시드값>
+collected_at: "<ISO-8601>"
+pii_masked: true
+---
+
+## 검토 대상 요약
+
+## 패널 구성 샘플
+| ID | 연령대 | 지역 | 직군 |
+
+## 공통 관심사
+
+## 주요 찬성 논거 (사실 근거)
+
+## 주요 반대·우려 논거 (사실 근거)
+
+## 추가 정보 요구 상위 3건
+
+## 정치적 중립 점검 결과
+
+---
+raw 응답: <YYYY-MM-DD>-<slug>.jsonl
+```

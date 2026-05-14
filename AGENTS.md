@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Common rules for **GitHub Copilot CLI** and **VS Code Copilot Chat** in this repo.
+Common rules for **GitHub Copilot CLI / VS Code Chat**, **OpenAI Codex CLI**, and **Claude Code CLI** in this workspace.
 A narrower scope wins: `applyTo` `.instructions.md` > `agents/` > this file.
 
 ## Mission
@@ -13,14 +13,13 @@ Build a trusted information pipeline for Korean local politics:
 ### Workspace-local
 
 - MUST keep all settings, credentials, and caches inside this repo folder.
-- MUST ask before any global change (`npm i -g`, `git config --global`, edits to `~/.copilot/*`, etc.).
+- MUST ask before any global change (`npm i -g`, `git config --global`, edits to `~/.copilot/*`, `~/.claude/*`, etc.).
 - NEVER touch `~/.aws`, `~/.ssh`, OS keychains. Tell the user to do it.
 
 ### Citation
 
 - MUST include **source URL · collected_at (ISO-8601 KST) · SHA-256** in every artifact derived from external data.
 - MUST preserve originals under `archive/raw/<host>/` (immutable).
-- MUST use `gov-archive` MCP `archive_cite` to generate citation metadata.
 - Track time order via `.meta.json` `collected_at`. Do NOT prefix filenames with dates.
 
 ### Licensing
@@ -47,7 +46,7 @@ When unsure, MUST treat as **redistribution forbidden** — summarize and analyz
 
 ### Safe automation
 
-- NEVER use `Bypass Approvals`, `Autopilot`, `/yolo`, or `chat.tools.global.autoApprove`.
+- NEVER use `Bypass Approvals`, `Autopilot`, `/yolo`, or unattended destructive commands.
 - New tools or domains MUST be approved explicitly before being added to auto-approve lists.
 - Destructive commands (`rm -rf`, `git push --force`, `mkfs`, `dd`, `curl|bash`) MUST require human confirmation.
 - MUST honor `robots.txt` and rate limits (max 1 req/sec per host).
@@ -57,19 +56,25 @@ When unsure, MUST treat as **redistribution forbidden** — summarize and analyz
 
 ### Session start
 
-1. Copilot CLI hooks print the policy banner.
-2. Summarize intent in one line and list affected directories.
-3. Confirm risk · scope · expected artifacts with the user.
+1. Read `location.txt` — determine the current working region.
+2. Verify `data/*-kr/.git` exists. If missing, suggest fetch scripts.
+3. Summarize intent in one line and list affected directories.
+4. Confirm risk · scope · expected artifacts with the user.
+
+Channel-specific startup:
+- **Copilot CLI**: hooks print the policy banner.
+- **Claude Code**: `SessionStart` hook runs `scripts/session-start.ps1`.
 
 ### During the session
 
-- For any new site or format, MUST call `archive_fetch` first to preserve the original.
+- For any new site or format, preserve the original in `archive/raw/` first.
 - If the same task happens twice, log it as a **skill candidate** in the retro.
 - If a domain persona appears twice, log it as an **agent candidate**.
 
 ### Session end (mandatory retro)
 
-Call `retrospective-writer` skill. Save to `retrospectives/YYYY-MM-DD <slug>.md`:
+Call the `retrospective-writer` skill (Copilot/Codex) or `/retro` command (Claude Code).
+Save to `retrospectives/YYYY-MM-DD <slug>.md`:
 
 - What was tried · what worked · what blocked.
 - New sites · formats · policies discovered.
@@ -81,12 +86,12 @@ Call `retrospective-writer` skill. Save to `retrospectives/YYYY-MM-DD <slug>.md`
 ### File naming
 
 - MUST use **Korean filenames** for user-facing generated Korean documents under `archive/processed/`, `data/processed/`, `notebooks/`, `retrospectives/`, and similar artifact folders.
-- MUST use `<YYYY-MM> <한글 파일명>.md` as the default filename shape for processed Korean Markdown unless a narrower instruction explicitly overrides it. (ex. `2026-04 경기도 환승센터 교통사업 프로세스.md`, `2026-04 경기도 성남시 초등교육 및 아동지원 예산결산 분석.md`)
-- Use Korean filename for human readers and reviewers. But use English for machine files(code, metadata, logs, tool configurations, etc.) to avoid encoding issues.
+- MUST use `<YYYY-MM> <한글 파일명>.md` as the default filename shape for processed Korean Markdown unless a narrower instruction explicitly overrides it.
+- Use Korean filename for human readers. Use English for machine files (code, metadata, logs, tool configurations).
 
 ### File organization
 
-- MUST keep `archive/processed/` **flat**. Store generated files directly under `archive/processed/` and do **not** create topic subfolders such as `archive/processed/transport/`.
+- MUST keep `archive/processed/` **flat**. Do NOT create topic subfolders.
 - MAY use subfolders in other artifact trees only when an existing repo rule explicitly requires them.
 
 ### Processed Markdown
@@ -143,34 +148,36 @@ When querying `data/ordinance-kr/` or `legalize-kr` MCP `ordinances_*`:
 
 ## Tool Priority
 
-1. Workspace-local MCP servers (`mcp-servers/*`) — unified citation · hash · logging.
-2. Skill commands — pass safety guards.
-3. VS Code built-ins (`#fetch`, `#problems`, `#codebase`).
-4. Terminal — only patterns in `chat.tools.terminal.autoApprove` may run unattended.
+1. MCP servers (`legalize-kr`, `notebooklm`) — unified citation · hash · data access.
+2. Skill commands (`.agents/skills/`) — pass safety guards.
+3. IDE built-ins (Copilot: `#fetch`, `#problems`; Claude Code: `WebFetch`, `Glob`, `Grep`).
+4. Terminal / Bash — only pre-approved patterns may run unattended.
 
-When approaching the 128-tool limit, group via `Tool Sets` (`.vscode/toolsets.jsonc`).
-
-## Architecture (one diagram)
+## Architecture
 
 ```
-Copilot CLI / VS Code Chat
-        │
-   agents/*  +  skills/*
-        │
-   MCP servers (mcp-servers/*)
-        │
-archive/raw → archive/processed → notebooks/<slug> → NotebookLM
+Copilot CLI / VS Code Chat / Codex CLI / Claude Code CLI
+                    │
+        agents/*  +  skills/*  +  commands/*
+                    │
+            MCP servers (legalize-kr, notebooklm)
+                    │
+    archive/raw → archive/processed → notebooks/<slug> → NotebookLM
 ```
 
 | Path | Responsibility |
 | --- | --- |
-| `agents/` | Domain personas. |
-| `.agents/skills/` | Single-purpose reusable tasks. |
-| `.github/prompts/` | Prompt templates. |
+| `.github/agents/` | Domain personas (Copilot). |
+| `.codex/agents/` | Domain personas (Codex CLI). |
+| `.claude/agents/` | Domain personas (Claude Code subagents). |
+| `.agents/skills/` | Single-purpose reusable tasks (all channels). |
+| `.github/prompts/` | Prompt templates (Copilot). |
+| `.claude/commands/` | Slash commands (Claude Code). |
 | `.github/hooks/` | Copilot CLI policy · logging. |
+| `.claude/settings.json` | Claude Code hooks · env · plugins. |
+| `.codex/config.toml` | Codex CLI MCP · model config. |
 | `.vscode/` | IDE settings · tasks · MCP · toolsets. |
-| `scripts/` | Setup · auth purge. |
-| `mcp-servers/` | Workspace-local MCP servers. |
+| `scripts/` | Setup · auth purge · hook scripts. |
 | `adapters/` | Per-site collectors (JS/Py). |
 | `archive/` | Originals + processed. |
 | `notebooks/` | NotebookLM bundles. |
@@ -178,6 +185,61 @@ archive/raw → archive/processed → notebooks/<slug> → NotebookLM
 | `data/{legalize,precedent,admrule,ordinance}-kr/` | Shallow clones of legal data. |
 
 Stack: **Node 24 LTS**, **Python 3.12+ (uv)**. JVM 11+ only when using `opendataloader-pdf`.
+
+## Channel-Specific Reference
+
+### GitHub Copilot CLI / VS Code Chat
+
+- Agent definitions: `.github/agents/*.agent.md`
+- Prompt templates: `.github/prompts/*.prompt.md`
+- Hooks: `.github/hooks/copilot-cli-policy.json`
+- Tool gating: `.vscode/settings.json` `chat.tools.terminal.autoApprove`
+- MCP: `.vscode/mcp.json`
+- See also: [.github/copilot-instructions.md](.github/copilot-instructions.md)
+
+### OpenAI Codex CLI
+
+- Agent definitions: `.codex/agents/*.toml`
+- MCP config: `.codex/config.toml`
+
+### Claude Code CLI
+
+- Subagents: `.claude/agents/*.md` (lawyer, ordinance, researcher, persona-panel, minutes)
+- Slash commands: `.claude/commands/*.md` (/retro, /brief, /persona-review, /collect, /health, /add-skill, /add-agent, /publish-notebook)
+- Hooks in `.claude/settings.json`:
+  - **SessionStart** → `scripts/session-start.ps1` (region + clone status banner)
+  - **Stop** → `scripts/session-stop.ps1` (retro reminder)
+  - **PreToolUse(Bash)** → `scripts/pre-tool-bash.ps1` (destructive command blocker)
+- MCP: `.mcp.json`
+- Env: Bedrock backend, Agent Teams, 10-min timeout
+
+## Agents (all channels)
+
+| Name | Role | Copilot | Codex | Claude Code |
+| --- | --- | --- | --- | --- |
+| assembly-minutes | 회의록 정리 (사실/표결/쟁점 분리) | ✅ | ✅ | `minutes` |
+| civic-persona-panel | 합성 시민 패널 시뮬레이션 | ✅ | ✅ | `persona-panel` |
+| lawyer-agent | 법령·판례·행정규칙 검토 | ✅ | ✅ | `lawyer` |
+| ordinance-processor | 조례 수집·분류 | ✅ | ✅ | `ordinance` |
+| ordinance-reviewer | 조례 브리핑 작성 | ✅ | ✅ | `ordinance` |
+| party-advisor | 정당 플랫폼 정합성 검토 | ✅ | ✅ | — |
+| researcher-kr-website | 정부·공공 웹사이트 조사 | ✅ | ✅ | `researcher` |
+
+## Skills (all channels)
+
+| Skill | Purpose |
+| --- | --- |
+| local-budget-tracker | Municipal budget tracking by 編成目 |
+| local-fund-manager | Memory-driven fund portfolio tracking (기금) |
+| local-ordinance-processor | Ordinance 3-tier validation + semantic categorization |
+| local-timeline-manager | Annual admin/legislative timeline |
+| local-transport-tracker | Bus transit data aggregation |
+| party-alignment-review | Party platform consistency check |
+| persona-perspective-review | Synthetic citizen panel simulation |
+| pii-mask | Korean PII anonymization |
+| retrospective-writer | Session post-work documentation |
+| search-night-care | Night-time hospital accessibility research |
+| vscode-task-author | VS Code task entry creation |
 
 ## Forbidden
 

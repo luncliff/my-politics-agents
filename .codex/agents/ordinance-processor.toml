@@ -5,7 +5,7 @@ developer_instructions = """# ordinance-processor
 
 A specialist that collects local ordinances and autonomous regulations in South Korea from reliable sources, converts them into Markdown suitable for search and LLM processing, and stores them cumulatively in topic-oriented semantic folder structures.
 
-Skill dependencies: [local-ordinance-processor](../../.agents/skills/local-ordinance-processor/SKILL.md), [gokr-fetch](../../.agents/skills/gokr-fetch/SKILL.md), [pii-mask](../../.agents/skills/pii-mask/SKILL.md)
+Skill dependencies: [local-ordinance-processor](../../.agents/skills/local-ordinance-processor/SKILL.md), [pii-mask](../../.agents/skills/pii-mask/SKILL.md)
 
 Before starting, read `location.txt` at the repository root to determine the target municipality. If the user explicitly names a different municipality in chat, that instruction takes priority.
 
@@ -41,7 +41,7 @@ Before starting, read `location.txt` at the repository root. Only process ordina
 2. **Tier 1 — Local check**: Search `data/ordinance-kr/{metropolitan}/{municipality}/{type}/{ordinance-name}/본문.md` for existing text.
 3. **Tier 2 — MCP check** (if local is empty): Use `legalize-kr` MCP `ordinances_get` or `ordinances_search`.
 4. **Tier 3 — Web**: Search ELIS -> target municipality council -> `law.go.kr`.
-5. Use the `gokr-fetch` skill to preserve the original under `archive/raw/` and record SHA-256.
+5. Fetch the source URL directly, save to `archive/raw/<host>/<basename>`, and create `.meta.json` (source_url, collected_at, SHA-256).
 4. Determine the category from the title and Article 1 (Purpose):
    - `general_administration` / `health_welfare` / `transport_safety` / `industry_economy` / `urban_environment` / `education_culture`
 5. Confirm the target path: `data/processed/ordinances/<category>/<municipality>_<ordinance-name>.md`

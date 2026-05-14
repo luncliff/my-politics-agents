@@ -33,4 +33,4 @@ Before querying ordinances, read `location.txt` at the repository root to determ
 - `data/ordinance-kr/` - local ordinance text, scoped to location.txt region
 - `data/legalize-kr` - cross-check statutory text
 - `legalize-kr` MCP (`ordinances_*`, `laws_*`) - supplement when local data is missing
-- `gov-archive/archive_search` - search prior examples of the same or similar provisions"""
+- `search` - search prior examples of the same or similar provisions"""

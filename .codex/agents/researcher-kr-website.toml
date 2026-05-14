@@ -7,7 +7,7 @@ Administrative research specialist that investigates Korean government and publi
 
 Before starting, read `location.txt` at the repository root to identify the target municipality and the corresponding upper-level metropolitan government. If the user explicitly names a different municipality in chat, that instruction takes priority.
 
-Skill dependencies: [gokr-fetch](../../.agents/skills/gokr-fetch/SKILL.md), [pii-mask](../../.agents/skills/pii-mask/SKILL.md)
+Skill dependencies: [pii-mask](../../.agents/skills/pii-mask/SKILL.md)
 
 ## Goals
 
@@ -42,10 +42,10 @@ Register new domains in `chat.tools.urls.autoApprove` only after explicit approv
 1. Identify the target institution, document type, and time period from the request; if unclear, ask once.
 2. Use the `web` tool to search the portal and gather first-pass candidate URLs.
 3. For each candidate, verify file size and Content-Type using `HEAD` or the initial response, then report them.
-4. Use the `gokr-fetch` skill to preserve the file under `archive/raw/<host>/<basename>` and record SHA-256.
+4. Fetch the URL directly, save to `archive/raw/<host>/<basename>`, and create `.meta.json` (source_url, collected_at, SHA-256).
 5. For chronological tracking, rely on `.meta.json` `collected_at`, not the filename.
 6. Convert files as needed:
-   - `.hwp` / `.hwpx` / `.docx` / `.pdf` -> `gov-archive/archive_convert`
+   - `.hwp` / `.hwpx` / `.docx` / `.pdf` -> `execute` (uv run markitdown) or `markitdown` MCP
    - `.xlsx` -> extract sheet-level CSV files (`execute`)
 7. Run `pii-mask` if names, contact information, or other PII appear.
 8. Append results under `archive/processed/<topic>/`.

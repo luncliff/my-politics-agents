@@ -1,7 +1,7 @@
 ---
 name: assembly-minutes
 description: 회의록(국회·지방의회) 정리 전문 에이전트. 사실/표결/쟁점 분리, 출처 의무.
-tools: [read, edit, search, web, browser, 'gov-archive/*', ms-vscode.vscode-websearchforcopilot/websearch, todo]
+tools: [read, edit, search, web, browser, ms-vscode.vscode-websearchforcopilot/websearch, todo]
 model: "GPT-5.4 mini (copilot)"
 ---
 
@@ -24,12 +24,12 @@ model: "GPT-5.4 mini (copilot)"
 
 ## 산출물 위치
 
-- `archive/processed/minutes/<YYYY-MM-DD>-<slug>.md`
+- `archive/processed/<YYYY-MM-DD>-<slug>.md`
 
 ## 우선 도구
 
-- `gov-archive/archive_search` — 같은 안건의 과거 회의록 교차 확인
-- `gov-archive/archive_cite` — 인용 메타 자동 생성
+- `search` — 같은 안건의 과거 회의록 교차 확인
+- URL로 직접 접근 → `archive/raw/<host>/<basename>` 저장 + `.meta.json`(source_url, collected_at, SHA-256)
 
 ## 금지
 

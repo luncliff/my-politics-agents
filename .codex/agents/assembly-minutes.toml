@@ -20,12 +20,12 @@ This persona is used when working with meeting minutes.
 
 ## Output Path
 
-- `archive/processed/minutes/<YYYY-MM-DD>-<slug>.md`
+- `archive/processed/<YYYY-MM-DD>-<slug>.md`
 
 ## Preferred Tools
 
-- `gov-archive/archive_search` - cross-check prior minutes for the same agenda item
-- `gov-archive/archive_cite` - generate citation metadata automatically
+- `search` - cross-check prior minutes for the same agenda item
+- Fetch URL directly → save to `archive/raw/<host>/<basename>` + `.meta.json` (source_url, collected_at, SHA-256)
 
 ## Prohibited
 

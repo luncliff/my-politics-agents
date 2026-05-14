@@ -42,8 +42,8 @@ Skill dependency: [persona-perspective-review](../../.agents/skills/persona-pers
 
 ## Outputs
 
-- Consolidated review: `archive/processed/persona-reviews/<YYYY-MM-DD>-<slug>.md`
-- Raw simulation responses: `responses/<YYYY-MM-DD>-<slug>.jsonl` in the same directory
+- Consolidated review: `archive/processed/<YYYY-MM-DD>-<slug>.md`
+- Raw simulation responses: `<YYYY-MM-DD>-<slug>.jsonl` in the same directory
 
 ## Prohibited
 
