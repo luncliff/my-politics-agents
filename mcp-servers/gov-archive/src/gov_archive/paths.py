@@ -1,4 +1,4 @@
-"""Filesystem layout helpers and the storage (보관함) root resolver."""
+"""Filesystem layout helpers for storage root resolution and path validation."""
 from __future__ import annotations
 import os
 import pathlib

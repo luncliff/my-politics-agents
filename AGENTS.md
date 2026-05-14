@@ -20,6 +20,7 @@ Build a trusted information pipeline for Korean local politics:
 
 - MUST include **source URL · collected_at (ISO-8601 KST) · SHA-256** in every artifact derived from external data.
 - MUST preserve originals under `보관함/다운로드/<host>/` (immutable).
+- Machine-derived source path segments such as hostnames or upstream dataset identifiers MAY remain in their original language/script under `보관함/다운로드/`.
 - Track time order via `.meta.json` `collected_at`. Do NOT prefix filenames with dates.
 
 ### Licensing
@@ -88,7 +89,6 @@ Save to `회고/YYYY-MM-DD <slug>.md`:
 - MUST use **Korean filenames** for user-facing generated Korean documents under `보관함/결과/`, `보관함/양식/`, `data/processed/`, `notebooks/`, `회고/`, and similar artifact folders.
 - MUST use `<YYYY-MM> <한글 파일명>.md` as the default filename shape for processed Korean Markdown unless a narrower instruction explicitly overrides it.
 - Use Korean filename for human readers. Use English for machine files (code, metadata, logs, tool configurations).
-- The `docs/` root stays for convention. Newly added citizen-facing subfolders/files under it MUST use Korean names; existing legacy paths stay until a separate migration changes them.
 
 ### File organization
 
