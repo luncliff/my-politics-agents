@@ -153,94 +153,6 @@ When querying `data/ordinance-kr/` or `legalize-kr` MCP `ordinances_*`:
 3. IDE built-ins (Copilot: `#fetch`, `#problems`; Claude Code: `WebFetch`, `Glob`, `Grep`).
 4. Terminal / Bash — only pre-approved patterns may run unattended.
 
-## Architecture
-
-```
-Copilot CLI / VS Code Chat / Codex CLI / Claude Code CLI
-                    │
-        agents/*  +  skills/*  +  commands/*
-                    │
-            MCP servers (legalize-kr, notebooklm)
-                    │
-    archive/raw → archive/processed → notebooks/<slug> → NotebookLM
-```
-
-| Path | Responsibility |
-| --- | --- |
-| `.github/agents/` | Domain personas (Copilot). |
-| `.codex/agents/` | Domain personas (Codex CLI). |
-| `.claude/agents/` | Domain personas (Claude Code subagents). |
-| `.agents/skills/` | Single-purpose reusable tasks (all channels). |
-| `.github/prompts/` | Prompt templates (Copilot). |
-| `.claude/commands/` | Slash commands (Claude Code). |
-| `.github/hooks/` | Copilot CLI policy · logging. |
-| `.claude/settings.json` | Claude Code hooks · env · plugins. |
-| `.codex/config.toml` | Codex CLI MCP · model config. |
-| `.vscode/` | IDE settings · tasks · MCP · toolsets. |
-| `scripts/` | Setup · auth purge · hook scripts. |
-| `adapters/` | Per-site collectors (JS/Py). |
-| `archive/` | Originals + processed. |
-| `notebooks/` | NotebookLM bundles. |
-| `retrospectives/` | Cumulative session retros. |
-| `data/{legalize,precedent,admrule,ordinance}-kr/` | Shallow clones of legal data. |
-
-Stack: **Node 24 LTS**, **Python 3.12+ (uv)**. JVM 11+ only when using `opendataloader-pdf`.
-
-## Channel-Specific Reference
-
-### GitHub Copilot CLI / VS Code Chat
-
-- Agent definitions: `.github/agents/*.agent.md`
-- Prompt templates: `.github/prompts/*.prompt.md`
-- Hooks: `.github/hooks/copilot-cli-policy.json`
-- Tool gating: `.vscode/settings.json` `chat.tools.terminal.autoApprove`
-- MCP: `.vscode/mcp.json`
-- See also: [.github/copilot-instructions.md](.github/copilot-instructions.md)
-
-### OpenAI Codex CLI
-
-- Agent definitions: `.codex/agents/*.toml`
-- MCP config: `.codex/config.toml`
-
-### Claude Code CLI
-
-- Subagents: `.claude/agents/*.md` (lawyer, ordinance, researcher, persona-panel, minutes)
-- Slash commands: `.claude/commands/*.md` (/retro, /brief, /persona-review, /collect, /health, /add-skill, /add-agent, /publish-notebook)
-- Hooks in `.claude/settings.json`:
-  - **SessionStart** → `scripts/session-start.ps1` (region + clone status banner)
-  - **Stop** → `scripts/session-stop.ps1` (retro reminder)
-  - **PreToolUse(Bash)** → `scripts/pre-tool-bash.ps1` (destructive command blocker)
-- MCP: `.mcp.json`
-- Env: Bedrock backend, Agent Teams, 10-min timeout
-
-## Agents (all channels)
-
-| Name | Role | Copilot | Codex | Claude Code |
-| --- | --- | --- | --- | --- |
-| assembly-minutes | 회의록 정리 (사실/표결/쟁점 분리) | ✅ | ✅ | `minutes` |
-| civic-persona-panel | 합성 시민 패널 시뮬레이션 | ✅ | ✅ | `persona-panel` |
-| lawyer-agent | 법령·판례·행정규칙 검토 | ✅ | ✅ | `lawyer` |
-| ordinance-processor | 조례 수집·분류 | ✅ | ✅ | `ordinance` |
-| ordinance-reviewer | 조례 브리핑 작성 | ✅ | ✅ | `ordinance` |
-| party-advisor | 정당 플랫폼 정합성 검토 | ✅ | ✅ | — |
-| researcher-kr-website | 정부·공공 웹사이트 조사 | ✅ | ✅ | `researcher` |
-
-## Skills (all channels)
-
-| Skill | Purpose |
-| --- | --- |
-| local-budget-tracker | Municipal budget tracking by 編成目 |
-| local-fund-manager | Memory-driven fund portfolio tracking (기금) |
-| local-ordinance-processor | Ordinance 3-tier validation + semantic categorization |
-| local-timeline-manager | Annual admin/legislative timeline |
-| local-transport-tracker | Bus transit data aggregation |
-| party-alignment-review | Party platform consistency check |
-| persona-perspective-review | Synthetic citizen panel simulation |
-| pii-mask | Korean PII anonymization |
-| retrospective-writer | Session post-work documentation |
-| search-night-care | Night-time hospital accessibility research |
-| vscode-task-author | VS Code task entry creation |
-
 ## Forbidden
 
 - NEVER modify or delete files in `archive/raw/`.
@@ -255,6 +167,8 @@ Stack: **Node 24 LTS**, **Python 3.12+ (uv)**. JVM 11+ only when using `opendata
 
 ## See also
 
-- [.github/copilot-instructions.md](.github/copilot-instructions.md) — VS Code Chat specifics.
-- [docs/security.md](docs/security.md) — security model · credentials.
-- [docs/references-nemotron-personas.md](docs/references-nemotron-personas.md) — synthetic citizen personas (CC BY 4.0).
+- [docs/dev/architecture.md](docs/dev/architecture.md) — directory map, agents/skills lists, stack.
+- [docs/dev/channels.md](docs/dev/channels.md) — channel-specific configuration (Copilot / Codex / Claude Code).
+- [docs/dev/security.md](docs/dev/security.md) — security model · credentials.
+- [docs/references/](docs/references/) — LLM-friendly reference documents.
+- [.agents/CONVENTIONS.md](.agents/CONVENTIONS.md) — naming rules (verb-noun skills, noun agents).

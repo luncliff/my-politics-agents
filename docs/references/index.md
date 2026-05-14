@@ -3,9 +3,9 @@ description: LLM-friendly reference index for Gyeonggi and Seongnam research con
 scope: gyeonggi-seongnam
 last_updated: 2026-05-01
 source_documents:
-  - docs/references-경기도.md
-  - docs/references-성남시.md
-  - docs/research-seongnam-open-data.md
+  - docs/references/경기도.md
+  - docs/references/성남시.md
+  - docs/references/성남시-공개데이터.md
 ---
 
 # Reference Index
