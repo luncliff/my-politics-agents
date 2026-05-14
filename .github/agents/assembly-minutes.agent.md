@@ -24,12 +24,12 @@ model: "GPT-5.4 mini (copilot)"
 
 ## 산출물 위치
 
-- `archive/processed/<YYYY-MM-DD>-<slug>.md`
+- `보관함/결과/<YYYY-MM-DD>-<slug>.md`
 
 ## 우선 도구
 
 - `search` — 같은 안건의 과거 회의록 교차 확인
-- URL로 직접 접근 → `archive/raw/<host>/<basename>` 저장 + `.meta.json`(source_url, collected_at, SHA-256)
+- URL로 직접 접근 → `보관함/다운로드/<host>/<basename>` 저장 + `.meta.json`(source_url, collected_at, SHA-256)
 
 ## 금지
 

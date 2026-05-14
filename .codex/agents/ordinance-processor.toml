@@ -41,7 +41,7 @@ Before starting, read `location.txt` at the repository root. Only process ordina
 2. **Tier 1 — Local check**: Search `data/ordinance-kr/{metropolitan}/{municipality}/{type}/{ordinance-name}/본문.md` for existing text.
 3. **Tier 2 — MCP check** (if local is empty): Use `legalize-kr` MCP `ordinances_get` or `ordinances_search`.
 4. **Tier 3 — Web**: Search ELIS -> target municipality council -> `law.go.kr`.
-5. Fetch the source URL directly, save to `archive/raw/<host>/<basename>`, and create `.meta.json` (source_url, collected_at, SHA-256).
+5. Fetch the source URL directly, save to `보관함/다운로드/<host>/<basename>`, and create `.meta.json` (source_url, collected_at, SHA-256).
 4. Determine the category from the title and Article 1 (Purpose):
    - `general_administration` / `health_welfare` / `transport_safety` / `industry_economy` / `urban_environment` / `education_culture`
 5. Confirm the target path: `data/processed/ordinances/<category>/<municipality>_<ordinance-name>.md`

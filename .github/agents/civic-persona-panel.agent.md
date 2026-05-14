@@ -37,7 +37,7 @@ agents: [researcher-kr-website, party-advisor]
 
 ## 사전 조건
 
-- `archive/processed/nemotron-personas/panels/` 아래에 패널 jsonl이 존재해야 한다.
+- `보관함/결과/nemotron-personas/panels/` 아래에 패널 jsonl이 존재해야 한다.
 - 부재 시 다음 task 중 하나를 먼저 실행하도록 안내:
   - `civic: fetch nemotron personas (download)`
   - `civic: sample nemotron panel (national 600)`
@@ -45,7 +45,7 @@ agents: [researcher-kr-website, party-advisor]
 
 ## 산출물
 
-- 종합 리뷰: `archive/processed/<YYYY-MM-DD>-<slug>.md`
+- 종합 리뷰: `보관함/결과/<YYYY-MM-DD>-<slug>.md`
 - raw 시뮬레이션 응답: 같은 폴더 `<YYYY-MM-DD>-<slug>.jsonl`
 
 ## 금지

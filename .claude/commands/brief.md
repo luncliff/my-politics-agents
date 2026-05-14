@@ -14,7 +14,7 @@
    - Tier 2: `legalize-kr` MCP (`ordinances_get`, `laws_get`)
    - Tier 3: `elis.go.kr`, `law.go.kr`
 3. 수집한 본문을 다음 형식으로 요약한다.
-4. `archive/processed/<YYYY-MM> <조례명> 브리핑.md`에 저장한다.
+4. `보관함/결과/<YYYY-MM> <조례명> 브리핑.md`에 저장한다.
 
 ## 출력 형식
 

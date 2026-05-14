@@ -9,8 +9,8 @@ Nemotron-Personas-Korea 데이터셋의 합성 시민 페르소나를 활용해 
 
 ## 패널 데이터 위치
 
-- 전국 패널: `archive/processed/nemotron-personas/panels/national-300.{jsonl,md}`
-- 지역 패널: `archive/processed/nemotron-personas/panels/<district>-100.{jsonl,md}`
+- 전국 패널: `보관함/결과/nemotron-personas/panels/national-300.{jsonl,md}`
+- 지역 패널: `보관함/결과/nemotron-personas/panels/<district>-100.{jsonl,md}`
 - 없으면: `civic: sample nemotron panel` 태스크 실행 안내 후 STOP.
 
 ## 절차
@@ -25,7 +25,7 @@ Nemotron-Personas-Korea 데이터셋의 합성 시민 페르소나를 활용해 
 4. raw 응답을 `<YYYY-MM-DD>-<slug>.jsonl`로 저장.
 5. 종합 리뷰 작성 — 공통 관심사, 주요 찬반 논거, 정보 요구 통합.
 6. **정치적 중립 점검**: 특정 정당·후보 옹호/공격 표현 제거.
-7. 종합 리뷰를 `archive/processed/<YYYY-MM> <slug> 시민패널리뷰.md`로 저장.
+7. 종합 리뷰를 `보관함/결과/<YYYY-MM> <slug> 시민패널리뷰.md`로 저장.
 
 ## 제약
 

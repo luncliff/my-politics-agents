@@ -26,7 +26,7 @@ Before querying ordinances, read `location.txt` at the repository root to determ
 
 ## Output Path
 
-- `archive/processed/ordinances/<slug>.md`
+- `보관함/결과/ordinances/<slug>.md`
 
 ## Preferred Tools
 

@@ -1,6 +1,6 @@
 ---
 name: retrospective-writer
-description: 세션 종료 시 retrospectives/YYYY-MM-DD-<slug>.md 작성.
+description: 세션 종료 시 회고/YYYY-MM-DD-<slug>.md 작성.
 ---
 
 # retrospective-writer
@@ -11,7 +11,7 @@ description: 세션 종료 시 retrospectives/YYYY-MM-DD-<slug>.md 작성.
 2. 새로 만난 사이트·포맷·정책을 정리.
 3. 자동화 후보(skill / agent / task / hook)를 분류.
 4. 출처·PII 점검 결과를 사실 그대로 기록(누락 N건 / 조치).
-5. `retrospectives/YYYY-MM-DD-<slug>.md`로 저장.
+5. `회고/YYYY-MM-DD-<slug>.md`로 저장.
 
 ## 템플릿
 

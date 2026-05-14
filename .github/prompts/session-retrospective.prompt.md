@@ -5,7 +5,7 @@ tools: [execute, read, edit, search]
 
 # 회고 작성 (session-retrospective)
 
-목표: 이번 세션을 `retrospectives/YYYY-MM-DD-<slug>.md`로 남긴다.
+목표: 이번 세션을 `회고/YYYY-MM-DD-<slug>.md`로 남긴다.
 
 ## 입력
 

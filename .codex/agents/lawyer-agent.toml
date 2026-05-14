@@ -17,14 +17,14 @@ If any `data/*-kr/.git` directory is missing, inform the user to run `civic: fet
 - Confirm the current text and metadata of a statute, presidential decree, or ministerial rule precisely.
 - Track amendment dates and changed provisions through `legalize-kr` Git history.
 - Find relevant precedents and summarize the core issue, holding, and cited provisions.
-- Connect statutory text and judicial reasoning into a review memo, and save it under `archive/processed/legal-reviews/` when needed.
+- Connect statutory text and judicial reasoning into a review memo, and save it under `보관함/결과/legal-reviews/` when needed.
 
 ## Constraints
 
 - DO NOT directly handle local ordinances or autonomous regulations. State that `ordinance-processor` or `ordinance-reviewer` is required in those cases.
 - DO NOT guess and quote statutory or case-law text. Quote only verified source text.
 - DO NOT present the result as final legal advice. Always include supporting provisions, precedents, and interpretive uncertainty.
-- DO NOT stop at merely citing external material. Fetch the URL directly, save to `archive/raw/<host>/<basename>`, and record SHA-256 when feasible.
+- DO NOT stop at merely citing external material. Fetch the URL directly, save to `보관함/다운로드/<host>/<basename>`, and record SHA-256 when feasible.
 - DO NOT expand to unapproved external domains on your own. If precedent research requires a new domain, notify the user first.
 
 ## Execution Procedure
@@ -43,9 +43,9 @@ If any `data/*-kr/.git` directory is missing, inform the user to run `civic: fet
    - Compare against text and metadata on `law.go.kr`.
    - Search precedents on the Supreme Court system, lower courts, and the Constitutional Court, verifying court name, decision date, case number, and case type.
 5. Use `git log`, `git show`, and `git diff` as needed to inspect amendment history and changed provisions.
-6. If you use external judgments or commentary pages, fetch the URL directly, save to `archive/raw/<host>/<basename>`, and create `.meta.json` (source_url, collected_at, SHA-256) citation metadata.
+6. If you use external judgments or commentary pages, fetch the URL directly, save to `보관함/다운로드/<host>/<basename>`, and create `.meta.json` (source_url, collected_at, SHA-256) citation metadata.
 7. Connect statutes and precedents while separating: facts, relevant provisions, precedent holdings, interpretation, and remaining issues.
-8. If the user wants a saved memo, write it to `archive/processed/legal-reviews/<slug>.md`.
+8. If the user wants a saved memo, write it to `보관함/결과/legal-reviews/<slug>.md`.
 
 ## Precedent Citation Rules
 
@@ -84,7 +84,7 @@ When finished, respond with this structure.
 - Risk/Unknown: {unclear points and follow-up needed}
 
 ### Saved Path
-- archive/processed/legal-reviews/{slug}.md
+- 보관함/결과/legal-reviews/{slug}.md
 ```
 
 ## Preferred Tools
@@ -92,4 +92,4 @@ When finished, respond with this structure.
 - `read`, `search` - explore `data/legalize-kr/` and workspace documents
 - `execute` - inspect legislative history with `git log`, `git show`, and `git diff`
 - `ms-vscode.vscode-websearchforcopilot/websearch`, `web` - search `law.go.kr` and official precedent sources
-- `web` / `fetch` - fetch URL directly, save to `archive/raw/<host>/<basename>` + `.meta.json` (source_url, collected_at, SHA-256)"""
+- `web` / `fetch` - fetch URL directly, save to `보관함/다운로드/<host>/<basename>` + `.meta.json` (source_url, collected_at, SHA-256)"""

@@ -10,7 +10,7 @@ export default tseslint.config(
       "build/**",
       "data/**",
       "archive/**",
-      "retrospectives/**",
+      "회고/**",
       "**/.venv/**",
     ],
   },

@@ -1,6 +1,6 @@
-# 사이트 수집 및 archive/raw 보존
+# 사이트 수집 및 보관함/다운로드 보존
 
-대상 URL의 문서를 수집해 `archive/raw/`에 보존하고 인용 메타데이터를 생성한다.
+대상 URL의 문서를 수집해 `보관함/다운로드/`에 보존하고 인용 메타데이터를 생성한다.
 
 ## 입력
 
@@ -11,7 +11,7 @@
 1. `robots.txt` 확인 (`<host>/robots.txt`). 크롤링 금지 경로면 STOP하고 사용자에게 알린다.
 2. `WebFetch`로 원본 HTML/PDF/HWP를 가져온다.
 3. SHA-256 해시를 계산한다.
-4. `archive/raw/<host>/<basename>` 경로에 저장한다.
+4. `보관함/다운로드/<host>/<basename>` 경로에 저장한다.
 5. 동일 경로에 `.meta.json` 생성:
    ```json
    {
@@ -22,7 +22,7 @@
      "robots_checked": true
    }
    ```
-6. PII 포함 가능성이 있으면 `pii-mask` 스킬 적용 후 `archive/processed/`에 정제본 저장.
+6. PII 포함 가능성이 있으면 `pii-mask` 스킬 적용 후 `보관함/결과/`에 정제본 저장.
 7. 수집 결과 요약 출력: URL, 저장 경로, SHA-256, 라이선스 상태.
 
 ## 주의

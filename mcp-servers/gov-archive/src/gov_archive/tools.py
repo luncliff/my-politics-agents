@@ -222,7 +222,7 @@ def _persist_payload(
 def archive_fetch(
     url: str, note: str | None = None, auto_convert: bool = True
 ) -> dict[str, Any]:
-    """Fetch URL and store under archive/raw/<host>/<basename>.
+    """Fetch URL and store under 보관함/다운로드/<host>/<basename>.
 
     Returns metadata: {path, sha256, status, bytes, source_url, collected_at, changed}
     """
@@ -328,7 +328,7 @@ def archive_cite(path: str) -> str:
 
 
 def archive_convert(path: str) -> dict[str, str | bool]:
-    """Convert archived file to Markdown under archive/processed."""
+    """Convert archived file to Markdown under 보관함/결과."""
     raw_root = archive_raw_root()
     candidate = pathlib.Path(path)
     target = candidate if candidate.is_absolute() else raw_root / candidate

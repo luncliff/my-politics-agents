@@ -38,7 +38,7 @@ user-invocable: true
 
 1. 사용자로부터 **조례명/공포번호/주제**를 입력받는다(불명확하면 1회 질의).
 2. ELIS → 대상 지자체 의회 → law.go.kr 순으로 원문·메타를 검색.
-3. 원본 URL로 직접 접근해 `archive/raw/<host>/<basename>`에 저장하고 `.meta.json`(source_url, collected_at, SHA-256)을 기록한다.
+3. 원본 URL로 직접 접근해 `보관함/다운로드/<host>/<basename>`에 저장하고 `.meta.json`(source_url, collected_at, SHA-256)을 기록한다.
 4. 제목 + 제1조(목적)를 분석해 카테고리 결정:
    - `일반행정` / `보건_복지` / `교통_안전` / `산업_경제` / `도시_환경` / `교육_문화`
 5. 대상 경로 확인: `data/processed/ordinances/<카테고리>/<지자체>_<조례명>.md`

@@ -14,8 +14,8 @@ agents: [researcher-kr-website, lawyer-agent, assembly-minutes, ordinance-review
 
 기본 기준은 다음 로컬 자료를 우선한다.
 
-- `archive/raw/theminjoo.kr/2026-05-03 2026-02-23 더불어민주당 강령당헌당규.pdf`
-- `archive/processed/party-docs/2026-05-03 더불어민주당 가치-윤리 기준 요약.md`
+- `보관함/다운로드/theminjoo.kr/2026-05-03 2026-02-23 더불어민주당 강령당헌당규.pdf`
+- `보관함/결과/party-docs/2026-05-03 더불어민주당 가치-윤리 기준 요약.md`
 
 스킬 의존: [party-alignment-review](../../.agents/skills/party-alignment-review/SKILL.md)
 
