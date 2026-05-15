@@ -28,7 +28,7 @@ agent: agent
 
 1. 현재 branch, remote, worktree 상태를 먼저 확인한다.
 2. 이번 배포와 무관한 변경이 있으면 자동 포함하지 말고, 어떤 파일이 막는지 짧게 설명하고 중단한다.
-3. 버전 문자열은 반드시 LINE [headver](https://github.com/line/headver) 의 PowerShell 예제 스크립트를 임시 파일로 내려받아 실행해서 계산한다. 직접 손으로 조합하지 않고, 내려받은 파일은 저장소에 남기지 않는다.
+3. 버전 문자열은 반드시 LINE [headver](https://github.com/line/headver) 의 PowerShell 예제 스크립트를 **고정 commit raw URL**로 임시 파일에 내려받아 실행해서 계산한다. 직접 손으로 조합하지 않고, 내려받은 파일은 저장소에 남기지 않는다.
 4. 계산된 버전은 아래 파일에 같은 값으로 반영한다.
    - [package.json](../../package.json)
    - [pyproject.toml](../../pyproject.toml)
@@ -45,7 +45,7 @@ agent: agent
 ## 실행 순서
 
 1. `git status --short --branch`로 상태 확인
-2. OS 임시 디렉터리에 `https://raw.githubusercontent.com/line/headver/main/examples/headver.ps1` 를 내려받는다.
+2. OS 임시 디렉터리에 `https://raw.githubusercontent.com/line/headver/6ed931631cfe18a17518271432abda293ae18228/examples/headver.ps1` 를 내려받고, 다운로드 실패 시 즉시 중단한다.
 3. `pwsh -NoProfile -File <temp-headver.ps1> -Head <head> -Build <build> [-Suffix <suffix>]` 실행
 4. 임시로 내려받은 `headver.ps1` 를 삭제한다.
 5. 버전 파일 2~3개 갱신

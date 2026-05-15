@@ -55,13 +55,19 @@ copilot --model=auto --allow-all-urls --add-dir . --prompt "/find-night-clinic w
 
 ### Release Tag
 
-Git tag는 HeadVer (`{head}.{yearweek}.{build}`) 형식을 사용합니다. 태그 문자열이 필요하면 LINE [headver](https://github.com/line/headver) 의 PowerShell 예제를 임시 파일로 내려받아 실행합니다.
+Git tag는 HeadVer (`{head}.{yearweek}.{build}`) 형식을 사용합니다. 태그 문자열이 필요하면 LINE [headver](https://github.com/line/headver) 의 PowerShell 예제를 고정 commit raw URL로 임시 파일에 내려받아 실행합니다.
 
 ```pwsh
+$uri = "https://raw.githubusercontent.com/line/headver/6ed931631cfe18a17518271432abda293ae18228/examples/headver.ps1"
 $temp = Join-Path ([System.IO.Path]::GetTempPath()) ("headver-{0}.ps1" -f [guid]::NewGuid().ToString("N"))
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/line/headver/main/examples/headver.ps1" -OutFile $temp
-pwsh -NoProfile -File $temp -Head 0 -Build 0
-Remove-Item $temp -Force
+try {
+    Invoke-WebRequest -Uri $uri -OutFile $temp -ErrorAction Stop
+    pwsh -NoProfile -File $temp -Head 0 -Build 0
+} finally {
+    if (Test-Path $temp) {
+        Remove-Item $temp -Force
+    }
+}
 ```
 
 새 tag를 원격에 push하면 GitHub Actions가 같은 이름의 prerelease를 자동 생성합니다.
