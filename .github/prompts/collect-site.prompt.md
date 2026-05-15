@@ -1,6 +1,7 @@
 ---
 description: 웹사이트 자료를 수집하고 보관함/다운로드에 보존
 tools: [read, search, web/fetch, browser, ms-vscode.vscode-websearchforcopilot/websearch]
+model: Claude Haiku 4.5 (copilot)
 ---
 
 # 사이트 수집 (collect-site)

@@ -1,5 +1,6 @@
 ---
 description: "누적 retrospective를 분석해 harness 개선 제안을 생성합니다."
+model: Claude Sonnet 4.6 (copilot)
 ---
 
 # 피드백 리뷰 및 Harness 개선

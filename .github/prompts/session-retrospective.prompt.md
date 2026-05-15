@@ -1,6 +1,7 @@
 ---
 description: 세션 종료 시 회고 작성
 tools: [execute, read, edit, search]
+model: GPT-5.4 mini (copilot)
 ---
 
 # 회고 작성 (session-retrospective)
