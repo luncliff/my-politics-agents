@@ -93,7 +93,8 @@ Save to `회고/YYYY-MM-DD <slug>.md`:
 
 ### File organization
 
-- MUST keep `보관함/결과/` **flat**. Do NOT create topic subfolders.
+- MUST keep default user-facing reports in `보관함/결과/` **flat** (no topic subfolders).
+- MAY use subfolders under `보관함/결과/` only when an existing repo rule or skill explicitly requires structured machine-readable grouping (for example dataset, panel, legal-review, or timeline paths).
 - MAY use subfolders in other artifact trees only when an existing repo rule explicitly requires them.
 
 ### Processed Markdown

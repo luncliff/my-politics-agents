@@ -42,12 +42,12 @@ Before starting, read `location.txt` at the repository root. Only process ordina
 3. **Tier 2 — MCP check** (if local is empty): Use `legalize-kr` MCP `ordinances_get` or `ordinances_search`.
 4. **Tier 3 — Web**: Search ELIS -> target municipality council -> `law.go.kr`.
 5. Fetch the source URL directly, save to `보관함/다운로드/<host>/<basename>`, and create `.meta.json` (source_url, collected_at, SHA-256).
-4. Determine the category from the title and Article 1 (Purpose):
+6. Determine the category from the title and Article 1 (Purpose):
    - `general_administration` / `health_welfare` / `transport_safety` / `industry_economy` / `urban_environment` / `education_culture`
-5. Confirm the target path: `data/processed/<category>/<municipality>_<ordinance-name>.md`
-6. **If an existing file is present**: read it first; if the promulgation number matches, report and stop; otherwise append to `## Amendment History`.
-7. **If new**: create a new file using the standard format from the `local-ordinance-processor` skill.
-8. Save only text that has passed through `pii-mask` when PII may be present.
+7. Confirm the target path: `data/processed/<category>/<municipality>_<ordinance-name>.md`
+8. **If an existing file is present**: read it first; if the promulgation number matches, report and stop; otherwise append to `## Amendment History`.
+9. **If new**: create a new file using the standard format from the `local-ordinance-processor` skill.
+10. Save only text that has passed through `pii-mask` when PII may be present.
 
 ## File Naming Rules
 
