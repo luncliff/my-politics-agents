@@ -3,13 +3,13 @@
   "version": "0.1.0",
   "description": "Multi-agent tools for Korean local politics research",
   "private": true,
-  "type": "module",
+  "type": "commonjs",
   "engines": {
     "node": ">=24"
   },
   "scripts": {
-    "lint": "eslint . --config tools/eslint.config.mjs",
-    "lint:fix": "eslint . --fix --config tools/eslint.config.mjs",
+    "lint": "node scripts/run-markdownlint.js",
+    "lint:staged": "node scripts/run-markdownlint.js --staged",
     "format": "prettier --write \"**/*.{js,ts,mjs,cjs,jsx,tsx}\" --config tools/.prettierrc --ignore-path tools/.prettierignore",
     "format:check": "prettier --check \"**/*.{js,ts,mjs,cjs,jsx,tsx}\" --config tools/.prettierrc --ignore-path tools/.prettierignore"
   },
@@ -17,6 +17,7 @@
     "@eslint/js": "^10.0.1",
     "eslint": "^10.3.0",
     "eslint-config-prettier": "^10.0.0",
+    "markdownlint": "^0.39.0",
     "prettier": "^3.0.0",
     "typescript-eslint": "^8.0.0"
   }

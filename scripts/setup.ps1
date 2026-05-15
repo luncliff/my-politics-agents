@@ -117,6 +117,10 @@ if (-not (Test-Path ".env")) {
   }
 }
 
+Invoke-Step "git pre-commit hook 등록 (markdown lint warning)" {
+  git config --local core.hooksPath scripts/git-hooks
+}
+
 # 5) verify
 Write-Host ""
 Write-Info "검증:"

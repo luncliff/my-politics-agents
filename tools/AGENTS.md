@@ -7,7 +7,7 @@ Scope: `tools/` 하위. 공통 규약은 [/AGENTS.md](../AGENTS.md).
 - `tools/js/` — Node/TypeScript 어댑터.
 - `tools/nemotron_personas/` — 합성 시민 페르소나 샘플러 (Python).
 - `tools/gov-archive/` — 정부 자료 보관 MCP 서버 (Python · uv).
-- `tools/eslint.config.mjs`, `tools/.prettierrc`, `tools/.prettierignore` — JS/TS lint·format 설정.
+- `tools/eslint.config.js`, `tools/.prettierrc`, `tools/.prettierignore` — JS/TS lint·format 설정.
 
 ## 추가 기준 — 새 도구·도메인이 필요할 때
 
