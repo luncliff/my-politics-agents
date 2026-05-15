@@ -2,7 +2,7 @@
 description: 합성 시민 페르소나 패널로 정책·계획 초안을 시점별로 검토
 argument-hint: "<대상 문서 경로|붙여넣은 초안> [national|local|both] [N]"
 tools: [read, search, edit, agent]
-model: Claude Sonnet 4.6 (copilot)
+model: GPT-5.4 (copilot)
 ---
 
 # /persona-review

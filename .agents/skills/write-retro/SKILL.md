@@ -1,6 +1,6 @@
 ---
 name: write-retro
-description: 세션 종료 시 회고/YYYY-MM-DD <slug>.md 작성.
+description: "세션 종료 시 회고/YYYY-MM-DD <slug>.md 작성."
 ---
 
 # write-retro
