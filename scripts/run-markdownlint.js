@@ -7,17 +7,22 @@ const { lint } = require("markdownlint/promise");
 const config = require("./markdownlint.config.js");
 
 const repoRoot = path.resolve(__dirname, "..");
+const markdownlintCli = path.join(repoRoot, "node_modules", "markdownlint-cli", "markdownlint.js");
 
 process.chdir(repoRoot);
 
 async function main() {
   const args = process.argv.slice(2);
-  const useStagedFiles = args.includes("--staged");
-  const targets = useStagedFiles ? getStagedMarkdownFiles() : getTrackedMarkdownFiles();
+  const shouldWrite = args.includes("--write");
+  const targets = getTrackedMarkdownFiles();
 
   if (targets.length === 0) {
-    console.log(useStagedFiles ? "markdownlint: staged Markdown 파일이 없습니다." : "markdownlint: 대상 Markdown 파일이 없습니다.");
+    console.log("markdownlint: 대상 Markdown 파일이 없습니다.");
     return;
+  }
+
+  if (shouldWrite) {
+    applyFixes(targets);
   }
 
   const result = await lint({
@@ -39,10 +44,19 @@ function getTrackedMarkdownFiles() {
   return runGit(["ls-files", "*.md"]).filter((filePath) => existsSync(filePath));
 }
 
-function getStagedMarkdownFiles() {
-  return runGit(["diff", "--cached", "--name-only", "--diff-filter=ACMR"])
-    .filter((filePath) => filePath.toLowerCase().endsWith(".md"))
-    .filter((filePath) => existsSync(filePath));
+function applyFixes(targets) {
+  try {
+    execFileSync(process.execPath, [markdownlintCli, "--fix", "--config", "scripts/markdownlint.config.js", ...targets], {
+      cwd: repoRoot,
+      stdio: "inherit",
+    });
+  } catch (error) {
+    if (error && typeof error === "object" && "status" in error && error.status === 1) {
+      return;
+    }
+
+    throw error;
+  }
 }
 
 function runGit(args) {

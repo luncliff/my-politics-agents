@@ -331,12 +331,12 @@
       }
     },
     {
-      "label": "civic: lint markdown (staged)",
+      "label": "civic: lint markdown (write)",
       "type": "shell",
       "command": "npm",
       "args": [
         "run",
-        "lint:staged"
+        "lint:write"
       ],
       "problemMatcher": [],
       "presentation": {
