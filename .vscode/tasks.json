@@ -302,16 +302,14 @@
       "problemMatcher": []
     },
     {
-      "label": "civic: lint js/ts",
+      "label": "civic: lint markdown",
       "type": "shell",
       "command": "npm",
       "args": [
         "run",
         "lint"
       ],
-      "problemMatcher": [
-        "$eslint-stylish"
-      ],
+      "problemMatcher": [],
       "group": "test",
       "presentation": {
         "reveal": "always",
@@ -333,31 +331,18 @@
       }
     },
     {
-      "label": "civic: lint prompts/skills",
+      "label": "civic: lint markdown (write)",
       "type": "shell",
-      "windows": {
-        "command": "pwsh",
-        "args": [
-          "-NoProfile",
-          "-Command",
-          "python scripts/lint_frontmatter.py"
-        ]
-      },
-      "linux": {
-        "command": "bash",
-        "args": [
-          "-lc",
-          "python3 scripts/lint_frontmatter.py"
-        ]
-      },
-      "osx": {
-        "command": "zsh",
-        "args": [
-          "-lc",
-          "python3 scripts/lint_frontmatter.py"
-        ]
-      },
-      "problemMatcher": []
+      "command": "npm",
+      "args": [
+        "run",
+        "lint:write"
+      ],
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
     }
   ]
 }

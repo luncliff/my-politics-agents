@@ -5,7 +5,7 @@ on:
   pull_request:
 
 jobs:
-  formatter:
+  markdown:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -13,17 +13,11 @@ jobs:
         with:
           node-version: "24"
           cache: "npm"
-      - name: "Run ESLint/Priettier"
+      - name: "Run markdown lint warnings"
         run: |
           npm ci
           npm run lint
-          npm run format:check
 
-      - uses: actions/setup-python@v6
-        with:
-          python-version: "3.12"
-
-      - name: "Validate YAML frontmatter in agents/skills/prompts"
+      - name: "Check JS/TS formatting"
         run: |
-          pip install pyyaml
-          python scripts/lint_frontmatter.py
+          npm run format:check

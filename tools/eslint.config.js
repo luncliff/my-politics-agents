@@ -1,8 +1,8 @@
-import js from "@eslint/js";
-import tseslint from "typescript-eslint";
-import prettierConfig from "eslint-config-prettier";
+const js = require("@eslint/js");
+const tseslint = require("typescript-eslint");
+const prettierConfig = require("eslint-config-prettier");
 
-export default tseslint.config(
+module.exports = tseslint.config(
   {
     ignores: [
       "node_modules/**",

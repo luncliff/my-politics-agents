@@ -6,7 +6,7 @@
 | --- | --- |
 | `js/` | Node 기반 사이트별 수집·정규화 코드 |
 | `nemotron_personas/` | Python 기반 시민 페르소나 수집·샘플링 코드 |
-| `eslint.config.mjs` | 저장소 전역 JS/TS 린트 설정 |
+| `eslint.config.js` | 저장소 전역 JS/TS 린트 설정 |
 | `.prettierrc` | 저장소 전역 JS/TS 포맷 설정 |
 | `.prettierignore` | 포맷 대상 제외 규칙 |
 

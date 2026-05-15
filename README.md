@@ -53,6 +53,16 @@ copilot --continue
 copilot --model=auto --allow-all-urls --add-dir . --prompt "/find-night-clinic with current location.txt"
 ```
 
+### Release Tag
+
+Git tag는 HeadVer (`{head}.{yearweek}.{build}`) 형식을 사용합니다. 태그 문자열 생성은 [scripts/headver.ps1](scripts/headver.ps1)로 합니다.
+
+```pwsh
+pwsh -NoProfile -File scripts/headver.ps1 -Head 0 -Build 0
+```
+
+새 tag를 원격에 push하면 GitHub Actions가 같은 이름의 prerelease를 자동 생성합니다.
+
 ### Use with Codex CLI
 
 같은 워크스페이스의 `agents/`·`.agents/skills/`·`.github/prompts/`·`.vscode/mcp.json`을 그대로 사용합니다.
@@ -121,4 +131,5 @@ copilot --model=auto --allow-all-urls --add-dir . --prompt "/find-night-clinic w
 ## License
 
 코드와 문서는 **CC0 1.0 Universal**(공공도메인 헌정). [LICENSE](LICENSE) 참조.
+단, [scripts/headver.ps1](scripts/headver.ps1)은 LINE `headver` 예제 스크립트를 vendored 한 파일이며 Apache-2.0을 따릅니다.
 수집된 정부 자료는 별도 라이선스(공공누리 등)를 따르며, 산출물에 출처를 명시합니다.
