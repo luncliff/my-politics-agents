@@ -1,12 +1,12 @@
-name: mcp-servers-tests
+name: tools-gov-archive-tests
 
 on:
   push:
     paths:
-      - mcp-servers/gov-archive/**
+      - tools/gov-archive/**
   pull_request:
     paths:
-      - mcp-servers/gov-archive/**
+      - tools/gov-archive/**
   workflow_dispatch:
 
 jobs:
@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: mcp-servers/gov-archive
+        working-directory: tools/gov-archive
 
     steps:
       - uses: actions/checkout@v6
@@ -26,7 +26,7 @@ jobs:
       - uses: astral-sh/setup-uv@v6
         with:
           enable-cache: true
-          cache-dependency-glob: mcp-servers/gov-archive/pyproject.toml
+          cache-dependency-glob: tools/gov-archive/pyproject.toml
 
       - name: "Install dependencies"
         run: |

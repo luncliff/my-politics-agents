@@ -1,5 +1,5 @@
 {
-  "name": "my-politics-agents",
+  "name": "politics-agents",
   "version": "0.1.0",
   "description": "Multi-agent tools for Korean local politics research",
   "private": true,
@@ -8,10 +8,10 @@
     "node": ">=24"
   },
   "scripts": {
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "format": "prettier --write \"**/*.{js,ts,mjs,cjs,jsx,tsx}\"",
-    "format:check": "prettier --check \"**/*.{js,ts,mjs,cjs,jsx,tsx}\""
+    "lint": "eslint . --config tools/eslint.config.mjs",
+    "lint:fix": "eslint . --fix --config tools/eslint.config.mjs",
+    "format": "prettier --write \"**/*.{js,ts,mjs,cjs,jsx,tsx}\" --config tools/.prettierrc --ignore-path tools/.prettierignore",
+    "format:check": "prettier --check \"**/*.{js,ts,mjs,cjs,jsx,tsx}\" --config tools/.prettierrc --ignore-path tools/.prettierignore"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

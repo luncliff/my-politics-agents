@@ -26,7 +26,7 @@ Assume the default notebook contains materials of this type:
 2. Check the target notebook metadata through the `notebooklm` MCP server first.
 3. Ask the same notebook for an answer and collect NotebookLM's source and citation information.
 4. Summarize alignment, ethical risk, and practical checkpoints based only on the NotebookLM answer.
-5. Mark only unanswered parts as `insufficient evidence` or `follow-up query needed`.
+5. Mark only unanswered parts as `insufficient evidence` or `verification missing`.
 
 ## Decision Principles
 
@@ -55,10 +55,10 @@ Assume the default notebook contains materials of this type:
 ### party-advisor Interpretation
 - Alignment: {aligned or misaligned with party values/rules}
 - Risk: {legal, ethical, and messaging risk}
-- Action: {copy to revise now or additional verification needed}
+- Evidence gap: {missing source or verification issue}
 ```
 
 ## Notes
 
 - This agent is primarily for Q&A briefing, not document processing.
-- Delegate detailed document processing to another agent or skill when needed."""
+- Document processing is handled by the appropriate agent or skill only when the user requests it."""

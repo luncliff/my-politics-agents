@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# scripts/setup.sh — my-politics-agents 환경 설정 (macOS / Linux)
+# scripts/setup.sh — politics-agents 환경 설정 (macOS / Linux)
 set -eu
 
 DRY_RUN=0
@@ -14,7 +14,7 @@ done
 export DRY_RUN ASSUME_YES
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-. "$SCRIPT_DIR/lib/common.sh"
+. "$SCRIPT_DIR/common.sh"
 
 cd "$(repo_root)"
 info "repo: $(pwd)"
@@ -88,10 +88,10 @@ if ! have copilot; then
 fi
 
 # 3) workspace
-step "legalize-kr repos shallow clone (data/*)" bash scripts/fetch_legalize_kr.sh
+step "legalize-kr repos shallow clone (보관함/*)" bash scripts/fetch_legalize_kr.sh
 
-if [ -f "mcp-servers/gov-archive/pyproject.toml" ]; then
-  step "uv sync (mcp-servers/gov-archive)" sh -c "cd mcp-servers/gov-archive && uv sync"
+if [ -f "tools/gov-archive/pyproject.toml" ]; then
+  step "uv sync (tools/gov-archive)" sh -c "cd tools/gov-archive && uv sync"
 fi
 
 if [ ! -f ".env" ]; then

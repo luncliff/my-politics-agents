@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# scripts/fetch_legalize_kr.sh — Shallow clone legalize-kr repos to data/
+# scripts/fetch_legalize_kr.sh — Shallow clone legalize-kr repos to 보관함/
 set -eu
 
 DRY_RUN=0
@@ -12,11 +12,11 @@ done
 export DRY_RUN
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-. "$SCRIPT_DIR/lib/common.sh"
+. "$SCRIPT_DIR/common.sh"
 
 cd "$(repo_root)"
 
-DATA_DIR="data"
+DATA_DIR="보관함"
 REPOS=(
   "legalize-kr|https://github.com/legalize-kr/legalize-kr.git"
   "precedent-kr|https://github.com/legalize-kr/precedent-kr.git"

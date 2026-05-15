@@ -2,6 +2,7 @@
 description: 합성 시민 페르소나 패널로 정책·계획 초안을 시점별로 검토
 argument-hint: "<대상 문서 경로|붙여넣은 초안> [national|local|both] [N]"
 tools: [read, search, edit, agent]
+model: Claude Sonnet 4.6 (copilot)
 ---
 
 # /persona-review
@@ -19,8 +20,8 @@ tools: [read, search, edit, agent]
 
 다음 산출물이 있어야 한다. 없으면 안내 후 종료한다.
 
-- `보관함/결과/nemotron-personas/panels/national-*.jsonl`
-- `보관함/결과/nemotron-personas/panels/<sigungu>-*.jsonl` (지역 패널 사용 시)
+- `보관함/결과/<YYYY-MM-DD> Nemotron 전국 패널 *.jsonl`
+- `보관함/결과/<YYYY-MM-DD> Nemotron <sigungu> 패널 *.jsonl` (지역 패널 사용 시)
 
 준비 명령:
 
@@ -38,8 +39,8 @@ uv run python -m nemotron_personas.sampler --panel local --size 300
 1. `civic-persona-panel` 에이전트(또는 `persona-perspective-review` 스킬)를 호출한다.
 2. 패널에서 N명을 무작위로 추출(시드 미지정 시 매 실행마다 다른 표본). 서브에이전트로 4 항목 응답 생성.
 3. 산출물 저장:
-   - 종합: `보관함/결과/<YYYY-MM-DD>-<slug>.md`
-   - raw: 같은 폴더의 `<YYYY-MM-DD>-<slug>.jsonl`
+       - 종합: `보관함/결과/<YYYY-MM-DD> <slug>.md`
+       - raw: 같은 폴더의 `<YYYY-MM-DD> <slug>.jsonl`
 
 ## 출력 footer (필수)
 

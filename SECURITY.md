@@ -1,137 +1,108 @@
 # Security Policy
 
-## Supported Versions
+지원 브랜치는 `main`만. 다른 브랜치에는 보안 패치를 적용하지 않습니다.
 
-This repository contains documentation, scripts, and agent configuration — not a versioned software library.
-Security fixes are applied to the `main` branch only.
+## Reporting
 
-| Branch | Supported |
-| --- | --- |
-| `main` | ✅ |
-| any other | ❌ |
+- 공개 이슈로 보고 금지.
+- [GitHub Security Advisories](https://github.com/luncliff/politics-agents/security/advisories/new) 또는 owner 메일.
+- 포함할 것: 영향 범위, 재현 절차/PoC, 잠재 영향(자격증명·데이터·prompt injection).
+- 응답 SLA: 인지 72시간, 해결/완화 7일, 노출 PII 삭제 24시간.
 
-## Reporting a Vulnerability
+## Forbidden
 
-**Do not open a public issue for security vulnerabilities.**
-
-Report privately via [GitHub Security Advisories](https://github.com/luncliff/my-politics-agents/security/advisories/new) or email the repository owner (see profile).
-
-Include:
-- Description of the vulnerability and affected component.
-- Steps to reproduce or a proof-of-concept.
-- Potential impact (credential leak, data exposure, prompt injection, etc.).
-
-You will receive an acknowledgement within **72 hours** and a resolution or mitigation plan within **7 days**.
-Deletion requests for accidentally exposed personal data are processed within **24 hours**.
+- 자격증명·토큰·API 키 커밋 금지(어느 브랜치도).
+- `main`에 `git push --force` 금지.
+- `gitleaks` · `lint` 워크플로 비활성화 금지.
+- `pii-mask` 스킬 외부에서 PII 처리 금지.
+- 마스킹 키 디스크 저장 금지.
 
 ## Threat Model
 
-| Threat | Mitigation |
+| 위협 | 대응 |
 | --- | --- |
-| Credential / token leak | `.env`, `*.token`, `.copilot/credentials*` in `.gitignore`; [gitleaks](https://github.com/gitleaks/gitleaks) scans every push and PR (`.github/workflows/gitleaks.yml`) |
-| Prompt injection from external pages | `*.go.kr/*` URLs: request auto-approved, **response requires human review** (`approveResponse: false` in `chat.tools.urls.autoApprove`) |
-| Unintended global system changes | `scripts/setup.*` and Copilot CLI hooks gate every global change behind explicit consent |
-| Unattended destructive commands | `Bypass Approvals` / `Autopilot` / `/yolo` disabled; `preToolUse` hook logs by default, blocks demo patterns when `COPILOT_HOOKS_DENY_DEMO=1` |
-| Arbitrary external domain calls | `chat.agent.networkFilter` domain whitelist + explicit approval flow for new domains |
-| PII in artifacts | `pii-mask` skill is mandatory before any artifact is saved or shared |
-| Dependency vulnerabilities | Dependabot alerts enabled; `pyproject.toml` + `package.json` dependency graph monitored |
+| 자격증명 누출 | `.env` · `*.token` · `.copilot/credentials*` gitignore + gitleaks (push/PR) |
+| 외부 페이지 prompt injection | `*.go.kr/*` 요청만 자동 승인, **응답은 사람 검토** (`approveResponse: false`) |
+| 의도치 않은 전역 변경 | `scripts/setup.*` · Copilot CLI hooks가 동의 게이트 |
+| 무인 파괴 명령 | `Bypass Approvals` · `Autopilot` · `/yolo` 비활성, `preToolUse` 훅이 로그/차단 |
+| 임의 외부 도메인 호출 | `chat.agent.networkFilter` 화이트리스트 + 신규 도메인 명시 승인 |
+| 산출물 PII | `pii-mask` 스킬 의무 |
+| 의존성 취약점 | Dependabot · `pyproject.toml`/`package.json` 모니터링 |
 
-## Workspace-local Principle
+## Workspace-local
 
-All settings, credentials, and caches MUST stay inside this repository folder.
+모든 설정·자격증명·캐시는 저장소 폴더 안에 둡니다.
 
-| Asset | Location | Global? |
+| 자산 | 위치 | 전역은 |
 | --- | --- | --- |
-| Copilot CLI config | `.copilot/` (workspace) | `~/.copilot/` used only with consent |
-| MCP server definitions | `.vscode/mcp.json` | Global `mcp.json` MUST NOT be modified |
-| Prompts / skills / agents | `.github/prompts/`, `.agents/skills/`, `agents/` | User prompts folder is opt-in only |
-| Node packages | repo `node_modules/` | `npm install -g` only in setup, with consent |
-| Python environment | `.venv/` (uv) | `uv tool install --global` is opt-in |
-| Git config | `.git/config` | `git config --global` only with consent |
+| Copilot CLI | `.copilot/` | `~/.copilot/` 동의 시만 |
+| MCP 서버 | `.vscode/mcp.json` | 전역 `mcp.json` 수정 금지 |
+| 프롬프트·스킬·에이전트 | `.github/prompts/`, `.agents/skills/`, `agents/` | 사용자 prompts 폴더 옵트인 |
+| Node | repo `node_modules/` | `npm i -g` setup만, 동의 필요 |
+| Python | `.venv/` (uv) | `uv tool install --global` 옵트인 |
+| Git config | `.git/config` | `git config --global` 동의 시만 |
 
-## GitHub Actions Security
+## URL Auto-approval
 
-### Active workflows
+`.vscode/settings.json` `chat.tools.urls.autoApprove`:
 
-| Workflow | Trigger | Purpose |
-| --- | --- | --- |
-| `gitleaks.yml` | push to `main`, PRs | Scans entire git history for leaked secrets |
-| `lint.yml` | push to `main`, PRs | Validates YAML frontmatter and JSON syntax in agent/skill/prompt files |
+- `*.go.kr/*` — 요청 자동, **응답 매번 사람 검토**.
+- `docs.github.com`, `code.visualstudio.com`, `modelcontextprotocol.io` — 양쪽 자동.
+- `pastebin.com`, `*.ngrok.io` — 차단(`false`).
 
-### Hardening practices applied
+초기화: `Ctrl+Shift+P` → `Chat: Reset Tool Confirmations` · 검토: `Chat: Manage Tool Approval`.
 
-- `actions/checkout@v4` with `fetch-depth: 0` for full-history secret scanning.
-- `GITHUB_TOKEN` is the only secret injected into workflows; no long-lived personal access tokens.
-- No `pull_request_target` triggers (prevents fork-based privilege escalation).
-- No `workflow_dispatch` with unvalidated inputs.
-- Third-party Actions pinned to major version tags (`@v4`, `@v5`); review before bumping.
+## Credential Cleanup (auth-purge)
 
-### Recommended additions (not yet active)
-
-- **CodeQL default setup** — enable under *Settings → Advanced Security → CodeQL analysis* for JavaScript/TypeScript and Python scanning.
-- **Dependabot version updates** — add `.github/dependabot.yml` to keep `actions/` and `pip`/`uv` dependencies current.
-- **Secret scanning push protection** — enable under *Settings → Advanced Security → Secret Protection* to block commits containing known secret patterns.
-- **Branch protection on `main`** — require PR review + passing `gitleaks` and `lint` checks before merge.
-
-## URL Auto-approval Policy
-
-Defined in `.vscode/settings.json` under `chat.tools.urls.autoApprove`:
-
-- `*.go.kr/*` (government portals): **request auto-approved, response always reviewed by a human** — defends against user-generated content prompt injection.
-- `docs.github.com`, `code.visualstudio.com`, `modelcontextprotocol.io`: both directions auto-approved (trusted OSS documentation).
-- `pastebin.com`, `*.ngrok.io`, and similar: explicitly blocked (`false`).
-
-Reset all approvals: `Ctrl+Shift+P` → `Chat: Reset Tool Confirmations`.
-Review individual approvals: `Chat: Manage Tool Approval`.
-
-## Credential Cleanup
-
-Run interactively (non-interactive mode is intentionally disabled):
+대화형 실행만 허용(비대화형 차단):
 
 ```pwsh
-# Windows
 pwsh -File scripts/auth-purge.ps1
 ```
 
 ```zsh
-# macOS
 zsh scripts/auth-purge.sh
 ```
 
-Covers: `gh auth logout`, `.copilot/credentials*`, shell profile environment variable audit, Windows Credential Manager, macOS Keychain, NotebookLM CLI/MCP auth data.
+처리 항목: `gh auth logout`, `~/.copilot/credentials*` 및 워크스페이스 사본, 셸 프로파일 환경변수 점검(출력만), Windows Credential Manager, macOS Keychain `github.com`, NotebookLM CLI/MCP 인증 데이터.
 
 ## Copilot CLI Hooks
 
-`.github/hooks/copilot-cli-policy.json` registers:
+`.github/hooks/copilot-cli-policy.json`:
 
 | Hook | Action |
 | --- | --- |
-| `sessionStart` | Prints the policy banner |
-| `userPromptSubmitted` | Logs timestamp + cwd to `.github/hooks/logs/audit.jsonl` (gitignored) |
-| `preToolUse` | Logs by default (logging-first); blocks demo patterns only when `COPILOT_HOOKS_DENY_DEMO=1` is set |
+| `sessionStart` | 정책 배너 출력 |
+| `userPromptSubmitted` | 타임스탬프·cwd → `.github/hooks/logs/audit.jsonl` (gitignored) |
+| `preToolUse` | 기본 logging-first; `COPILOT_HOOKS_DENY_DEMO=1`일 때 데모 패턴 차단 |
 
-Default policy is **logging-first**. Harden deny patterns in `pre-tool-policy.{sh,ps1}` incrementally for production use.
+운영 환경은 `pre-tool-policy.{sh,ps1}`의 deny 패턴을 단계적으로 강화.
+
+## GitHub Actions
+
+| Workflow | Trigger | Purpose |
+| --- | --- | --- |
+| `gitleaks.yml` | push `main`, PRs | 전체 git 히스토리 시크릿 스캔 |
+| `lint.yml` | push `main`, PRs | YAML frontmatter · JSON 형식 검증 |
+
+Hardening:
+
+- `actions/checkout@v4` `fetch-depth: 0`.
+- 시크릿은 `GITHUB_TOKEN`만; 장기 PAT 미사용.
+- `pull_request_target` 미사용; `workflow_dispatch` 미검증 입력 미사용.
+- 외부 Action은 메이저 태그 핀 후 수동 검토 후 bump.
+
+권장(미적용): CodeQL default setup, Dependabot version updates, Secret scanning push protection, `main` branch protection(`gitleaks`/`lint` 통과 필수).
 
 ## Code Scanning Alerts
 
-This repository uses [gitleaks](https://github.com/gitleaks/gitleaks) for secret scanning on every push and PR.
-If CodeQL default setup is enabled, alerts will appear in *Security → Code scanning alerts*.
+gitleaks가 push/PR 단위로 시크릿 스캔. CodeQL이 활성화된 경우 *Security → Code scanning alerts*에 표시.
 
-Alert severity mapping (CodeQL):
-
-| Security severity | CVSS range | Action |
+| Severity | CVSS | Action |
 | --- | --- | --- |
-| Critical | 9.0–10.0 | Block PR merge; fix immediately |
-| High | 7.0–8.9 | Fix before next release |
-| Medium | 4.0–6.9 | Triage within 7 days |
-| Low | 0.1–3.9 | Address in backlog |
+| Critical | 9.0–10.0 | PR merge 차단, 즉시 수정 |
+| High | 7.0–8.9 | 다음 릴리스 전 수정 |
+| Medium | 4.0–6.9 | 7일 내 triage |
+| Low | 0.1–3.9 | 백로그 |
 
-Alerts labeled **Test** or **Library** may be dismissed after review. Alerts labeled **Generated** require human judgment.
-
-## Forbidden (always)
-
-- NEVER commit credentials, tokens, or API keys to any branch.
-- NEVER use `git push --force` on `main`.
-- NEVER disable `gitleaks` or `lint` workflows without a documented reason.
-- NEVER process PII outside the `pii-mask` skill boundary.
-- NEVER store masking keys on disk.
+`Test`/`Library` 라벨은 검토 후 dismiss 가능. `Generated` 라벨은 사람 판단 필요.

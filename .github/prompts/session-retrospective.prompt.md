@@ -1,11 +1,12 @@
 ---
 description: 세션 종료 시 회고 작성
 tools: [execute, read, edit, search]
+model: GPT-5.4 mini (copilot)
 ---
 
 # 회고 작성 (session-retrospective)
 
-목표: 이번 세션을 `회고/YYYY-MM-DD-<slug>.md`로 남긴다.
+목표: 이번 세션을 `회고/YYYY-MM-DD <slug>.md`로 남긴다.
 
 ## 입력
 

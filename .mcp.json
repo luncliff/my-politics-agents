@@ -3,12 +3,20 @@
     "notebooklm": {
       "type": "stdio",
       "command": "uvx",
-      "args": ["--from", "notebooklm-mcp-cli", "notebooklm-mcp"]
+      "args": [
+        "--from",
+        "notebooklm-mcp-cli",
+        "notebooklm-mcp"
+      ]
     },
     "legalize-kr": {
       "type": "stdio",
       "command": "uvx",
-      "args": ["--from", "legalize-cli[mcp]", "legalize-mcp"],
+      "args": [
+        "--from",
+        "legalize-cli[mcp]",
+        "legalize-mcp"
+      ],
       "env": {
         "GH_HOST": "github.com",
         "GITHUB_TOKEN": "${env:GITHUB_TOKEN}"

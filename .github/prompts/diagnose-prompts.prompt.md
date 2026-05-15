@@ -1,5 +1,6 @@
 ---
 description: "저장소 전체의 prompt, agent, tool 설정을 종합 점검하여 불일치를 보고합니다."
+model: GPT-5.4 (copilot)
 ---
 
 # Prompt·Agent·Tool 종합 진단

@@ -1,6 +1,7 @@
 ---
 description: 조례안 한 페이지 브리핑 작성
 tools: [read, search, web, legalize-kr/ordinances_get, legalize-kr/ordinances_list, legalize-kr/search, todo]
+model: GPT-5.4 mini (copilot)
 ---
 
 # 조례 브리핑 (ordinance-brief)
@@ -21,4 +22,4 @@ tools: [read, search, web, legalize-kr/ordinances_get, legalize-kr/ordinances_li
 5. 절차 일정 (입법예고 / 상임위 / 본회의)
 6. 출처 (원본 URL, 입안자, 회의록 링크)
 
-저장 경로: `보관함/결과/<slug>.md`
+저장 경로: `보관함/결과/<YYYY-MM-DD> <조례명> 브리핑.md`

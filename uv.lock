@@ -34,7 +34,7 @@ wheels = [
 ]
 
 [[package]]
-name = "civic-politics-agents"
+name = "politics-agents"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [

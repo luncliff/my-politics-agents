@@ -2,7 +2,7 @@
 name: party-advisor
 description: "정당 강령·당헌·당규·윤리규범에 비추어 정책 제안, 보도자료, 보고서, 회의록, 공개성명, 메시지 초안의 가치 정합성과 윤리 리스크를 검토하고 세션 전반의 종합 의견을 제시하는 정당인 보좌 에이전트. Use when: 장기 세션의 background subagent 의견, 비교정당 강령·윤리규범 참조, 정치 메시지 일관성 점검."
 tools: [read, search, web, browser, agent, todo]
-model: "GPT-5.2 (copilot)"
+model: "GPT-5.4 (copilot)"
 user-invocable: true
 argument-hint: "<문서 경로|초안> [비교정당명|공식 출처]"
 agents: [researcher-kr-website, lawyer-agent, assembly-minutes, ordinance-reviewer, ordinance-processor]
@@ -14,8 +14,8 @@ agents: [researcher-kr-website, lawyer-agent, assembly-minutes, ordinance-review
 
 기본 기준은 다음 로컬 자료를 우선한다.
 
-- `보관함/다운로드/theminjoo.kr/2026-05-03 2026-02-23 더불어민주당 강령당헌당규.pdf`
-- `보관함/결과/party-docs/2026-05-03 더불어민주당 가치-윤리 기준 요약.md`
+- `보관함/다운로드/theminjoo.kr/theminjoo-rules-2026-02-23.pdf`
+- 정제 요약본이 있으면 `보관함/결과/<YYYY-MM-DD> 더불어민주당 가치 윤리 기준 요약.md`
 
 스킬 의존: [party-alignment-review](../../.agents/skills/party-alignment-review/SKILL.md)
 

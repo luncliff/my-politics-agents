@@ -8,10 +8,10 @@ $loc = if (Test-Path "location.txt") {
 }
 
 $clones = @(
-    "data/legalize-kr",
-    "data/ordinance-kr",
-    "data/precedent-kr",
-    "data/admrule-kr"
+    "보관함/legalize-kr",
+    "보관함/ordinance-kr",
+    "보관함/precedent-kr",
+    "보관함/admrule-kr"
 )
 
 Write-Host ""

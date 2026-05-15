@@ -9,9 +9,9 @@ done
 export DRY_RUN
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-. "$SCRIPT_DIR/lib/common.sh"
+. "$SCRIPT_DIR/common.sh"
 
-info "my-politics-agents auth-purge"
+info "politics-agents auth-purge"
 warn "이 스크립트는 자격증명을 삭제할 수 있습니다. 각 단계는 별도 확인을 받습니다."
 
 if confirm "gh CLI 로그아웃 (github.com)?"; then
