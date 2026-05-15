@@ -38,8 +38,8 @@ license: CC BY 4.0
 - 스크립트: [scripts/fetch_nemotron_personas.ps1](../scripts/fetch_nemotron_personas.ps1)
 - VS Code Task: `civic: fetch nemotron personas (dry-run|download)`,
   `civic: sample nemotron panel (national 600|local from location.txt)`
-- 스킬: [.agents/skills/persona-perspective-review/SKILL.md](../.agents/skills/persona-perspective-review/SKILL.md)
-- 에이전트: [.github/agents/civic-persona-panel.agent.md](../.github/agents/civic-persona-panel.agent.md)
+- 스킬: [.agents/skills/review-persona/SKILL.md](../.agents/skills/review-persona/SKILL.md)
+- 에이전트: [.github/agents/persona-panel.agent.md](../.github/agents/persona-panel.agent.md)
 - 프롬프트: [.github/prompts/persona-review.prompt.md](../.github/prompts/persona-review.prompt.md)
 
 ## 정책 (본 저장소)

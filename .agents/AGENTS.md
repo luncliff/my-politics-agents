@@ -4,7 +4,7 @@ Scope: `.agents/` 내 skill·agent 정의. 공통 규약은 [/AGENTS.md](../AGEN
 
 ## 구성
 
-- `skills/<verb-noun>/SKILL.md` — 재사용 가능한 작업 단위 (예: `pii-mask`, `retrospective-writer`).
+- `skills/<verb-noun>/SKILL.md` — 재사용 가능한 작업 단위 (예: `mask-pii`, `write-retro`).
 - 에이전트 정의는 채널별 폴더(`.github/agents/`, `.codex/agents/`, `.claude/agents/`)에 분산.
 
 ## 추가 기준
@@ -24,4 +24,4 @@ Scope: `.agents/` 내 skill·agent 정의. 공통 규약은 [/AGENTS.md](../AGEN
 
 ## 회고 의무
 
-세션 종료 시 `retrospective-writer` 스킬 또는 `/retro` 명령을 호출. 자세한 절차는 해당 SKILL.md 참고.
+세션 종료 시 `write-retro` 스킬 또는 `/retro` 명령을 호출. 자세한 절차는 해당 SKILL.md 참고.

@@ -48,8 +48,8 @@ updated: YYYY-MM-DD HH:MM
 ## 진행 중
 
 - [ ] <목표 1>
-  - [x] 단계 A — agent: researcher, 완료 2026-05-14 10:30
-  - [ ] 단계 B — skill: local-ordinance-processor
+  - [x] 단계 A — agent: gov-researcher, 완료 2026-05-14 10:30
+  - [ ] 단계 B — skill: collect-ordinance
 
 ## 완료 이력
 

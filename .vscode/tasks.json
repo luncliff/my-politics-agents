@@ -95,7 +95,7 @@
       "problemMatcher": []
     },
     {
-      "label": "civic: search night care",
+      "label": "civic: find night clinic",
       "type": "shell",
       "command": "copilot",
       "args": [
@@ -104,7 +104,7 @@
         "--add-dir",
         "${workspaceFolder}",
         "--prompt",
-        "/search-night-care with current location.txt"
+        "/find-night-clinic with current location.txt"
       ]
     },
     {
