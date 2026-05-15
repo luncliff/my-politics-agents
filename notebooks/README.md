@@ -1,96 +1,67 @@
 # notebooks/
 
-NotebookLM 업로드 묶음을 슬러그별로 둡니다.
-
-```
-notebooks/
-  <slug>/
-    manifest.yml      # 아래 스키마
-    cover.md          # (선택) 노트북 표지/소개
-```
-
-예시: [`shared-notebooks.json`](shared-notebooks.json).
-
-## 동기화 흐름
-
-```
-보관함/결과/*.md  ──►  notebooks/<slug>/manifest.yml
-                          │
-                          ▼
-                    nlm CLI / notebooklm MCP
-                          │
-                          ▼
-                  공개 NotebookLM 노트북
-                  (Audio Overview / Q&A)
-```
-
-1. `보관함/결과/` 아래에서 노트북에 올릴 문서를 선정한다.
-2. `notebooks/<slug>/manifest.yml`로 묶음을 정의한다.
-3. `nlm` CLI 또는 `notebooklm` MCP 클라이언트로 동기화한다.
-4. 변경분만 업로드되며, 결과는 회고에 기록된다.
-
-## 운영 규칙
-
-- 노트북 1개 = 주제 1개. 폭이 넓어지면 분리한다.
-- `update_policy: replace`가 기본. `append`는 시리즈 글에만 사용한다.
-- 비공개로 시작 → 사실 검증 후 공개로 전환을 권장한다.
-
-## manifest.yml 스키마
-
-### 필수 필드
-
-| 필드 | 타입 | 설명 |
-| --- | --- | --- |
-| `title` | string | 노트북 제목 |
-| `sources` | array | 업로드할 소스 목록 (1개 이상) |
-| `sources[].path` | string (workspace-relative) | 업로드할 파일 경로 (`보관함/결과/...` 권장) |
-
-### 선택 필드
-
-| 필드 | 타입 | 기본값 | 설명 |
-| --- | --- | --- | --- |
-| `notebook_id` | string | (없음) | 최초 업로드 후 publisher가 채워줍니다 |
-| `update_policy` | enum | `replace` | `replace` \| `append` |
-| `visibility` | enum | `private` | `public` \| `unlisted` \| `private` |
-| `language` | string | `ko` | BCP-47 (`ko`, `en` 등) |
-| `tags` | string[] | `[]` | 분류용 |
-| `sources[].citation` | string (URL) | (없음) | 원본 출처 — 정제본 frontmatter `source_url`과 일치해야 함 |
-| `sources[].title` | string | 파일 제목에서 유추 | 노트북에 보일 제목 |
-| `sources[].pinned` | boolean | `false` | 노트북 상단 고정 여부 |
-
-### 예시
-
-```yaml
-notebook_id: ""
-title: "OO시 2026 본예산 분석"
-update_policy: replace
-visibility: public
-language: ko
-tags: [예산, OO시, 2026]
-
-sources:
-  - path: 보관함/결과/budget/2026-overview.md
-    citation: https://www.oo.go.kr/budget/2026
-    title: "2026 본예산 개요"
-    pinned: true
-  - path: 보관함/결과/budget/2026-debates.md
-    citation: https://www.oo.go.kr/council/minutes/2026-budget
-    title: "예산 심의 회의록 요약"
-```
-
-### 검증 규칙
-
-- `sources[].path`는 워크스페이스 안이어야 하고, 실제로 존재해야 한다.
-- `sources[].citation`은 HTTPS URL이어야 한다.
-- 정제본 Markdown frontmatter `source_url`과 manifest `citation`이 일치해야 한다(불일치 시 동기화 차단).
-- `update_policy: replace`인 경우 노트북의 기존 소스는 모두 새 목록으로 대체된다.
+- [shared-notebooks.json](shared-notebooks.json)에 등록된 공유 노트북 목록입니다.
+- [notebooklm-mcp-cli]: https://github.com/jacob-bd/notebooklm-mcp-cli
 
 ## MCP 서버
 
 저장소는 mock publisher를 두지 않고 외부 NotebookLM CLI/MCP를 직접 사용합니다.
 
-- VS Code / Copilot Chat MCP: `.vscode/mcp.json`의 `notebooklm`
-- CLI: `uvx --from notebooklm-mcp-cli nlm --help`
-- 최초 인증: `uvx --from notebooklm-mcp-cli nlm login`
+`.vscode/mcp.json` 설정 (서버 이름: `notebooklm`):
 
-[notebooklm-mcp-cli]: https://github.com/jacob-bd/notebooklm-mcp-cli
+```json
+{
+  "type": "stdio",
+  "command": "uvx",
+  "args": ["--from", "notebooklm-mcp-cli", "notebooklm-mcp"]
+}
+```
+
+- MCP 서버 바이너리: `notebooklm-mcp` (VS Code Copilot Chat 연동)
+- CLI 바이너리: `nlm` (터미널 직접 사용)
+  - `uvx --from notebooklm-mcp-cli nlm --help`
+  - 최초 인증: `uvx --from notebooklm-mcp-cli nlm login`
+  - VS Code Task: **civic: notebooklm login** / **civic: notebooklm doctor**
+
+> 두 바이너리 모두 같은 패키지 `notebooklm-mcp-cli`에서 설치됩니다.
+> `pyproject.toml` 의존성 불필요 — `uvx`가 실행 시 자동 설치합니다.
+
+## 노트북 목록 조회 절차
+
+NotebookLM에 접근하려면 Google 계정 인증이 필요합니다. 아래 순서로 진행합니다.
+
+### 1단계: 인증 (`nlm login`)
+
+```pwsh
+uvx --from notebooklm-mcp-cli nlm login
+```
+
+또는 VS Code Task: **civic: notebooklm login**
+
+- 브라우저가 열리면 Google 계정으로 로그인합니다.
+- 인증 토큰이 로컬에 저장됩니다 (`~/.config/notebooklm-mcp-cli/` 또는 동등 경로).
+- 계정을 전환할 때는 `nlm login switch <profile>`을 사용합니다.
+
+### 2단계: 연결 확인 (`nlm doctor`)
+
+```pwsh
+uvx --from notebooklm-mcp-cli nlm doctor
+```
+
+또는 VS Code Task: **civic: notebooklm doctor**
+
+- 인증 상태와 MCP 서버 연결을 진단합니다.
+
+### 3단계: 노트북 목록 조회 (`nlm notebook list`)
+
+```pwsh
+uvx --from notebooklm-mcp-cli nlm notebook list
+```
+
+또는 VS Code Task: **civic: notebooklm notebook list**
+
+- 인증된 Google 계정에서 접근 가능한 노트북 목록을 반환합니다.
+- 출력된 `notebook_id`를 [shared-notebooks.json](shared-notebooks.json)에 등록해 관리합니다.
+
+> 인증 오류 시: `nlm login`을 재실행하거나, MCP 서버에서 `mcp_notebooklm_refresh_auth` 도구를 호출합니다.
+
