@@ -39,9 +39,9 @@
 - [x] `archive_fetch` 회귀 테스트 추가 (날짜 접두어 미사용 검증)
 - [x] `AGENTS.md` 아카이브 명명 규칙 갱신
 - [x] `gokr-fetch` 스킬 규칙 갱신
-- [x] `researcher-kr-website` 에이전트 저장 규칙 갱신
-- [x] `collect-site` 프롬프트 저장 규칙 갱신
-- [x] 관련 스킬(`local-ordinance-processor`, `legal-data-retrieval`) 저장 규칙 갱신
+- [x] `gov-researcher` 에이전트 저장 규칙 갱신
+- [x] `collect` 프롬프트 저장 규칙 갱신
+- [x] 관련 스킬(`collect-ordinance`, `legal-data-retrieval`) 저장 규칙 갱신
 - [x] `.gitignore`에서 `.meta.json` 추적 가능하도록 조정
 - [ ] `archive_cite`가 원본 파일 없이 `.meta.json`만으로도 동작하도록 옵션 확장
 - [ ] `.meta.json` 기준 시간순 인덱스 생성 스크립트 추가 (`보관함/결과/...`)

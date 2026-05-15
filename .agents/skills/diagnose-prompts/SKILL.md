@@ -42,7 +42,7 @@ description: 저장소 전체의 prompt, agent instructions, tool configuration,
 
 - skill 이름이 verb-noun 규칙을 따르는지 (신규 skill 대상)
 - agent 이름이 역할 noun인지
-- 채널 간 같은 agent의 이름 대응이 맞는지 (예: Claude `lawyer` = Copilot `lawyer-agent` = Codex `lawyer-agent`)
+- 채널 간 같은 agent의 이름 대응이 맞는지 (예: Claude `lawyer` = Copilot `lawyer` = Codex `lawyer`)
 
 ### 2. 채널 간 agent 정의 정합성
 

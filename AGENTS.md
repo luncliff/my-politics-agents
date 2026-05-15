@@ -41,7 +41,7 @@ Korean local-politics information pipeline: **collect → process → publish**,
 
 ### PII
 
-- MUST run `pii-mask` skill before saving or sharing any text that may contain PII.
+- MUST run `mask-pii` skill before saving or sharing any text that may contain PII.
 - NEVER persist masking keys to disk (memory only).
 - Originals stay in `보관함/다운로드/` for personal review only — NEVER share.
 
@@ -97,7 +97,7 @@ When unsure, treat as **redistribution forbidden** — summarize and analyze onl
 
 ### Session end (mandatory retro)
 
-Call `retrospective-writer` skill (Copilot/Codex) or `/retro` (Claude Code). Save to `회고/YYYY-MM-DD <slug>.md`:
+Call `write-retro` skill (Copilot/Codex) or `/retro` (Claude Code). Save to `회고/YYYY-MM-DD <slug>.md`:
 
 - Tried / worked / blocked.
 - New sites · formats · policies discovered.

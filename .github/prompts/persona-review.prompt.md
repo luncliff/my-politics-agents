@@ -2,12 +2,12 @@
 description: 합성 시민 페르소나 패널로 정책·계획 초안을 시점별로 검토
 argument-hint: "<대상 문서 경로|붙여넣은 초안> [national|local|both] [N]"
 tools: [read, search, edit, agent]
-model: Claude Sonnet 4.6 (copilot)
+model: GPT-5.4 (copilot)
 ---
 
 # /persona-review
 
-`persona-perspective-review` 스킬을 호출해, 입력 문서를 Nemotron-Personas-Korea 기반
+`review-persona` 스킬을 호출해, 입력 문서를 Nemotron-Personas-Korea 기반
 패널에 적용한 시민 시점 시뮬레이션과 종합 리뷰를 만든다.
 
 ## 인자
@@ -36,7 +36,7 @@ uv run python -m nemotron_personas.sampler --panel local --size 300
 
 ## 절차
 
-1. `civic-persona-panel` 에이전트(또는 `persona-perspective-review` 스킬)를 호출한다.
+1. `persona-panel` 에이전트(또는 `review-persona` 스킬)를 호출한다.
 2. 패널에서 N명을 무작위로 추출(시드 미지정 시 매 실행마다 다른 표본). 서브에이전트로 4 항목 응답 생성.
 3. 산출물 저장:
        - 종합: `보관함/결과/<YYYY-MM-DD> <slug>.md`

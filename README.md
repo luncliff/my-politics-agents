@@ -50,7 +50,7 @@ copilot --continue
 자주 쓰는 호출:
 
 ```pwsh
-copilot --model=auto --allow-all-urls --add-dir . --prompt "/search-night-care with current location.txt"
+copilot --model=auto --allow-all-urls --add-dir . --prompt "/find-night-clinic with current location.txt"
 ```
 
 ### Use with Codex CLI
@@ -60,12 +60,12 @@ copilot --model=auto --allow-all-urls --add-dir . --prompt "/search-night-care w
 1. 저장소 루트에서 Codex 세션을 시작합니다(워크스페이스 트러스트 필수).
 2. 첫 응답에서 [AGENTS.md](AGENTS.md)의 규칙(특히 citation·PII·destructive command 가드)을 따르는지 확인합니다.
 3. MCP 서버는 `.vscode/mcp.json` 정의를 그대로 사용하므로 Codex 측 자격증명만 별도 점검합니다.
-4. 세션 종료 직전 `retrospective-writer` 스킬을 호출해 회고를 남깁니다.
+4. 세션 종료 직전 `write-retro` 스킬을 호출해 회고를 남깁니다.
 
 ### Use with Claude Code
 
-- Subagents: `.claude/agents/*.md` (lawyer, ordinance, researcher, persona-panel, minutes)
-- Slash commands: `.claude/commands/*.md` (`/retro`, `/brief`, `/persona-review`, `/collect`, `/health`, `/diagnose-prompts`)
+- Subagents: `.claude/agents/*.md` (lawyer, ordinance, gov-researcher, persona-panel, minutes, party-advisor)
+- Slash commands: `.claude/commands/*.md` (`/retro`, `/brief`, `/persona-review`, `/collect`, `/health`, `/diagnose-prompts`, `/improve-harness`, `/track-goals`)
 - Hooks: `.claude/settings.json` (SessionStart, Stop, PreToolUse Bash 가드)
 - MCP: `.mcp.json`
 

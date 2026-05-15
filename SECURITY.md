@@ -14,7 +14,7 @@
 - 자격증명·토큰·API 키 커밋 금지(어느 브랜치도).
 - `main`에 `git push --force` 금지.
 - `gitleaks` · `lint` 워크플로 비활성화 금지.
-- `pii-mask` 스킬 외부에서 PII 처리 금지.
+- `mask-pii` 스킬 외부에서 PII 처리 금지.
 - 마스킹 키 디스크 저장 금지.
 
 ## Threat Model
@@ -26,7 +26,7 @@
 | 의도치 않은 전역 변경 | `scripts/setup.*` · Copilot CLI hooks가 동의 게이트 |
 | 무인 파괴 명령 | `Bypass Approvals` · `Autopilot` · `/yolo` 비활성, `preToolUse` 훅이 로그/차단 |
 | 임의 외부 도메인 호출 | `chat.agent.networkFilter` 화이트리스트 + 신규 도메인 명시 승인 |
-| 산출물 PII | `pii-mask` 스킬 의무 |
+| 산출물 PII | `mask-pii` 스킬 의무 |
 | 의존성 취약점 | Dependabot · `pyproject.toml`/`package.json` 모니터링 |
 
 ## Workspace-local

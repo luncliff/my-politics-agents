@@ -1,5 +1,6 @@
 ---
 description: "세션 목표를 선언하거나 기존 목표 진행 상태를 확인합니다."
+model: GPT-5.4 mini (copilot)
 ---
 
 # 세션 목표 추적

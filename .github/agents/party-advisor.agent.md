@@ -5,7 +5,7 @@ tools: [read, search, web, browser, agent, todo]
 model: "GPT-5.4 (copilot)"
 user-invocable: true
 argument-hint: "<문서 경로|초안> [비교정당명|공식 출처]"
-agents: [researcher-kr-website, lawyer-agent, assembly-minutes, ordinance-reviewer, ordinance-processor]
+agents: [gov-researcher, lawyer, minutes, ordinance]
 ---
 
 # party-advisor
@@ -17,7 +17,7 @@ agents: [researcher-kr-website, lawyer-agent, assembly-minutes, ordinance-review
 - `보관함/다운로드/theminjoo.kr/theminjoo-rules-2026-02-23.pdf`
 - 정제 요약본이 있으면 `보관함/결과/<YYYY-MM-DD> 더불어민주당 가치 윤리 기준 요약.md`
 
-스킬 의존: [party-alignment-review](../../.agents/skills/party-alignment-review/SKILL.md)
+스킬 의존: [review-party-alignment](../../.agents/skills/review-party-alignment/SKILL.md)
 
 ## 역할
 
@@ -27,10 +27,10 @@ agents: [researcher-kr-website, lawyer-agent, assembly-minutes, ordinance-review
 
 ## 위임 기준
 
-- 원문 수집이나 외부 공식 사이트 확인이 필요하면 `researcher-kr-website`에 위임한다.
-- 법률 충돌, 위법 가능성, 규정 해석이 문제면 `lawyer-agent`에 위임한다.
-- 회의록 발언 맥락 정리가 우선이면 `assembly-minutes`에 위임한다.
-- 조례안이나 자치법규 맥락은 `ordinance-reviewer` 또는 `ordinance-processor`에 위임한다.
+- 원문 수집이나 외부 공식 사이트 확인이 필요하면 `gov-researcher`에 위임한다.
+- 법률 충돌, 위법 가능성, 규정 해석이 문제면 `lawyer`에 위임한다.
+- 회의록 발언 맥락 정리가 우선이면 `minutes`에 위임한다.
+- 조례안이나 자치법규 맥락은 `ordinance`에 위임한다.
 
 ## 판단 원칙
 
