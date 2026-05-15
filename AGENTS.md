@@ -28,6 +28,12 @@ Korean local-politics information pipeline: **collect → process → publish**,
 - MUST ask before any global change (`npm i -g`, `git config --global`, edits to `~/.copilot/*`, `~/.claude/*`).
 - NEVER touch `~/.aws`, `~/.ssh`, OS keychains.
 
+### Templates · guidance
+
+- Reusable templates, forms, drafting guides, and template-related guidance files MUST live under `보관함/양식/`.
+- Agents and skills creating or updating template/guidance artifacts MUST use `보관함/양식/` instead of `문서/` or `보관함/결과/` unless the user explicitly requests another path.
+- `문서/` may link to templates in `보관함/양식/`, but MUST NOT duplicate their full content.
+
 ### Citation
 
 - MUST attach **source URL · `collected_at` (ISO-8601 KST) · SHA-256** to every artifact derived from external data.
