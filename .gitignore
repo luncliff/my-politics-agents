@@ -14,16 +14,16 @@
 !.github/hooks/logs/.gitkeep
 
 # --- 수집 산출물 (대용량) ---
-archive/raw/**
-!archive/raw/**/*.meta.json
-!archive/raw/**/README.md
-!archive/raw/.gitkeep
-archive/processed/**
-!archive/processed/.gitkeep
-!archive/processed/**/*.md
-!archive/processed/**/*.jsonl
-# Nemotron-Personas-Korea: parquet 원본은 절대 커밋하지 않음 (CC BY 4.0, 약 2GB)
-archive/raw/huggingface.co/datasets/nvidia/Nemotron-Personas-Korea/**/*.parquet
+보관함/다운로드/**
+!보관함/다운로드/**/*.meta.json
+!보관함/다운로드/**/README.md
+!보관함/다운로드/.gitkeep
+보관함/결과/**
+!보관함/결과/.gitkeep
+!보관함/결과/**/*.md
+!보관함/결과/**/*.jsonl
+# Nemotron-Personas-Korea: AGENTS.md 예외 규칙처럼 원본 식별용 서비스 경로는 영문 유지, parquet 원본은 커밋 금지
+보관함/다운로드/huggingface.co/datasets/nvidia/Nemotron-Personas-Korea/**/*.parquet
 
 # --- 외부 데이터 저장소 ---
 data/legalize-kr/
@@ -54,6 +54,9 @@ build/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# --- 세션 로컬 상태 ---
+.goals/
 
 # --- 기타 임시 ---
 *.tmp

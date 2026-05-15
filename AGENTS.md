@@ -19,7 +19,8 @@ Build a trusted information pipeline for Korean local politics:
 ### Citation
 
 - MUST include **source URL · collected_at (ISO-8601 KST) · SHA-256** in every artifact derived from external data.
-- MUST preserve originals under `archive/raw/<host>/` (immutable).
+- MUST preserve originals under `보관함/다운로드/<host>/` (immutable).
+- Machine-derived source path segments such as hostnames or upstream dataset identifiers MAY remain in their original language/script under `보관함/다운로드/`.
 - Track time order via `.meta.json` `collected_at`. Do NOT prefix filenames with dates.
 
 ### Licensing
@@ -37,7 +38,7 @@ When unsure, MUST treat as **redistribution forbidden** — summarize and analyz
 
 - MUST run `pii-mask` skill before saving or sharing any text that may contain PII (name · phone · RRN · address · email).
 - NEVER persist masking keys to disk (memory only).
-- Originals stay in `archive/raw/` for personal review only — NEVER share.
+- Originals stay in `보관함/다운로드/` for personal review only — NEVER share.
 
 ### Political neutrality
 
@@ -67,14 +68,14 @@ Channel-specific startup:
 
 ### During the session
 
-- For any new site or format, preserve the original in `archive/raw/` first.
+- For any new site or format, preserve the original in `보관함/다운로드/` first.
 - If the same task happens twice, log it as a **skill candidate** in the retro.
 - If a domain persona appears twice, log it as an **agent candidate**.
 
 ### Session end (mandatory retro)
 
 Call the `retrospective-writer` skill (Copilot/Codex) or `/retro` command (Claude Code).
-Save to `retrospectives/YYYY-MM-DD <slug>.md`:
+Save to `회고/YYYY-MM-DD <slug>.md`:
 
 - What was tried · what worked · what blocked.
 - New sites · formats · policies discovered.
@@ -85,13 +86,15 @@ Save to `retrospectives/YYYY-MM-DD <slug>.md`:
 
 ### File naming
 
-- MUST use **Korean filenames** for user-facing generated Korean documents under `archive/processed/`, `data/processed/`, `notebooks/`, `retrospectives/`, and similar artifact folders.
+- MUST use **Korean filenames** for user-facing generated Korean documents under `보관함/결과/`, `보관함/양식/`, `data/processed/`, `notebooks/`, `회고/`, and similar artifact folders.
 - MUST use `<YYYY-MM> <한글 파일명>.md` as the default filename shape for processed Korean Markdown unless a narrower instruction explicitly overrides it.
 - Use Korean filename for human readers. Use English for machine files (code, metadata, logs, tool configurations).
+- Source-derived machine path segments under `보관함/다운로드/` are exempt from the Korean filename rule.
 
 ### File organization
 
-- MUST keep `archive/processed/` **flat**. Do NOT create topic subfolders.
+- MUST keep default user-facing reports in `보관함/결과/` **flat** (no topic subfolders).
+- MAY use subfolders under `보관함/결과/` only when an existing repo rule or skill explicitly requires structured machine-readable grouping (for example dataset, panel, legal-review, or timeline paths).
 - MAY use subfolders in other artifact trees only when an existing repo rule explicitly requires them.
 
 ### Processed Markdown
@@ -153,108 +156,22 @@ When querying `data/ordinance-kr/` or `legalize-kr` MCP `ordinances_*`:
 3. IDE built-ins (Copilot: `#fetch`, `#problems`; Claude Code: `WebFetch`, `Glob`, `Grep`).
 4. Terminal / Bash — only pre-approved patterns may run unattended.
 
-## Architecture
-
-```
-Copilot CLI / VS Code Chat / Codex CLI / Claude Code CLI
-                    │
-        agents/*  +  skills/*  +  commands/*
-                    │
-            MCP servers (legalize-kr, notebooklm)
-                    │
-    archive/raw → archive/processed → notebooks/<slug> → NotebookLM
-```
-
-| Path | Responsibility |
-| --- | --- |
-| `.github/agents/` | Domain personas (Copilot). |
-| `.codex/agents/` | Domain personas (Codex CLI). |
-| `.claude/agents/` | Domain personas (Claude Code subagents). |
-| `.agents/skills/` | Single-purpose reusable tasks (all channels). |
-| `.github/prompts/` | Prompt templates (Copilot). |
-| `.claude/commands/` | Slash commands (Claude Code). |
-| `.github/hooks/` | Copilot CLI policy · logging. |
-| `.claude/settings.json` | Claude Code hooks · env · plugins. |
-| `.codex/config.toml` | Codex CLI MCP · model config. |
-| `.vscode/` | IDE settings · tasks · MCP · toolsets. |
-| `scripts/` | Setup · auth purge · hook scripts. |
-| `adapters/` | Per-site collectors (JS/Py). |
-| `archive/` | Originals + processed. |
-| `notebooks/` | NotebookLM bundles. |
-| `retrospectives/` | Cumulative session retros. |
-| `data/{legalize,precedent,admrule,ordinance}-kr/` | Shallow clones of legal data. |
-
-Stack: **Node 24 LTS**, **Python 3.12+ (uv)**. JVM 11+ only when using `opendataloader-pdf`.
-
-## Channel-Specific Reference
-
-### GitHub Copilot CLI / VS Code Chat
-
-- Agent definitions: `.github/agents/*.agent.md`
-- Prompt templates: `.github/prompts/*.prompt.md`
-- Hooks: `.github/hooks/copilot-cli-policy.json`
-- Tool gating: `.vscode/settings.json` `chat.tools.terminal.autoApprove`
-- MCP: `.vscode/mcp.json`
-- See also: [.github/copilot-instructions.md](.github/copilot-instructions.md)
-
-### OpenAI Codex CLI
-
-- Agent definitions: `.codex/agents/*.toml`
-- MCP config: `.codex/config.toml`
-
-### Claude Code CLI
-
-- Subagents: `.claude/agents/*.md` (lawyer, ordinance, researcher, persona-panel, minutes)
-- Slash commands: `.claude/commands/*.md` (/retro, /brief, /persona-review, /collect, /health, /add-skill, /add-agent, /publish-notebook)
-- Hooks in `.claude/settings.json`:
-  - **SessionStart** → `scripts/session-start.ps1` (region + clone status banner)
-  - **Stop** → `scripts/session-stop.ps1` (retro reminder)
-  - **PreToolUse(Bash)** → `scripts/pre-tool-bash.ps1` (destructive command blocker)
-- MCP: `.mcp.json`
-- Env: Bedrock backend, Agent Teams, 10-min timeout
-
-## Agents (all channels)
-
-| Name | Role | Copilot | Codex | Claude Code |
-| --- | --- | --- | --- | --- |
-| assembly-minutes | 회의록 정리 (사실/표결/쟁점 분리) | ✅ | ✅ | `minutes` |
-| civic-persona-panel | 합성 시민 패널 시뮬레이션 | ✅ | ✅ | `persona-panel` |
-| lawyer-agent | 법령·판례·행정규칙 검토 | ✅ | ✅ | `lawyer` |
-| ordinance-processor | 조례 수집·분류 | ✅ | ✅ | `ordinance` |
-| ordinance-reviewer | 조례 브리핑 작성 | ✅ | ✅ | `ordinance` |
-| party-advisor | 정당 플랫폼 정합성 검토 | ✅ | ✅ | — |
-| researcher-kr-website | 정부·공공 웹사이트 조사 | ✅ | ✅ | `researcher` |
-
-## Skills (all channels)
-
-| Skill | Purpose |
-| --- | --- |
-| local-budget-tracker | Municipal budget tracking by 編成目 |
-| local-fund-manager | Memory-driven fund portfolio tracking (기금) |
-| local-ordinance-processor | Ordinance 3-tier validation + semantic categorization |
-| local-timeline-manager | Annual admin/legislative timeline |
-| local-transport-tracker | Bus transit data aggregation |
-| party-alignment-review | Party platform consistency check |
-| persona-perspective-review | Synthetic citizen panel simulation |
-| pii-mask | Korean PII anonymization |
-| retrospective-writer | Session post-work documentation |
-| search-night-care | Night-time hospital accessibility research |
-| vscode-task-author | VS Code task entry creation |
-
 ## Forbidden
 
-- NEVER modify or delete files in `archive/raw/`.
+- NEVER modify or delete files in `보관함/다운로드/`.
 - NEVER include credentials or tokens in chat · logs · commits · artifacts.
 - NEVER violate `robots.txt` or ignore rate limits.
 - NEVER make assertions without a citation.
 
 ## Disputes · takedowns
 
-- Process deletion requests within 24 hours and restrict access to the matching `archive/raw/` entry.
-- Record only facts in `retrospectives/`.
+- Process deletion requests within 24 hours and restrict access to the matching `보관함/다운로드/` entry.
+- Record only facts in `회고/`.
 
 ## See also
 
-- [.github/copilot-instructions.md](.github/copilot-instructions.md) — VS Code Chat specifics.
-- [docs/security.md](docs/security.md) — security model · credentials.
-- [docs/references-nemotron-personas.md](docs/references-nemotron-personas.md) — synthetic citizen personas (CC BY 4.0).
+- [docs/dev/architecture.md](docs/dev/architecture.md) — directory map, agents/skills lists, stack.
+- [docs/dev/channels.md](docs/dev/channels.md) — channel-specific configuration (Copilot / Codex / Claude Code).
+- [docs/dev/security.md](docs/dev/security.md) — security model · credentials.
+- [docs/references/](docs/references/) — LLM-friendly reference documents.
+- [.agents/CONVENTIONS.md](.agents/CONVENTIONS.md) — naming rules (verb-noun skills, noun agents).

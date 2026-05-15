@@ -37,14 +37,14 @@ def test_ensure_within_blocks_traversal(tmp_path):
         raise AssertionError("expected ValueError for traversal")
 
 
-def test_archive_root_has_archive_segment():
-    assert "archive" in str(archive_raw_root())
+def test_storage_root_uses_korean_path():
+    assert "보관함" in str(archive_raw_root())
 
 
 def test_archive_search_finds_korean_text_in_utf8_source(monkeypatch, tmp_path):
     monkeypatch.setenv("CIVIC_REPO_ROOT", str(tmp_path))
 
-    host_dir = tmp_path / "archive" / "raw" / "example.go.kr"
+    host_dir = tmp_path / "보관함" / "다운로드" / "example.go.kr"
     host_dir.mkdir(parents=True)
     source = host_dir / "2026-05-02 utf8.txt"
     source.write_text("한글 UTF-8 검색", encoding="utf-8")
@@ -58,7 +58,7 @@ def test_archive_search_finds_korean_text_in_utf8_source(monkeypatch, tmp_path):
 def test_archive_search_finds_korean_text_in_cp949_source(monkeypatch, tmp_path):
     monkeypatch.setenv("CIVIC_REPO_ROOT", str(tmp_path))
 
-    host_dir = tmp_path / "archive" / "raw" / "example.go.kr"
+    host_dir = tmp_path / "보관함" / "다운로드" / "example.go.kr"
     host_dir.mkdir(parents=True)
     source = host_dir / "2026-05-02 sample.txt"
     source.write_bytes("한글 원문 검색".encode("cp949"))
@@ -287,15 +287,15 @@ def test_archive_fetch_downloads_links_from_html(monkeypatch, tmp_path):
         "report.pdf",
         "notice.hwpx",
     }
-    pdf_file = tmp_path / "archive" / "raw" / "example.go.kr" / "report.pdf"
-    hwpx_file = tmp_path / "archive" / "raw" / "example.go.kr" / "notice.hwpx"
+    pdf_file = tmp_path / "보관함" / "다운로드" / "example.go.kr" / "report.pdf"
+    hwpx_file = tmp_path / "보관함" / "다운로드" / "example.go.kr" / "notice.hwpx"
     assert pdf_file.read_bytes() == b"%PDF-1.4"
     assert hwpx_file.read_bytes() == _hwpx_bytes
 
 
 def test_archive_convert_docx(monkeypatch, tmp_path):
     monkeypatch.setenv("CIVIC_REPO_ROOT", str(tmp_path))
-    src = tmp_path / "archive" / "raw" / "example.go.kr" / "sample.docx"
+    src = tmp_path / "보관함" / "다운로드" / "example.go.kr" / "sample.docx"
     src.parent.mkdir(parents=True, exist_ok=True)
     src.write_bytes(_generate_docx_bytes("DOCX 테스트 문장"))
 
@@ -309,7 +309,7 @@ def test_archive_convert_docx(monkeypatch, tmp_path):
 
 def test_archive_convert_hwpx(monkeypatch, tmp_path):
     monkeypatch.setenv("CIVIC_REPO_ROOT", str(tmp_path))
-    src = tmp_path / "archive" / "raw" / "example.go.kr" / "sample.hwpx"
+    src = tmp_path / "보관함" / "다운로드" / "example.go.kr" / "sample.hwpx"
     src.parent.mkdir(parents=True, exist_ok=True)
     src.write_bytes(_generate_hwpx_bytes("HWPX 테스트 문장"))
 
@@ -323,7 +323,7 @@ def test_archive_convert_hwpx(monkeypatch, tmp_path):
 
 def test_archive_convert_pdf(monkeypatch, tmp_path):
     monkeypatch.setenv("CIVIC_REPO_ROOT", str(tmp_path))
-    src = tmp_path / "archive" / "raw" / "example.go.kr" / "sample.pdf"
+    src = tmp_path / "보관함" / "다운로드" / "example.go.kr" / "sample.pdf"
     src.parent.mkdir(parents=True, exist_ok=True)
     src.write_bytes(b"dummy-pdf-bytes")
 
@@ -341,7 +341,7 @@ def test_archive_convert_pdf(monkeypatch, tmp_path):
 
 def test_archive_convert_hwp(monkeypatch, tmp_path):
     monkeypatch.setenv("CIVIC_REPO_ROOT", str(tmp_path))
-    src = tmp_path / "archive" / "raw" / "example.go.kr" / "sample.hwp"
+    src = tmp_path / "보관함" / "다운로드" / "example.go.kr" / "sample.hwp"
     src.parent.mkdir(parents=True, exist_ok=True)
     src.write_bytes(b"dummy-hwp-bytes")
 

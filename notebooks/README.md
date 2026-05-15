@@ -14,7 +14,7 @@ notebooks/
 ## 동기화 흐름
 
 ```
-archive/processed/*.md  ──►  notebooks/<slug>/manifest.yml
+보관함/결과/*.md  ──►  notebooks/<slug>/manifest.yml
                           │
                           ▼
                     nlm CLI / notebooklm MCP
@@ -24,7 +24,7 @@ archive/processed/*.md  ──►  notebooks/<slug>/manifest.yml
                   (Audio Overview / Q&A)
 ```
 
-1. `archive/processed/` 아래에서 노트북에 올릴 문서를 선정한다.
+1. `보관함/결과/` 아래에서 노트북에 올릴 문서를 선정한다.
 2. `notebooks/<slug>/manifest.yml`로 묶음을 정의한다.
 3. `nlm` CLI 또는 `notebooklm` MCP 클라이언트로 동기화한다.
 4. 변경분만 업로드되며, 결과는 회고에 기록된다.
@@ -43,7 +43,7 @@ archive/processed/*.md  ──►  notebooks/<slug>/manifest.yml
 | --- | --- | --- |
 | `title` | string | 노트북 제목 |
 | `sources` | array | 업로드할 소스 목록 (1개 이상) |
-| `sources[].path` | string (workspace-relative) | 업로드할 파일 경로 (`archive/processed/...` 권장) |
+| `sources[].path` | string (workspace-relative) | 업로드할 파일 경로 (`보관함/결과/...` 권장) |
 
 ### 선택 필드
 
@@ -69,11 +69,11 @@ language: ko
 tags: [예산, OO시, 2026]
 
 sources:
-  - path: archive/processed/budget/2026-overview.md
+  - path: 보관함/결과/budget/2026-overview.md
     citation: https://www.oo.go.kr/budget/2026
     title: "2026 본예산 개요"
     pinned: true
-  - path: archive/processed/budget/2026-debates.md
+  - path: 보관함/결과/budget/2026-debates.md
     citation: https://www.oo.go.kr/council/minutes/2026-budget
     title: "예산 심의 회의록 요약"
 ```

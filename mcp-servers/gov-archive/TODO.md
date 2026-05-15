@@ -8,10 +8,10 @@
 
 ## 저장 규칙 (확정)
 
-- 저장 경로: `archive/raw/<host>/<basename>`
+- 저장 경로: `보관함/다운로드/<host>/<basename>`
 - 날짜 접두어: 사용하지 않음
 - 원본 URL basename에 날짜/시각이 포함되어 있으면 그대로 재사용
-- 시간순 추적 기준: `archive/raw/<host>/<basename>.meta.json`의 `collected_at`
+- 시간순 추적 기준: `보관함/다운로드/<host>/<basename>.meta.json`의 `collected_at`
 
 ## JSON 중심 운영 가이드
 
@@ -44,7 +44,7 @@
 - [x] 관련 스킬(`local-ordinance-processor`, `legal-data-retrieval`) 저장 규칙 갱신
 - [x] `.gitignore`에서 `.meta.json` 추적 가능하도록 조정
 - [ ] `archive_cite`가 원본 파일 없이 `.meta.json`만으로도 동작하도록 옵션 확장
-- [ ] `.meta.json` 기준 시간순 인덱스 생성 스크립트 추가 (`archive/processed/...`)
+- [ ] `.meta.json` 기준 시간순 인덱스 생성 스크립트 추가 (`보관함/결과/...`)
 - [ ] 도메인 정책(우선/확장/예외)을 `docs/`에 별도 표준 문서로 분리
 
 ## 2026-05 추가 요구사항 개발계획

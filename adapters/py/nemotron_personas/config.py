@@ -15,14 +15,14 @@ ATTRIBUTION = "NVIDIA Nemotron-Personas-Korea (https://huggingface.co/datasets/n
 
 RAW_DIR = (
     REPO_ROOT
-    / "archive"
-    / "raw"
+    / "보관함"
+    / "다운로드"
     / "huggingface.co"
     / "datasets"
     / "nvidia"
     / "Nemotron-Personas-Korea"
 )
-PROCESSED_DIR = REPO_ROOT / "archive" / "processed" / "nemotron-personas"
+PROCESSED_DIR = REPO_ROOT / "보관함" / "결과" / "nemotron-personas"
 
 # Fields kept in panel cards. Names are excluded by policy: although synthetic,
 # they may collide with real persons. Card library focuses on demographics + persona text.

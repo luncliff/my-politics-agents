@@ -30,13 +30,13 @@ MCP 서버, 데이터 클론, 필수 파일 상태를 확인하고 문제를 보
 
 ### 4. 아카이브 디렉토리
 
-- `archive/raw/` 존재 여부
-- `archive/processed/` 존재 여부
-- `retrospectives/` 존재 여부
+- `보관함/다운로드/` 존재 여부
+- `보관함/결과/` 존재 여부
+- `회고/` 존재 여부
 
 ### 5. Nemotron 패널 데이터
 
-- `archive/processed/nemotron-personas/panels/national-300.*` 존재 여부
+- `보관함/결과/nemotron-personas/panels/national-300.*` 존재 여부
 
 ## 출력 형식
 

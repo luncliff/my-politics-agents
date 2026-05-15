@@ -31,7 +31,7 @@ model: "GPT-5.4 mini (copilot)"
 
 ## 산출물 위치
 
-- `archive/processed/ordinances/<slug>.md`
+- `보관함/결과/<slug>.md`
 
 ## 우선 도구
 

@@ -12,7 +12,7 @@ mcp = FastMCP("gov-archive")
 
 @mcp.tool(annotations={"readOnlyHint": True})
 def archive_fetch(url: str, note: str = "", auto_convert: bool = True) -> dict:
-    """외부 URL 본문을 archive/raw 아래에 보존하고 SHA-256을 반환합니다.
+    """외부 URL 본문을 보관함/다운로드 아래에 보존하고 SHA-256을 반환합니다.
 
     우선순위 도메인은 `*.go.kr`, `*.or.kr`이며, 그 외 도메인도 정책 범위에서 점진 지원합니다.
 
@@ -38,20 +38,20 @@ def archive_search(query: str, scope: str = "all", limit: int = 50) -> list[dict
 
 @mcp.tool(annotations={"readOnlyHint": True})
 def archive_cite(path: str) -> str:
-    """archive/raw 아래 파일의 인용 메타(Markdown 블록)를 반환합니다.
+    """보관함/다운로드 아래 파일의 인용 메타(Markdown 블록)를 반환합니다.
 
     Args:
-        path: archive/raw 기준 상대 경로 또는 절대 경로.
+        path: 보관함/다운로드 기준 상대 경로 또는 절대 경로.
     """
     return T.archive_cite(path)
 
 
 @mcp.tool(annotations={"readOnlyHint": False})
 def archive_convert(path: str) -> dict:
-    """HWP/HWPX/DOCX/PDF 원문을 Markdown으로 변환해 archive/processed에 저장합니다.
+    """HWP/HWPX/DOCX/PDF 원문을 Markdown으로 변환해 보관함/결과에 저장합니다.
 
     Args:
-        path: archive/raw 기준 상대 경로 또는 절대 경로.
+        path: 보관함/다운로드 기준 상대 경로 또는 절대 경로.
     """
     return T.archive_convert(path)
 

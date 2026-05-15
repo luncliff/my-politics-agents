@@ -238,18 +238,18 @@
 
 ## 9. 실제 참고 예시
 
-템플릿만 보면 감이 안 잡힐 때는 아래 실례를 같이 본다. 아래 예시는 `archive/processed/ordinance-drafting/references/`의 참고 메모와 `archive/raw/www.sncouncil.go.kr/`의 실제 첨부 원문을 함께 따라가도록 정리했다.
+템플릿만 보면 감이 안 잡힐 때는 아래 실례를 같이 본다. 아래 예시는 `보관함/결과/ordinance-drafting/references/`의 참고 메모와 `보관함/다운로드/www.sncouncil.go.kr/`의 실제 첨부 원문을 함께 따라가도록 정리했다.
 
-- `5609` 전부개정안 예시: `archive/processed/ordinance-drafting/references/5609.md`
-  - 본문 HWP: `archive/raw/www.sncouncil.go.kr/manual-bill-5609-attach-01-5609-의회사무국---성남시의회-청소년-의회체험활동-지원-조례-전부개정조례안(구재평-의원-등-17명).hwp`
-- `5637` 시장 제출 + 수정가결 예시: `archive/processed/ordinance-drafting/references/5637.md`
-  - 본문 HWP: `archive/raw/www.sncouncil.go.kr/manual-bill-5637-attach-01-5637-노인복지과---성남시립-노인요양시설-설치-및-운영-조례안.hwp`
-  - 수정가결 HWPX: `archive/raw/www.sncouncil.go.kr/manual-bill-5637-attach-02-(5637)-수정가결-내용.hwpx`
-- `5784` 정책 신설 + 수정가결 예시: `archive/processed/ordinance-drafting/references/5784.md`
-  - 본문 HWP: `archive/raw/www.sncouncil.go.kr/manual-bill-5784-attach-01-5784-미래산업과---성남시-인공지능(AI)산업-육성-및-지원-조례안-(이준배-의원-등-9명).hwp`
-  - 수정가결 HWPX: `archive/raw/www.sncouncil.go.kr/manual-bill-5784-attach-02-(5784)-수정가결-내용.hwpx`
-- `5924` 최근 제정안 예시: `archive/processed/ordinance-drafting/references/5924.md`
-  - 본문 HWP: `archive/raw/www.sncouncil.go.kr/manual-bill-5924-attach-01-5924-AI반도체과---성남시-모빌리티-혁신-및-활성화-지원-조례안(이군수-의원-등-12명).hwp`
+- `5609` 전부개정안 예시: `보관함/결과/ordinance-drafting/references/5609.md`
+  - 본문 HWP: `보관함/다운로드/www.sncouncil.go.kr/manual-bill-5609-attach-01-5609-의회사무국---성남시의회-청소년-의회체험활동-지원-조례-전부개정조례안(구재평-의원-등-17명).hwp`
+- `5637` 시장 제출 + 수정가결 예시: `보관함/결과/ordinance-drafting/references/5637.md`
+  - 본문 HWP: `보관함/다운로드/www.sncouncil.go.kr/manual-bill-5637-attach-01-5637-노인복지과---성남시립-노인요양시설-설치-및-운영-조례안.hwp`
+  - 수정가결 HWPX: `보관함/다운로드/www.sncouncil.go.kr/manual-bill-5637-attach-02-(5637)-수정가결-내용.hwpx`
+- `5784` 정책 신설 + 수정가결 예시: `보관함/결과/ordinance-drafting/references/5784.md`
+  - 본문 HWP: `보관함/다운로드/www.sncouncil.go.kr/manual-bill-5784-attach-01-5784-미래산업과---성남시-인공지능(AI)산업-육성-및-지원-조례안-(이준배-의원-등-9명).hwp`
+  - 수정가결 HWPX: `보관함/다운로드/www.sncouncil.go.kr/manual-bill-5784-attach-02-(5784)-수정가결-내용.hwpx`
+- `5924` 최근 제정안 예시: `보관함/결과/ordinance-drafting/references/5924.md`
+  - 본문 HWP: `보관함/다운로드/www.sncouncil.go.kr/manual-bill-5924-attach-01-5924-AI반도체과---성남시-모빌리티-혁신-및-활성화-지원-조례안(이군수-의원-등-12명).hwp`
 
 예시는 표현을 베끼기 위한 것이 아니라, 어떤 항목이 실제로 패키지에 들어가는지 보는 용도로 사용한다. 현재 확보된 2024~2025 성남시의회 표본은 주로 HWP/HWPX 형식이고, 스크립트는 의회가 PDF를 제공하는 경우 PDF도 같은 방식으로 저장한다.
 
@@ -267,9 +267,9 @@ python scripts\collect_seongnam_ordinance_samples.py --window 2025-1H --overwrit
 
 산출물은 아래에 쌓인다.
 
-- 표본 메모: `archive/processed/ordinance-drafting/samples/<window>/<committee>/<bill_no>.md`
-- 반기 요약: `archive/processed/ordinance-drafting/samples/<window>/SUMMARY.md`
-- 원문 HTML/HWP/HWPX/PDF: `archive/raw/www.sncouncil.go.kr/<window>-bill-<bill_no>*`
+- 표본 메모: `보관함/결과/ordinance-drafting/samples/<window>/<committee>/<bill_no>.md`
+- 반기 요약: `보관함/결과/ordinance-drafting/samples/<window>/SUMMARY.md`
+- 원문 HTML/HWP/HWPX/PDF: `보관함/다운로드/www.sncouncil.go.kr/<window>-bill-<bill_no>*`
 
 ### 10.2 조례안 번호로 직접 다운로드
 
@@ -293,9 +293,9 @@ python scripts\collect_seongnam_ordinance_samples.py --bill-no 5924 --attachment
 
 `--bill-no` 모드 산출물은 아래에 쌓인다.
 
-- 상세 HTML: `archive/raw/www.sncouncil.go.kr/manual-bill-<bill_no>.html`
-- 첨부 HWP/HWPX/PDF: `archive/raw/www.sncouncil.go.kr/manual-bill-<bill_no>-attach-*`
-- 참고 메모: `archive/processed/ordinance-drafting/references/<bill_no>.md`
+- 상세 HTML: `보관함/다운로드/www.sncouncil.go.kr/manual-bill-<bill_no>.html`
+- 첨부 HWP/HWPX/PDF: `보관함/다운로드/www.sncouncil.go.kr/manual-bill-<bill_no>-attach-*`
+- 참고 메모: `보관함/결과/ordinance-drafting/references/<bill_no>.md`
 
 이미 반기 표본 수집에서 같은 의안을 받아 둔 경우에는 기존 raw 파일을 재사용해 `manual-bill-*` 번들을 만들고, `--overwrite`를 주면 다시 내려받는다.
 

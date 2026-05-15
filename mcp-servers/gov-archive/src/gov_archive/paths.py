@@ -1,4 +1,4 @@
-"""Filesystem layout helpers and the archive root resolver."""
+"""Filesystem layout helpers for Korean storage roots and path validation."""
 from __future__ import annotations
 import os
 import pathlib
@@ -22,11 +22,11 @@ def workspace_root() -> pathlib.Path:
 
 
 def archive_raw_root() -> pathlib.Path:
-    return workspace_root() / "archive" / "raw"
+    return workspace_root() / "보관함" / "다운로드"
 
 
 def archive_processed_root() -> pathlib.Path:
-    return workspace_root() / "archive" / "processed"
+    return workspace_root() / "보관함" / "결과"
 
 
 def ensure_within(root: pathlib.Path, candidate: pathlib.Path) -> pathlib.Path:
@@ -35,7 +35,7 @@ def ensure_within(root: pathlib.Path, candidate: pathlib.Path) -> pathlib.Path:
     try:
         resolved.relative_to(root.resolve())
     except ValueError as e:
-        raise ValueError(f"path escapes archive root: {candidate}") from e
+        raise ValueError(f"path escapes storage root: {candidate}") from e
     return resolved
 
 

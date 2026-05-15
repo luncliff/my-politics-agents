@@ -3,9 +3,9 @@ description: LLM-friendly reference index for Gyeonggi and Seongnam research con
 scope: gyeonggi-seongnam
 last_updated: 2026-05-01
 source_documents:
-  - docs/references-경기도.md
-  - docs/references-성남시.md
-  - docs/research-seongnam-open-data.md
+  - docs/references/경기도.md
+  - docs/references/성남시.md
+  - docs/references/성남시-공개데이터.md
 ---
 
 # Reference Index
@@ -75,7 +75,7 @@ LLM은 아래 규칙에 따라 자료원을 선택한다.
 - 성남시 조례는 행정 부서 구조보다 **주제별(Semantic)** 구조를 기본 저장 구조로 사용한다.
 - 분류 기준은 조례 제목과 제1조 목적이며, 최종적으로는 `local-ordinance-processor`의 6개 카테고리(`일반행정`, `보건복지`, `교통안전`, `산업경제`, `도시환경`, `교육문화`) 중 하나를 선택한다.
 - 최신 수집의 1차 출발점은 ELIS이고, 2차 검증은 성남시의회 의안검색, 3차 검증은 law.go.kr이다.
-- 저장 시 원문은 `archive/raw/`에 먼저 보존하고, Markdown 변환본은 주제별 폴더에 `<지자체>-<카테고리>-<조례명>.md` 형태로 누적한다.
+- 저장 시 원문은 `보관함/다운로드/`에 먼저 보존하고, Markdown 변환본은 주제별 폴더에 `<지자체>-<카테고리>-<조례명>.md` 형태로 누적한다.
 - 메타데이터는 최소 `시행일`, `소관부서`, `공포번호`, `원본 URL`, `수집 시각`, `sha256`을 포함한다.
 
 ## 5. Open Data Summary

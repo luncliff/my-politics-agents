@@ -1,4 +1,4 @@
-"""Download Nemotron-Personas-Korea parquet shards into archive/raw with .meta.json sidecars.
+"""Download Nemotron-Personas-Korea parquet shards into 보관함/다운로드 with .meta.json sidecars.
 
 Usage:
     uv run python -m nemotron_personas.fetch --dry-run
