@@ -84,7 +84,6 @@ copilot --model=auto --allow-all-urls --add-dir . --prompt "/find-night-clinic w
 | `civic: notebooklm login` | NotebookLM 브라우저 로그인/세션 갱신 |
 | `civic: notebooklm doctor` | NotebookLM CLI/MCP 상태 점검 |
 | `civic: notebooklm notebook list` | 연결된 NotebookLM 노트북 목록 조회 |
-| `civic: mcp doctor` | 워크스페이스 MCP 서버 상태 점검 |
 | `civic: lint prompts/skills` | 프롬프트·스킬 형식 검사 |
 | `civic: auth-purge` | 자격증명·로컬 캐시 정리 |
 | `civic: fetch nemotron personas (download)` | Nemotron-Personas-Korea parquet 다운로드 |

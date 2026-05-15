@@ -14,13 +14,6 @@ updates:
     commit-message:
       prefix: "[skip ci] "
 
-  - package-ecosystem: "uv"
-    directory: "/tools/gov-archive"
-    schedule:
-      interval: "monthly"
-    commit-message:
-      prefix: "[skip ci] "
-
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
