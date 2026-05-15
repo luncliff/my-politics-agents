@@ -189,33 +189,6 @@
       "problemMatcher": []
     },
     {
-      "label": "civic: mcp doctor",
-      "type": "shell",
-      "windows": {
-        "command": "pwsh",
-        "args": [
-          "-NoProfile",
-          "-Command",
-          "uv run --directory tools/gov-archive python -c \"from gov_archive.server import describe; print(describe())\""
-        ]
-      },
-      "linux": {
-        "command": "bash",
-        "args": [
-          "-lc",
-          "uv run --directory tools/gov-archive python -c 'from gov_archive.server import describe; print(describe())'"
-        ]
-      },
-      "osx": {
-        "command": "zsh",
-        "args": [
-          "-lc",
-          "uv run --directory tools/gov-archive python -c 'from gov_archive.server import describe; print(describe())'"
-        ]
-      },
-      "problemMatcher": []
-    },
-    {
       "label": "civic: fetch nemotron personas (dry-run)",
       "type": "shell",
       "windows": {

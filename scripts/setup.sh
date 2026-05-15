@@ -90,10 +90,6 @@ fi
 # 3) workspace
 step "legalize-kr repos shallow clone (보관함/*)" bash scripts/fetch_legalize_kr.sh
 
-if [ -f "tools/gov-archive/pyproject.toml" ]; then
-  step "uv sync (tools/gov-archive)" sh -c "cd tools/gov-archive && uv sync"
-fi
-
 if [ ! -f ".env" ]; then
   step ".env.example → .env 복사 (값은 직접 채우세요)" cp .env.example .env
 fi

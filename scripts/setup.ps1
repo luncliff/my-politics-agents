@@ -104,13 +104,6 @@ Invoke-Step "legalize-kr repos shallow clone (보관함/*)" {
   & (Join-Path $PSScriptRoot 'fetch_legalize_kr.ps1')
 }
 
-if (Test-Path "tools/gov-archive/pyproject.toml") {
-  Invoke-Step "uv sync (tools/gov-archive)" {
-    Push-Location "tools/gov-archive"
-    try { uv sync } finally { Pop-Location }
-  }
-}
-
 if (-not (Test-Path ".env")) {
   Invoke-Step ".env.example → .env 복사 (값은 직접 채우세요)" {
     Copy-Item ".env.example" ".env"
