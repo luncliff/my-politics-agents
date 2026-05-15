@@ -21,7 +21,7 @@ SUPPORTED_EXTENSIONS = {".hwp", ".hwpx", ".docx", ".pdf"}
 
 
 def convert_to_markdown(path: pathlib.Path) -> dict[str, str | bool]:
-    """Convert supported documents to Markdown under archive/processed.
+    """Convert supported documents to Markdown under 보관함/결과.
 
     When extraction returns empty content, a placeholder `(추출 텍스트 없음)` is written.
     """

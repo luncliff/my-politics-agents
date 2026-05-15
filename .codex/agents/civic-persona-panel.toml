@@ -34,7 +34,7 @@ Skill dependency: [persona-perspective-review](../../.agents/skills/persona-pers
 
 ## Preconditions
 
-- A panel JSONL must exist under `archive/processed/nemotron-personas/panels/`.
+- A panel JSONL must exist under `보관함/결과/nemotron-personas/panels/`.
 - If it does not exist, instruct the user to run one of these tasks first:
   - `civic: fetch nemotron personas (download)`
   - `civic: sample nemotron panel (national 600)`
@@ -42,7 +42,7 @@ Skill dependency: [persona-perspective-review](../../.agents/skills/persona-pers
 
 ## Outputs
 
-- Consolidated review: `archive/processed/<YYYY-MM-DD>-<slug>.md`
+- Consolidated review: `보관함/결과/<YYYY-MM-DD>-<slug>.md`
 - Raw simulation responses: `<YYYY-MM-DD>-<slug>.jsonl` in the same directory
 
 ## Prohibited

@@ -66,8 +66,8 @@ description: "location.txt 또는 사용자 지정 지역을 기준으로 심야
 
 ### 5. 저장
 
-- 기본 경로: `archive/processed/<region-slug>-night-care/report.md`
-- 출처 경로: `archive/processed/<region-slug>-night-care/source.md`
+- 기본 경로: `보관함/결과/<region-slug>-night-care/report.md`
+- 출처 경로: `보관함/결과/<region-slug>-night-care/source.md`
 - `<region-slug>`는 `location.txt`의 지역명을 영문 또는 식별 가능한 ASCII slug로 정한다.
 - 사용자가 다른 경로를 지정하면 그 경로를 우선한다.
 

@@ -7,7 +7,7 @@ Copilot CLI / VS Code Chat / Codex CLI / Claude Code CLI
                     │
             MCP servers (legalize-kr, notebooklm)
                     │
-    archive/raw → archive/processed → notebooks/<slug> → NotebookLM
+    보관함/다운로드 → 보관함/결과 → notebooks/<slug> → NotebookLM
 ```
 
 ## Directory Map
@@ -26,9 +26,9 @@ Copilot CLI / VS Code Chat / Codex CLI / Claude Code CLI
 | `.vscode/` | IDE settings · tasks · MCP · toolsets. |
 | `scripts/` | Setup · auth purge · hook scripts. |
 | `adapters/` | Per-site collectors (JS/Py). |
-| `archive/` | Originals + processed. |
+| `보관함/` | 원본 · 결과 · 양식 보관. |
 | `notebooks/` | NotebookLM bundles. |
-| `retrospectives/` | Cumulative session retros. |
+| `회고/` | Cumulative session retros. |
 | `data/{legalize,precedent,admrule,ordinance}-kr/` | Shallow clones of legal data. |
 
 ## Stack

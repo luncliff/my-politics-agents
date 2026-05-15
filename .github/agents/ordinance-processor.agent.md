@@ -38,10 +38,10 @@ user-invocable: true
 
 1. 사용자로부터 **조례명/공포번호/주제**를 입력받는다(불명확하면 1회 질의).
 2. ELIS → 대상 지자체 의회 → law.go.kr 순으로 원문·메타를 검색.
-3. 원본 URL로 직접 접근해 `archive/raw/<host>/<basename>`에 저장하고 `.meta.json`(source_url, collected_at, SHA-256)을 기록한다.
+3. 원본 URL로 직접 접근해 `보관함/다운로드/<host>/<basename>`에 저장하고 `.meta.json`(source_url, collected_at, SHA-256)을 기록한다.
 4. 제목 + 제1조(목적)를 분석해 카테고리 결정:
    - `일반행정` / `보건_복지` / `교통_안전` / `산업_경제` / `도시_환경` / `교육_문화`
-5. 대상 경로 확인: `data/processed/ordinances/<카테고리>/<지자체>_<조례명>.md`
+5. 대상 경로 확인: `data/processed/<카테고리>/<지자체>_<조례명>.md`
 6. **기존 파일 존재 시**: 먼저 `read` → 동일 공포번호면 보고 후 종료, 아니면 `## 개정 이력`에 append.
 7. **신규**: `local-ordinance-processor` 스킬의 표준 양식으로 새 파일 작성.
 8. PII 가능 텍스트는 `pii-mask`를 거친 결과만 저장.
@@ -59,7 +59,7 @@ user-invocable: true
 ```
 - 조례명: ...
 - 카테고리: ...
-- 경로: data/processed/ordinances/<카테고리>/<지자체>_....md
+- 경로: data/processed/<카테고리>/<지자체>_....md
 - 동작: 신규 작성 | 개정 이력 추가 | 중복(skip)
 - 출처: <URL> · sha256:<짧은해시>
 ```

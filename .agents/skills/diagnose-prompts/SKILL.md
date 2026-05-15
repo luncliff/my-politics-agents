@@ -76,7 +76,7 @@ description: 저장소 전체의 prompt, agent instructions, tool configuration,
 ### 6. Output 규칙 일관성
 
 - 모든 agent/skill의 출력 경로가 AGENTS.md의 "Output Formats" 섹션과 일치하는지
-- `archive/processed/` flat 원칙 위반이 없는지
+- `보관함/결과/` flat 원칙 위반이 없는지
 - 파일명 규칙 (`<YYYY-MM> <한글>.md`)이 준수되는지
 
 ## 출력 형식

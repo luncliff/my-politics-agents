@@ -24,11 +24,11 @@ license: CC BY 4.0
 
 | 단계 | 산출물 |
 | --- | --- |
-| 원본 보존 | `archive/raw/huggingface.co/datasets/nvidia/Nemotron-Personas-Korea/*.parquet` (.gitignore) |
+| 원본 보존 | `보관함/다운로드/huggingface.co/datasets/nvidia/Nemotron-Personas-Korea/*.parquet` (.gitignore) |
 | 인용 메타 | 같은 경로 `*.parquet.meta.json` (sha256, source_url, license) |
-| 전국 패널 | `archive/processed/nemotron-personas/panels/national-300.{jsonl,md}` |
-| 지역 패널 | `archive/processed/nemotron-personas/panels/<district>-100.{jsonl,md}` |
-| 시민 검토 | `archive/processed/<YYYY-MM-DD>-<slug>.md` |
+| 전국 패널 | `보관함/결과/nemotron-personas/panels/national-300.{jsonl,md}` |
+| 지역 패널 | `보관함/결과/nemotron-personas/panels/<district>-100.{jsonl,md}` |
+| 시민 검토 | `보관함/결과/<YYYY-MM-DD>-<slug>.md` |
 
 ## 어댑터·도구
 

@@ -19,7 +19,8 @@ Build a trusted information pipeline for Korean local politics:
 ### Citation
 
 - MUST include **source URL · collected_at (ISO-8601 KST) · SHA-256** in every artifact derived from external data.
-- MUST preserve originals under `archive/raw/<host>/` (immutable).
+- MUST preserve originals under `보관함/다운로드/<host>/` (immutable).
+- Machine-derived source path segments such as hostnames or upstream dataset identifiers MAY remain in their original language/script under `보관함/다운로드/`.
 - Track time order via `.meta.json` `collected_at`. Do NOT prefix filenames with dates.
 
 ### Licensing
@@ -37,7 +38,7 @@ When unsure, MUST treat as **redistribution forbidden** — summarize and analyz
 
 - MUST run `pii-mask` skill before saving or sharing any text that may contain PII (name · phone · RRN · address · email).
 - NEVER persist masking keys to disk (memory only).
-- Originals stay in `archive/raw/` for personal review only — NEVER share.
+- Originals stay in `보관함/다운로드/` for personal review only — NEVER share.
 
 ### Political neutrality
 
@@ -67,14 +68,14 @@ Channel-specific startup:
 
 ### During the session
 
-- For any new site or format, preserve the original in `archive/raw/` first.
+- For any new site or format, preserve the original in `보관함/다운로드/` first.
 - If the same task happens twice, log it as a **skill candidate** in the retro.
 - If a domain persona appears twice, log it as an **agent candidate**.
 
 ### Session end (mandatory retro)
 
 Call the `retrospective-writer` skill (Copilot/Codex) or `/retro` command (Claude Code).
-Save to `retrospectives/YYYY-MM-DD <slug>.md`:
+Save to `회고/YYYY-MM-DD <slug>.md`:
 
 - What was tried · what worked · what blocked.
 - New sites · formats · policies discovered.
@@ -85,13 +86,15 @@ Save to `retrospectives/YYYY-MM-DD <slug>.md`:
 
 ### File naming
 
-- MUST use **Korean filenames** for user-facing generated Korean documents under `archive/processed/`, `data/processed/`, `notebooks/`, `retrospectives/`, and similar artifact folders.
+- MUST use **Korean filenames** for user-facing generated Korean documents under `보관함/결과/`, `보관함/양식/`, `data/processed/`, `notebooks/`, `회고/`, and similar artifact folders.
 - MUST use `<YYYY-MM> <한글 파일명>.md` as the default filename shape for processed Korean Markdown unless a narrower instruction explicitly overrides it.
 - Use Korean filename for human readers. Use English for machine files (code, metadata, logs, tool configurations).
+- Source-derived machine path segments under `보관함/다운로드/` are exempt from the Korean filename rule.
 
 ### File organization
 
-- MUST keep `archive/processed/` **flat**. Do NOT create topic subfolders.
+- MUST keep default user-facing reports in `보관함/결과/` **flat** (no topic subfolders).
+- MAY use subfolders under `보관함/결과/` only when an existing repo rule or skill explicitly requires structured machine-readable grouping (for example dataset, panel, legal-review, or timeline paths).
 - MAY use subfolders in other artifact trees only when an existing repo rule explicitly requires them.
 
 ### Processed Markdown
@@ -155,15 +158,15 @@ When querying `data/ordinance-kr/` or `legalize-kr` MCP `ordinances_*`:
 
 ## Forbidden
 
-- NEVER modify or delete files in `archive/raw/`.
+- NEVER modify or delete files in `보관함/다운로드/`.
 - NEVER include credentials or tokens in chat · logs · commits · artifacts.
 - NEVER violate `robots.txt` or ignore rate limits.
 - NEVER make assertions without a citation.
 
 ## Disputes · takedowns
 
-- Process deletion requests within 24 hours and restrict access to the matching `archive/raw/` entry.
-- Record only facts in `retrospectives/`.
+- Process deletion requests within 24 hours and restrict access to the matching `보관함/다운로드/` entry.
+- Record only facts in `회고/`.
 
 ## See also
 

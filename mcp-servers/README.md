@@ -16,14 +16,14 @@
 | 도구 | 입력 | 동작 | 어노테이션 |
 | --- | --- | --- | --- |
 | `archive_fetch` | `url`, `note?`, `auto_convert?` | URL 본문 저장 + HTML 내 HWP/HWPX/DOCX/PDF 링크 자동 다운로드 시도 | `readOnlyHint: true` |
-| `archive_search` | `query`, `scope?` | 로컬 archive에서 텍스트 grep | `readOnlyHint: true` |
+| `archive_search` | `query`, `scope?` | 로컬 보관함에서 텍스트 grep | `readOnlyHint: true` |
 | `archive_cite` | `path` | 원본 URL·수집 시각·해시로 인용 메타 Markdown 생성 | `readOnlyHint: true` |
-| `archive_convert` | `path` | HWP/HWPX/DOCX/PDF를 Markdown으로 변환해 `archive/processed/`에 저장 | `readOnlyHint: true` |
+| `archive_convert` | `path` | HWP/HWPX/DOCX/PDF를 Markdown으로 변환해 `보관함/결과/`에 저장 | `readOnlyHint: true` |
 
 - 파일명에는 수집 날짜를 자동 접두어로 붙이지 않는다.
 - Struts `.do` URL이라도 HTML 응답이면 `.html`로 저장한다.
 - 저장 시 URL의 basename을 우선 사용하고, 시간순 추적은 `.meta.json`의 `collected_at`을 기준으로 한다.
-- 모든 쓰기는 워크스페이스 루트의 `archive/raw/` 안으로만 제한된다(경로 트래버설 차단).
+- 모든 쓰기는 워크스페이스 루트의 `보관함/다운로드/` 안으로만 제한된다(경로 트래버설 차단).
 
 ## 추가·디버그
 
