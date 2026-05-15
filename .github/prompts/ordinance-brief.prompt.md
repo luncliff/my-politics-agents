@@ -21,4 +21,4 @@ tools: [read, search, web, legalize-kr/ordinances_get, legalize-kr/ordinances_li
 5. 절차 일정 (입법예고 / 상임위 / 본회의)
 6. 출처 (원본 URL, 입안자, 회의록 링크)
 
-저장 경로: `보관함/결과/ordinances/<slug>.md`
+저장 경로: `보관함/결과/<slug>.md`

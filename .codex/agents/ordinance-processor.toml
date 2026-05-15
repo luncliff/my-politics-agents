@@ -44,7 +44,7 @@ Before starting, read `location.txt` at the repository root. Only process ordina
 5. Fetch the source URL directly, save to `보관함/다운로드/<host>/<basename>`, and create `.meta.json` (source_url, collected_at, SHA-256).
 4. Determine the category from the title and Article 1 (Purpose):
    - `general_administration` / `health_welfare` / `transport_safety` / `industry_economy` / `urban_environment` / `education_culture`
-5. Confirm the target path: `data/processed/ordinances/<category>/<municipality>_<ordinance-name>.md`
+5. Confirm the target path: `data/processed/<category>/<municipality>_<ordinance-name>.md`
 6. **If an existing file is present**: read it first; if the promulgation number matches, report and stop; otherwise append to `## Amendment History`.
 7. **If new**: create a new file using the standard format from the `local-ordinance-processor` skill.
 8. Save only text that has passed through `pii-mask` when PII may be present.
@@ -62,7 +62,7 @@ When finished, report:
 ```
 - Ordinance: ...
 - Category: ...
-- Path: data/processed/ordinances/<category>/<municipality>_....md
+- Path: data/processed/<category>/<municipality>_....md
 - Action: new file | amendment appended | duplicate (skip)
 - Source: <URL> · sha256:<short-hash>
 ```
