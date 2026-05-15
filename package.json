@@ -1,6 +1,6 @@
 {
   "name": "politics-agents",
-  "version": "0.1.0",
+  "version": "0.2620.0+dev",
   "description": "Multi-agent tools for Korean local politics research",
   "private": true,
   "type": "commonjs",
