@@ -1,6 +1,6 @@
 ---
 description: "로컬 maintainer 배포 시 HeadVer로 버전을 계산해 파일 버전을 갱신하고 commit, tag, push까지 수행합니다."
-argument-hint: "<head> <build> [suffix] [commit message]"
+argument-hint: "<head=0> <build=0> [suffix=dev] [commit message]"
 tools: [execute, read, edit, search]
 agent: agent
 ---
@@ -11,9 +11,9 @@ agent: agent
 
 ## 입력
 
-- `head` (필수): HeadVer의 첫 번째 숫자
-- `build` (필수): HeadVer의 마지막 숫자
-- `suffix` (선택): `+suffix` 메타 정보
+- `head` (기본값: `0`): HeadVer의 첫 번째 숫자
+- `build` (기본값: `0`): HeadVer의 마지막 숫자
+- `suffix` (기본값: `dev`, 선택): `+suffix` 메타 정보
 - `commit message` (선택): 생략 시 `release: <version>` 사용
 
 ## 사용 예시
