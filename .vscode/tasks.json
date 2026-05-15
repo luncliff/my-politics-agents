@@ -332,8 +332,13 @@
       "label": "civic: lint js/ts",
       "type": "shell",
       "command": "npm",
-      "args": ["run", "lint"],
-      "problemMatcher": ["$eslint-stylish"],
+      "args": [
+        "run",
+        "lint"
+      ],
+      "problemMatcher": [
+        "$eslint-stylish"
+      ],
       "group": "test",
       "presentation": {
         "reveal": "always",
@@ -344,7 +349,10 @@
       "label": "civic: format js/ts",
       "type": "shell",
       "command": "npm",
-      "args": ["run", "format"],
+      "args": [
+        "run",
+        "format"
+      ],
       "problemMatcher": [],
       "presentation": {
         "reveal": "always",

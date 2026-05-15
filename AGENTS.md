@@ -62,6 +62,12 @@ When unsure, treat as **redistribution forbidden** — summarize and analyze onl
 - Destructive commands (`rm -rf`, `git push --force`, `mkfs`, `dd`, `curl|bash`) MUST require human confirmation.
 - MUST honor `robots.txt` and rate limits (max 1 req/sec per host). If ToS forbids scraping, STOP and ask.
 
+### Response closure
+
+- Clarifying questions before work are allowed when ambiguity blocks correct execution.
+- After completing the requested work, STOP without appending unrequested questions, suggestions, or next-step proposals.
+- This rule applies across GPT/Copilot, Codex, Claude Code, and other channel prompts; keep executable guidance in AGENTS files, not channel redirect files.
+
 ### Forbidden
 
 - NEVER modify or delete files in `보관함/다운로드/`.

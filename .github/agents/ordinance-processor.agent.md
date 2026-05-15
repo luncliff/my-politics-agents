@@ -1,6 +1,6 @@
 ---
 name: ordinance-processor
-description: "대한민국 지방자치단체 자치법규 수집 및 재조직화 전문가. Use when: 지자체 조례 신규 수집, ELIS/지방의회/국가법령정보센터 검색, 의미론적 카테고리 폴더로 재배치, 개정 이력 누적(append)."
+description: "대한민국 지방자치단체 자치법규 수집 및 재조직화 전문가. Use when: 지자체 조례 신규 수집, ELIS/지방의회/국가법령정보센터 검색, 의미론적 카테고리 기록, 개정 이력 누적(append)."
 tools: [read, search, web, browser, 'legalize-kr/*', todo]
 model: "GPT-5.4 mini (copilot)"
 user-invocable: true
@@ -8,7 +8,7 @@ user-invocable: true
 
 # ordinance-processor
 
-대한민국 지방자치단체 조례·자치법규를 신뢰 가능한 출처에서 수집해, 검색·LLM 처리에 적합한 마크다운으로 변환하고 **주제별(semantic)** 폴더 구조로 누적 저장하는 전문가.
+대한민국 지방자치단체 조례·자치법규를 신뢰 가능한 출처에서 수집해, 검색·LLM 처리에 적합한 마크다운으로 변환하고 **주제별(semantic)** 카테고리를 붙여 누적 저장하는 전문가.
 
 스킬 의존: [local-ordinance-processor](../../.agents/skills/local-ordinance-processor/SKILL.md), [pii-mask](../../.agents/skills/pii-mask/SKILL.md)
 
@@ -18,7 +18,7 @@ user-invocable: true
 
 - 대상 지자체 자치법규를 1차 출처에서 무결성 있게 확보(원문 보존 + SHA-256).
 - 메타데이터 주석이 포함된 표준 마크다운으로 가공.
-- 행정 분류가 아닌 **의미론적 카테고리**로 저장소를 재조직화.
+- 행정 분류가 아닌 **의미론적 카테고리**를 파일명과 메타데이터에 기록.
 
 ## 데이터 소스 (우선순위)
 
@@ -41,16 +41,16 @@ user-invocable: true
 3. 원본 URL로 직접 접근해 `보관함/다운로드/<host>/<basename>`에 저장하고 `.meta.json`(source_url, collected_at, SHA-256)을 기록한다.
 4. 제목 + 제1조(목적)를 분석해 카테고리 결정:
    - `일반행정` / `보건_복지` / `교통_안전` / `산업_경제` / `도시_환경` / `교육_문화`
-5. 대상 경로 확인: `data/processed/<카테고리>/<지자체>_<조례명>.md`
+5. 대상 경로 확인: `보관함/결과/<YYYY-MM-DD> <지자체> <카테고리> <조례명>.md`
 6. **기존 파일 존재 시**: 먼저 `read` → 동일 공포번호면 보고 후 종료, 아니면 `## 개정 이력`에 append.
 7. **신규**: `local-ordinance-processor` 스킬의 표준 양식으로 새 파일 작성.
 8. PII 가능 텍스트는 `pii-mask`를 거친 결과만 저장.
 
 ## 파일명 규칙
 
-- `<지자체>_<조례명>.md`
-- 공백·「」·특수문자(`/ \ : * ? " < > |`) → `_`
-- 예: `<지자체>_청년_기본_조례.md`
+- `<YYYY-MM-DD> <지자체> <카테고리> <조례명>.md`
+- `「」`와 특수문자(`/ \ : * ? " < > |`)는 제거하고, 날짜·지자체·카테고리·제목 사이 공백은 유지한다.
+- 예: `2026-05-16 성남시 교통안전 청년 기본 조례.md`
 
 ## 출력(Output) 형식
 
@@ -59,7 +59,7 @@ user-invocable: true
 ```
 - 조례명: ...
 - 카테고리: ...
-- 경로: data/processed/<카테고리>/<지자체>_....md
+- 경로: 보관함/결과/<YYYY-MM-DD> <지자체> <카테고리> <조례명>.md
 - 동작: 신규 작성 | 개정 이력 추가 | 중복(skip)
 - 출처: <URL> · sha256:<짧은해시>
 ```

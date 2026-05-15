@@ -48,7 +48,7 @@ Register new domains in `chat.tools.urls.autoApprove` only after explicit approv
    - `.hwp` / `.hwpx` / `.docx` / `.pdf` -> `execute` (uv run markitdown) or `markitdown` MCP
    - `.xlsx` -> extract sheet-level CSV files (`execute`)
 7. Run `pii-mask` if names, contact information, or other PII appear.
-8. Append results under `보관함/결과/<topic>/`.
+8. Append results to `보관함/결과/<YYYY-MM-DD> <한글 주제>.md`.
 
 ## Reporting Format
 
@@ -59,21 +59,18 @@ When the work is complete, output the following format verbatim:
 1. {portal name} > {menu path} > {document title}
 2. download: {URL} ({size}, {mime})
 3. preserve: 보관함/다운로드/{host}/{filename} · collected_at:{ISO-8601} · sha256:{short-hash}
-4. convert: {tool} -> 보관함/결과/{topic}/{slug}.md
+4. convert: {tool} -> 보관함/결과/{YYYY-MM-DD} {한글 주제}.md
 
 ### Key Excerpts
 > {source quote 1}
 > - source: [{document title}]({URL}) p.{page}
-
-### Additional Candidates
-- [{title}]({URL}) - {one-line note}
 ```
 
 ## Special Rules for Statistical Data
 
 - Prefer OpenAPI or CSV downloads from KOSIS whenever possible to avoid scraping.
 - Report time series with the original unit (KRW, persons, %) and the base year.
-- Save processed tables as separate CSV files under `보관함/결과/stats/`.
+- Save processed tables, when needed, as separate CSV files named `보관함/결과/<YYYY-MM-DD> <한글 주제> 통계.csv`.
 
 ## Handoff
 

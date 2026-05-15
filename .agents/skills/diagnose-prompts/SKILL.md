@@ -77,7 +77,7 @@ description: 저장소 전체의 prompt, agent instructions, tool configuration,
 
 - 모든 agent/skill의 출력 경로가 AGENTS.md의 "Output Formats" 섹션과 일치하는지
 - `보관함/결과/` flat 원칙 위반이 없는지
-- 파일명 규칙 (`<YYYY-MM> <한글>.md`)이 준수되는지
+- 파일명 규칙 (`<YYYY-MM-DD> <한글>.<ext>`)이 준수되는지
 
 ## 출력 형식
 

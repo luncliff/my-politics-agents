@@ -1,6 +1,6 @@
 ---
 name: review-feedback
-description: retrospective 누적물을 분석해 반복 패턴을 식별하고, 사용자에게 구조화된 질문을 던진 뒤, 답변에 따라 skill/agent/hook/참조문서를 갱신.
+description: 사용자가 명시적으로 요청한 경우에만 retrospective 누적물을 분석해 반복 패턴을 식별하고, 구조화된 질문에 대한 답변에 따라 skill/agent/hook/참조문서를 갱신.
 ---
 
 # review-feedback
@@ -25,12 +25,12 @@ description: retrospective 누적물을 분석해 반복 패턴을 식별하고,
 
 추출된 항목을 교차 비교하여:
 
-| 패턴 유형 | 조건 | 제안 행동 |
+| 패턴 유형 | 조건 | 처리 후보 |
 |---|---|---|
-| 반복 차단 | 같은 "막힌 것"이 2회 이상 | skill 또는 hook 생성 제안 |
+| 반복 차단 | 같은 "막힌 것"이 2회 이상 | skill 또는 hook 생성 후보 |
 | 미구현 자동화 후보 | "자동화 후보"에 등록 후 아직 구현 안 됨 | 우선순위 질문 |
-| 반복 사이트 발견 | 같은 사이트가 2회 이상 "새로 알게 된" | 문서/ 기존 참조 문서 보강 제안 |
-| 반복 성공 패턴 | 같은 접근법이 효과적으로 2회 이상 사용됨 | skill 규칙 강화 또는 AGENTS.md 규칙 후보 제시 |
+| 반복 사이트 발견 | 같은 사이트가 2회 이상 "새로 알게 된" | `문서/` 기존 참조 문서 보강 후보 |
+| 반복 성공 패턴 | 같은 접근법이 효과적으로 2회 이상 사용됨 | skill 규칙 강화 또는 AGENTS.md 규칙 후보 |
 
 ### 3. 사용자 질문
 
@@ -43,7 +43,7 @@ description: retrospective 누적물을 분석해 반복 패턴을 식별하고,
 
 ### 4. 답변 기반 실행
 
-사용자 답변에 따라:
+사용자가 이 스킬을 명시적으로 실행한 경우, 사용자 답변에 따라:
 
 | 답변 | 실행 |
 |---|---|
@@ -51,7 +51,7 @@ description: retrospective 누적물을 분석해 반복 패턴을 식별하고,
 | hook 생성 | 대상 채널의 설정 파일에 hook 추가 (Claude: `.claude/settings.json`, Copilot: `.github/hooks/`) |
 | references 추가 | `문서/` 기존 참조 문서에 항목 append |
 | 스킬 규칙 강화 | 해당 `.agents/skills/<name>/SKILL.md`에 규칙 추가 |
-| AGENTS.md 규칙 후보 | **직접 수정하지 않음** — 제안 텍스트를 출력하고 사용자가 별도 확인 후 반영 |
+| AGENTS.md 규칙 후보 | **직접 수정하지 않음** — 후보 텍스트만 출력하고 사용자가 별도 확인 후 반영 |
 | 보류 | 기록만 남기고 다음 실행까지 이월 |
 
 ### 5. 실행 기록
@@ -79,6 +79,6 @@ description: retrospective 누적물을 분석해 반복 패턴을 식별하고,
 - 한 번 실행에 최대 3건의 변경만 수행. 나머지는 이월.
 - PII가 포함된 retrospective 내용은 feedback-log에 옮기지 않는다.
 
-## 트리거 권장
+## 트리거 조건
 
-SessionStart hook에서 미처리 retrospective 수를 세어, 3건 이상 누적 시 `/feedback` 실행을 배너에 표시.
+사용자가 `/feedback` 또는 `review-feedback`을 명시적으로 요청한 경우에만 실행한다.

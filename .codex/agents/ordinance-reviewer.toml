@@ -26,7 +26,7 @@ Before querying ordinances, read `location.txt` at the repository root to determ
 
 ## Output Path
 
-- `보관함/결과/<slug>.md`
+- `보관함/결과/<YYYY-MM-DD> <조례명> 브리핑.md`
 
 ## Preferred Tools
 

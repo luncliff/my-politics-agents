@@ -20,8 +20,8 @@ argument-hint: "<문서 경로|초안> [national|local|both] [N]"
 ## 자료
 
 - 카드 라이브러리(필수 사전 산출):
-  - `보관함/결과/nemotron-personas/panels/national-600.jsonl` (전국 stratified)
-  - `보관함/결과/nemotron-personas/panels/<sigungu>-300.jsonl` 등 지역 패널
+  - `보관함/결과/<YYYY-MM-DD> Nemotron 전국 패널 600.jsonl` (전국 stratified)
+  - `보관함/결과/<YYYY-MM-DD> Nemotron <sigungu> 패널 300.jsonl` 등 지역 패널
 - 카드가 없으면 먼저 다음을 안내한다.
   - `uv run python -m nemotron_personas.fetch`
   - `uv run python -m nemotron_personas.sampler --panel national --size 600`
@@ -47,8 +47,8 @@ argument-hint: "<문서 경로|초안> [national|local|both] [N]"
    - 정치적 중립 점검(특정 정당·후보 옹호/공격 표현이 응답에 섞였는지)
 5. 산출물 양식은 [review-template](./references/review-template.md)을 따른다.
 6. 출력 경로:
-   - 종합: `보관함/결과/<YYYY-MM-DD>-<slug>.md`
-   - raw 응답: 같은 폴더의 `<YYYY-MM-DD>-<slug>.jsonl`
+  - 종합: `보관함/결과/<YYYY-MM-DD> <slug>.md`
+  - raw 응답: `보관함/결과/<YYYY-MM-DD> <slug>.jsonl`
 
 ## 금지
 

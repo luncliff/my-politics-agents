@@ -24,7 +24,7 @@ model: "GPT-5.4 mini (copilot)"
 
 ## 산출물 위치
 
-- `보관함/결과/<YYYY-MM-DD>-<slug>.md`
+- `보관함/결과/<YYYY-MM-DD> <회의명> 회의록요약.md`
 
 ## 우선 도구
 

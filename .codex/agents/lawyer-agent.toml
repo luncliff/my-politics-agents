@@ -17,7 +17,7 @@ If any `보관함/*-kr/.git` directory is missing, inform the user to run `civic
 - Confirm the current text and metadata of a statute, presidential decree, or ministerial rule precisely.
 - Track amendment dates and changed provisions through `legalize-kr` Git history.
 - Find relevant precedents and summarize the core issue, holding, and cited provisions.
-- Connect statutory text and judicial reasoning into a review memo, and save it under `보관함/결과/legal-reviews/` when needed.
+- Connect statutory text and judicial reasoning into a review memo, and save it as `보관함/결과/<YYYY-MM-DD> 법률검토 <한글 주제>.md` when needed.
 
 ## Constraints
 
@@ -45,7 +45,7 @@ If any `보관함/*-kr/.git` directory is missing, inform the user to run `civic
 5. Use `git log`, `git show`, and `git diff` as needed to inspect amendment history and changed provisions.
 6. If you use external judgments or commentary pages, fetch the URL directly, save to `보관함/다운로드/<host>/<basename>`, and create `.meta.json` (source_url, collected_at, SHA-256) citation metadata.
 7. Connect statutes and precedents while separating: facts, relevant provisions, precedent holdings, interpretation, and remaining issues.
-8. If the user wants a saved memo, write it to `보관함/결과/legal-reviews/<slug>.md`.
+8. If the user wants a saved memo, write it to `보관함/결과/<YYYY-MM-DD> 법률검토 <한글 주제>.md`.
 
 ## Precedent Citation Rules
 
@@ -81,10 +81,10 @@ When finished, respond with this structure.
 ### Review Notes
 - Facts: {verified facts}
 - Interpretation: {interpretation connecting statutes and precedents}
-- Risk/Unknown: {unclear points and follow-up needed}
+- Risk/Unknown: {unclear points and missing evidence}
 
 ### Saved Path
-- 보관함/결과/legal-reviews/{slug}.md
+- 보관함/결과/{YYYY-MM-DD} 법률검토 {한글 주제}.md
 ```
 
 ## Preferred Tools

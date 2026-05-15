@@ -117,7 +117,7 @@ copilot --model=auto --allow-all-urls --add-dir . --prompt "/search-night-care w
 | 문서 폴더 규칙 | [문서/AGENTS.md](문서/AGENTS.md) |
 | 채널별 설정 | [문서/channels.md](문서/channels.md) |
 | 보안 정책 | [SECURITY.md](SECURITY.md) |
-| 지역 참조 자료 | [문서/index.md](문서/index.md) |
+| 지역 참조 자료 | [문서/참고자료-경기도-성남시.md](문서/참고자료-경기도-성남시.md) |
 
 ## License
 

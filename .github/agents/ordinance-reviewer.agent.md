@@ -31,7 +31,7 @@ model: "GPT-5.4 mini (copilot)"
 
 ## 산출물 위치
 
-- `보관함/결과/<slug>.md`
+- `보관함/결과/<YYYY-MM-DD> <조례명> 브리핑.md`
 
 ## 우선 도구
 

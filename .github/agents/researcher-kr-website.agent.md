@@ -1,9 +1,8 @@
 ---
 name: researcher-kr-website
 description: "한국 정부·공공 웹사이트(*.go.kr, *.kr) 탐색과 공식 문서(HWP/PDF/XLSX) 처리에 특화된 조사 전문가. Use when: 대한민국 지자체·광역자치단체 공고/회의록/보고서 수집, KOSIS·통계청 지역경제·고용 지표 추출, HWP→텍스트 변환, 정부 포털 검색, 원문 다운로드 후 보관함/다운로드 보관."
-tools:
-  [execute, read, edit, search, web, browser, ms-vscode.vscode-websearchforcopilot/websearch, todo]
-model: "GPT-5.4 mini (copilot)"
+tools: [execute, read, edit, search, web, browser, ms-vscode.vscode-websearchforcopilot/websearch, todo]
+model: "Claude Sonnet 4.6 (copilot)"
 user-invocable: true
 ---
 
@@ -54,7 +53,7 @@ user-invocable: true
    - `.hwp` / `.hwpx` / `.docx` / `.pdf` → `execute` (uv run markitdown) 또는 `markitdown` MCP
    - `.xlsx` → 시트별 CSV 추출 (`execute`)
 7. 인명·연락처가 보이면 `pii-mask` 통과.
-8. 결과는 `보관함/결과/<topic>/`에 누적(append).
+8. 결과는 `보관함/결과/<YYYY-MM-DD> <한글 주제>.md`에 누적(append).
 
 ## 보고 형식 (Output)
 
@@ -65,21 +64,19 @@ user-invocable: true
 1. {포털명} > {메뉴 경로} > {문서명}
 2. 다운로드: {URL} ({size}, {mime})
 3. 보존: 보관함/다운로드/{host}/{filename} · collected_at:{ISO-8601} · sha256:{짧은해시}
-4. 변환: {도구} → 보관함/결과/{topic}/{slug}.md
+4. 변환: {도구} → 보관함/결과/{YYYY-MM-DD} {한글 주제}.md
 
 ### 핵심 발췌
 > {원문 인용 1}
 > — 출처: [{문서명}]({URL}) p.{page}
 
-### 추가 후보
-- [{제목}]({URL}) — {한 줄 메모}
 ```
 
 ## 통계 데이터 특칙
 
 - KOSIS는 가능하면 **OpenAPI** 또는 CSV 다운로드를 우선(스크래핑 회피).
 - 시계열은 원본 단위(원, 명, %)와 기준연도를 함께 보고.
-- 가공된 표는 별도 CSV로 `보관함/결과/stats/`에 저장.
+- 가공된 표는 별도 CSV가 필요할 때 `보관함/결과/<YYYY-MM-DD> <한글 주제> 통계.csv`에 저장.
 
 ## 핸드오프
 

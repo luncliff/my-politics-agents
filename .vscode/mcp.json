@@ -1,5 +1,4 @@
 {
-  "$schema": "https://aka.ms/vscode-mcp-servers-schema",
   "servers": {
     "notebooklm": {
       "type": "stdio",

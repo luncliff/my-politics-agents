@@ -12,7 +12,7 @@ argument-hint: "<문서 경로|붙여넣은 초안> [비교정당명|공식 URL]
 
 우선 아래 두 파일을 기준 자료로 읽는다.
 
-- `보관함/결과/theminjoo/`
+- `보관함/결과/<YYYY-MM-DD> 더불어민주당 가치 윤리 기준 요약.md`
 - `보관함/다운로드/theminjoo.kr/`
 
 출력 형식은 [review-template](./references/review-template.md)를 따른다.
