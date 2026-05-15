@@ -11,7 +11,7 @@ Scope: `scripts/` 하위 자동화. 공통 규약은 [/AGENTS.md](../AGENTS.md).
 - `session-start.ps1`, `session-stop.ps1` — Claude Code 세션 훅.
 - `pre-tool-bash.ps1` — Bash 명령 사전 점검 훅.
 - `run-markdownlint.js` / `markdownlint.config.js` — 저장소 Markdown 린트(warning-only).
-- `git-hooks/pre-commit` — commit 시 staged Markdown 자동 린트.
+- `pre-commit` — commit 시 staged Markdown 자동 린트.
 - `lint_frontmatter.py` — `.prompt.md` / `.instructions.md` / `SKILL.md` YAML frontmatter 린트.
 
 ## 추가 기준

@@ -94,7 +94,7 @@ if [ ! -f ".env" ]; then
   step ".env.example → .env 복사 (값은 직접 채우세요)" cp .env.example .env
 fi
 
-step "git pre-commit hook 등록 (markdown lint warning)" git config --local core.hooksPath scripts/git-hooks
+step "git pre-commit hook 등록 (markdown lint warning)" git config --local core.hooksPath scripts
 
 # 4) verify
 echo
