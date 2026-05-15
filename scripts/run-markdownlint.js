@@ -46,10 +46,14 @@ function getTrackedMarkdownFiles() {
 
 function applyFixes(targets) {
   try {
-    execFileSync(process.execPath, [markdownlintCli, "--fix", "--config", "scripts/markdownlint.config.js", ...targets], {
-      cwd: repoRoot,
-      stdio: "inherit",
-    });
+    execFileSync(
+      process.execPath,
+      [markdownlintCli, "--fix", "--config", "scripts/markdownlint.config.js", ...targets],
+      {
+        cwd: repoRoot,
+        stdio: "inherit",
+      }
+    );
   } catch (error) {
     if (error && typeof error === "object" && "status" in error && error.status === 1) {
       return;
