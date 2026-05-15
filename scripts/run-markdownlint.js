@@ -3,7 +3,6 @@ const { existsSync } = require("node:fs");
 const path = require("node:path");
 const process = require("node:process");
 
-const { lint } = require("markdownlint/promise");
 const config = require("./markdownlint.config.js");
 
 const repoRoot = path.resolve(__dirname, "..");
@@ -12,9 +11,18 @@ const markdownlintCli = path.join(repoRoot, "node_modules", "markdownlint-cli", 
 process.chdir(repoRoot);
 
 async function main() {
+  let lint;
+  try {
+    ({ lint } = require("markdownlint/promise"));
+  } catch {
+    console.warn("markdownlint: node_modules 가 없습니다. `npm ci` 를 먼저 실행하세요.");
+    return;
+  }
+
   const args = process.argv.slice(2);
   const shouldWrite = args.includes("--write");
-  const targets = getTrackedMarkdownFiles();
+  const isStaged = args.includes("--staged");
+  const targets = isStaged ? getStagedMarkdownFiles() : getTrackedMarkdownFiles();
 
   if (targets.length === 0) {
     console.log("markdownlint: 대상 Markdown 파일이 없습니다.");
@@ -38,6 +46,12 @@ async function main() {
 
   warnings.forEach((warning) => console.warn(warning));
   console.warn(`markdownlint: ${warnings.length} warnings (${targets.length} files checked)`);
+}
+
+function getStagedMarkdownFiles() {
+  return runGit(["diff", "--cached", "--name-only", "--diff-filter=ACM", "--", "*.md"]).filter(
+    (filePath) => existsSync(filePath)
+  );
 }
 
 function getTrackedMarkdownFiles() {
