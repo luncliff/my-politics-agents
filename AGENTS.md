@@ -16,7 +16,7 @@ Korean local-politics information pipeline: **collect → process → publish**,
 | `scripts/` | [scripts/AGENTS.md](scripts/AGENTS.md) | Setup, fetch, hooks, lint helpers |
 | `문서/` | [문서/AGENTS.md](문서/AGENTS.md) | Flat documentation set |
 | `보관함/` | [보관함/AGENTS.md](보관함/AGENTS.md) | Originals, processed results, output formats, legal-data lookup priority |
-| `data/`, `notebooks/` | — | Datasets and notebooks (see [문서/architecture.md](문서/architecture.md)) |
+| `data/`, `notebooks/` | — | Datasets and NotebookLM bundles |
 | `회고/` | — | Session retrospectives (`YYYY-MM-DD <slug>.md`) |
 | `location.txt` | — | Current working region; read at session start |
 
@@ -99,7 +99,7 @@ Call `retrospective-writer` skill (Copilot/Codex) or `/retro` (Claude Code). Sav
 
 ## See also
 
-- [문서/architecture.md](문서/architecture.md) — directory map, agents/skills lists, stack.
+- [문서/AGENTS.md](문서/AGENTS.md) — 문서 폴더 규칙 · 자료원 우선순위 · 조례 재배치 규칙.
 - [문서/channels.md](문서/channels.md) — Copilot / Codex / Claude Code channels.
-- [문서/security.md](문서/security.md) — security model · credentials.
+- [SECURITY.md](SECURITY.md) — 보안 정책 · 자격증명 정리.
 - [.agents/CONVENTIONS.md](.agents/CONVENTIONS.md) — naming rules.

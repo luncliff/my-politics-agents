@@ -1,7 +1,7 @@
 ---
 description: LLM-friendly reference index for Gyeonggi and Seongnam research context
 scope: gyeonggi-seongnam
-last_updated: 2026-05-01
+last_updated: 2026-05-16
 source_documents:
   - 문서/경기도.md
   - 문서/성남시.md
@@ -10,7 +10,7 @@ source_documents:
 
 # Reference Index
 
-이 문서는 LLM이 빠르게 읽고 재사용할 수 있도록 경기도·성남시·판교 관련 context를 구조화한 기본 Reference입니다.
+이 문서는 LLM이 빠르게 읽고 재사용할 수 있도록 경기도·성남시·판교 관련 context를 구조화한 지역 참조 인덱스입니다. 자료원 우선순위·선택 규칙·조례 재배치 규칙 등 운영 규칙은 [문서/AGENTS.md](AGENTS.md)에 있습니다.
 
 ## 1. Scope
 
@@ -21,19 +21,9 @@ source_documents:
 | Main use cases | 정책 조사, 의정 조사, 공개데이터 수집, 오버레이 후보 선정 |
 | Canonical context files | `문서/경기도.md`, `문서/성남시.md`, `문서/성남시-공개데이터.md` |
 
-## 2. Source Priority
+## 2. Canonical Entry Points
 
-LLM은 아래 우선순위로 자료를 탐색한다.
-
-| Priority | Source type | Why |
-| --- | --- | --- |
-| 1 | 대한민국 공식 전자정부 누리집 | 공식성, 안정성, 재현성 |
-| 2 | 성남시청 공식 홈페이지 | 현지 행정 문서와 게시판 자료 보강 |
-| 3 | 광역·산하기관 공식 포털 | 경기도, 경기도의회, 경기연구원 등 보조 근거 |
-
-## 3. Canonical Entry Points
-
-### 3.1 Governance and law
+### 2.1 Governance and law
 
 | Topic | Primary entry points |
 | --- | --- |
@@ -41,7 +31,7 @@ LLM은 아래 우선순위로 자료를 탐색한다.
 | 자치법규 | ELIS, 성남시 자치법규, 경기도 자치법규 |
 | 의정자료 | 성남시의회, 경기도의회 |
 
-### 3.2 Statistics and finance
+### 2.2 Statistics and finance
 
 | Topic | Primary entry points |
 | --- | --- |
@@ -49,7 +39,7 @@ LLM은 아래 우선순위로 자료를 탐색한다.
 | 재정·결산 | 성남시 재정정보, 지방재정365, 부서별공개자료실 |
 | 연구자료 | 성남시 맞춤형 정책연구, PRISM, 경기연구원, 성남시정연구원 |
 
-### 3.3 Public data and local portals
+### 2.3 Public data and local portals
 
 | Topic | Primary entry points |
 | --- | --- |
@@ -57,30 +47,9 @@ LLM은 아래 우선순위로 자료를 탐색한다.
 | 시청 공개정보 | 사전 정보공표, 재정정보, 부서별공개자료실 |
 | 생활정책 포털 | 성남 청년포털, 교육 관련 경기교육 포털 |
 
-## 4. Decision Rules
+## 3. Open Data Summary
 
-LLM은 아래 규칙에 따라 자료원을 선택한다.
-
-| If the task is about... | Prefer... | Avoid / Note |
-| --- | --- | --- |
-| 법률, 시행령, 시행규칙 | `보관함/legalize-kr/` → `legalize-kr` MCP → law.go.kr (Legal Data Lookup Priority) | 조례와 혼동하지 말 것 |
-| 조례, 시 규칙, 자치법규 | ELIS, 광역의회 및 지방의회 의안검색, law.go.kr | ELIS로 최신 목록 확인 → 의회로 최신 입법 동향 확인 → law.go.kr로 최종 본문 검증 |
-| 성남시 통계 | 성남통계, KOSIS | 블로그·2차 가공자료 우선 사용 금지 |
-| 성남시 예산·결산·기금 | 성남시 재정정보, 지방재정365 | 게시판 자료는 보조 근거로 사용 |
-| 좌표 기반 시설 데이터 | data.go.kr OpenAPI 또는 파일데이터 | 서비스키 필요 여부 확인 |
-| 현안별 내부 행정자료 | 성남시 부서별공개자료실 | 정형 API가 아니므로 수동 검토 가능성 높음 |
-
-## 4. Ordinance Reorganization Rules
-
-- 성남시 조례는 행정 부서 구조보다 **주제별(Semantic)** 구조를 기본 저장 구조로 사용한다.
-- 분류 기준은 조례 제목과 제1조 목적이며, 최종적으로는 `local-ordinance-processor`의 6개 카테고리(`일반행정`, `보건복지`, `교통안전`, `산업경제`, `도시환경`, `교육문화`) 중 하나를 선택한다.
-- 최신 수집의 1차 출발점은 ELIS이고, 2차 검증은 성남시의회 의안검색, 3차 검증은 law.go.kr이다.
-- 저장 시 원문은 `보관함/다운로드/`에 먼저 보존하고, Markdown 변환본은 주제별 폴더에 `<지자체>-<카테고리>-<조례명>.md` 형태로 누적한다.
-- 메타데이터는 최소 `시행일`, `소관부서`, `공포번호`, `원본 URL`, `수집 시각`, `sha256`을 포함한다.
-
-## 5. Open Data Summary
-
-### 5.1 Highest-priority map-ready datasets
+### 3.1 Highest-priority map-ready datasets
 
 | Dataset | Type | Access | Geometry readiness | Primary use |
 | --- | --- | --- | --- | --- |
@@ -92,7 +61,7 @@ LLM은 아래 규칙에 따라 자료원을 선택한다.
 | 신분당선 역위치 | CSV | 바로 다운로드 가능 | High | 판교 광역교통 레이어 |
 | 성남사랑상품권 가맹점현황 | OpenAPI | 서비스키 필요 | Medium | 생활경제 분포 분석 |
 
-### 5.2 Secondary map-support datasets
+### 3.2 Secondary map-support datasets
 
 | Dataset | Type | Extra processing needed | Main note |
 | --- | --- | --- | --- |
@@ -104,7 +73,7 @@ LLM은 아래 규칙에 따라 자료원을 선택한다.
 | 버스정보안내단말기 현황 | CSV | Low | 정류장 데이터와 결합 가치 높음 |
 | 공항버스 시간표 | XLSX | Medium | 정류장 경로 정리 필요 |
 
-### 5.3 Aggregate or analytical datasets
+### 3.3 Aggregate or analytical datasets
 
 | Dataset | Unit | Best use |
 | --- | --- | --- |
@@ -115,7 +84,7 @@ LLM은 아래 규칙에 따라 자료원을 선택한다.
 | 지식산업센터 현황 | 시설 단위 | 산업 입지 분석 |
 | 판교테크노밸리 입주기업현황 | 단지/기업군 단위 | 판교 산업 생태계 분석 |
 
-## 6. Topic-to-Source Map
+## 4. Topic-to-Source Map
 
 | Topic | Best starting points | Typical outputs |
 | --- | --- | --- |
@@ -128,27 +97,14 @@ LLM은 아래 규칙에 따라 자료원을 선택한다.
 | 의회·감사 | 성남시의회, 경기도의회 | 회의록, 의안, 상임위 자료 |
 | 선거·공약 | NEC 선거통계, 정책·공약마당 | 선거 통계, 공약 자료 |
 
-## 7. Working Notes for Agents and Skills
-
-### 7.1 When to use this file
+## 5. When to Use This File
 
 - 성남시 또는 판교 관련 주제를 처음 받았을 때
 - 어느 포털에서 먼저 조사해야 할지 정해야 할 때
 - 지도 오버레이 후보와 통계형 자료를 구분해야 할 때
 - Skill이나 Agent가 도메인 entry point를 빠르게 찾아야 할 때
 
-### 7.2 Suggested follow-up docs
-
-| Need | Read next |
-| --- | --- |
-| 경기도 링크 모음 | `문서/경기도.md` |
-| 성남시 링크 모음 | `문서/성남시.md` |
-| 데이터셋별 활용 판단 | `문서/성남시-공개데이터.md` |
-| NotebookLM 업로드 규칙 | `notebooks/README.md` |
-| 저장소 구조와 역할·운영 규칙 | `AGENTS.md` |
-| 보안 모델·자격증명 정리 | `문서/security.md` |
-
-## 8. Known Constraints
+## 6. Known Constraints
 
 | Constraint | Impact |
 | --- | --- |
@@ -158,16 +114,10 @@ LLM은 아래 규칙에 따라 자료원을 선택한다.
 | 벤처기업 주소는 인증 시점 기준 가능성 | 최신 위치 분석에는 검증 필요 |
 | 우회전 사각지대 데이터는 요청형 제공 | 즉시 자동화 대상이 아님 |
 
-## 9. Immediate Research Priorities
+## 7. Immediate Research Priorities
 
 1. 교통약자 보호구역, 옐로우 카펫, 보행자 전용도로, 보행자 우선도로 후보지의 응답 스키마 확인.
 2. 통학구역 표준데이터를 성남교육지원청 기준으로 필터링하는 절차 정리.
 3. 버스정류장, 버스노선, BIT, 신분당선, 경강선의 결합 모델 설계.
 4. 공동주택, 지식산업센터, 판교테크노밸리 입주기업현황을 생활권 분석 지표로 재정리.
 5. 성남시청 사전 정보공표와 재정정보 메뉴를 추가 점검.
-
-## 10. Maintenance Rule
-
-- 새로운 경기도/성남시 context 문서가 생기면 이 파일의 `source_documents`와 해당 섹션만 갱신한다.
-- 세부 링크 카탈로그는 `문서/경기도.md`, `문서/성남시.md`에 유지하고, 이 파일에는 의사결정에 필요한 요약만 둔다.
-- 데이터셋 세부 메모는 `문서/성남시-공개데이터.md`에 유지하고, 이 파일에는 우선순위와 활용 판단만 둔다.

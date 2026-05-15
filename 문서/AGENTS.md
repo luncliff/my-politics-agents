@@ -6,11 +6,12 @@ Scope: `문서/` 하위. 공통 규약은 [/AGENTS.md](../AGENTS.md).
 
 - `문서/`는 **flat 구조**를 기본으로 유지한다. `dev/`, `guide/`, `references/` 같은 하위 폴더를 다시 만들지 않는다.
 - 대표 문서:
-  - [architecture.md](architecture.md) — 디렉터리 맵, agents/skills 목록, 스택.
   - [channels.md](channels.md) — 채널별 설정 (Copilot / Codex / Claude Code).
-  - [security.md](security.md) — 보안 모델 · 자격증명.
-  - [getting-started.md](getting-started.md), [copilot-cli.md](copilot-cli.md), [vscode-tasks.md](vscode-tasks.md) — 사용자 가이드.
-  - [index.md](index.md), [경기도.md](경기도.md), [성남시.md](성남시.md), [성남시-공개데이터.md](성남시-공개데이터.md) — 참조 문서.
+  - [index.md](index.md), [경기도.md](경기도.md), [성남시.md](성남시.md), [성남시-공개데이터.md](성남시-공개데이터.md) — 지역 참조 문서.
+  - [조례안-템플릿.md](조례안-템플릿.md), [조례안-작성-안내.md](조례안-작성-안내.md) — 조례안 작성 패키지.
+  - [nemotron-personas.md](nemotron-personas.md) — Nemotron-Personas-Korea 가이드.
+- 사용자용 도구 사용법은 저장소 루트 [README.md](../README.md)에서 설명한다. 같은 절차를 문서/ 하위에 새로 만들지 않는다.
+- 보안 정책은 루트 [SECURITY.md](../SECURITY.md) 하나로 단일화한다.
 
 ## 일반 지침
 
@@ -19,3 +20,39 @@ Scope: `문서/` 하위. 공통 규약은 [/AGENTS.md](../AGENTS.md).
 - 외부 사실은 출처 링크를 본문에 함께 표기한다.
 - 참조 문서의 한글 파일명은 유지할 수 있다. 그 외 문서는 영어 파일명을 기본으로 한다.
 - 같은 절차 안내가 두 번 이상 반복되면 새 문서보다 `.agents/skills/` 승격을 먼저 검토한다.
+- 요청받지 않은 "다음 단계", "Suggested follow-up" 성격의 섹션은 추가하지 않는다.
+
+## 자료원 우선순위 (Source Priority)
+
+LLM은 아래 우선순위로 자료를 탐색한다.
+
+| Priority | Source type | Why |
+| --- | --- | --- |
+| 1 | 대한민국 공식 전자정부 누리집 | 공식성, 안정성, 재현성 |
+| 2 | 해당 기초자치단체 공식 홈페이지 | 현지 행정 문서와 게시판 자료 보강 |
+| 3 | 광역·산하기관 공식 포털 | 광역도, 광역의회, 광역연구원 등 보조 근거 |
+
+## 자료원 선택 규칙 (Decision Rules)
+
+| 과제가 …에 관한 것이면 | 우선 사용 | 회피 / 주의 |
+| --- | --- | --- |
+| 법률, 시행령, 시행규칙 | `보관함/legalize-kr/` → `legalize-kr` MCP → law.go.kr | 조례와 혼동 금지 |
+| 조례, 시 규칙, 자치법규 | ELIS, 광역의회·지방의회 의안검색, law.go.kr | ELIS 최신 목록 → 의회 입법 동향 → law.go.kr 본문 검증 |
+| 지자체 통계 | 해당 지자체 통계 포털, KOSIS | 블로그·2차 가공자료 우선 사용 금지 |
+| 지자체 예산·결산·기금 | 해당 지자체 재정정보, 지방재정365 | 게시판 자료는 보조 근거 |
+| 좌표 기반 시설 데이터 | data.go.kr OpenAPI 또는 파일데이터 | 서비스키 필요 여부 확인 |
+| 현안별 내부 행정자료 | 부서별공개자료실 | 정형 API 아님, 수동 검토 가능성 높음 |
+
+## 조례 재배치 규칙 (Ordinance Reorganization)
+
+- 조례는 행정 부서 구조보다 **주제별(Semantic)** 구조를 기본 저장 구조로 사용한다.
+- 분류 기준은 조례 제목과 제1조 목적이며, 최종적으로는 `local-ordinance-processor`의 6개 카테고리(`일반행정`, `보건복지`, `교통안전`, `산업경제`, `도시환경`, `교육문화`) 중 하나를 선택한다.
+- 최신 수집의 1차 출발점은 ELIS이고, 2차 검증은 해당 지방의회 의안검색, 3차 검증은 law.go.kr이다.
+- 저장 시 원문은 `보관함/다운로드/`에 먼저 보존하고, Markdown 변환본은 주제별 폴더에 `<지자체>-<카테고리>-<조례명>.md` 형태로 누적한다.
+- 메타데이터는 최소 `시행일`, `소관부서`, `공포번호`, `원본 URL`, `수집 시각`, `sha256`을 포함한다.
+
+## 지역 참조 문서 유지 규칙
+
+- 새로운 광역/기초자치단체 context 문서가 생기면 [index.md](index.md)의 `source_documents`와 해당 섹션만 갱신한다.
+- 세부 링크 카탈로그는 [경기도.md](경기도.md), [성남시.md](성남시.md)에 유지하고, [index.md](index.md)에는 의사결정에 필요한 요약만 둔다.
+- 데이터셋 세부 메모는 [성남시-공개데이터.md](성남시-공개데이터.md)에 유지하고, [index.md](index.md)에는 우선순위와 활용 판단만 둔다.
