@@ -9,3 +9,13 @@
 | `eslint.config.mjs` | 저장소 전역 JS/TS 린트 설정 |
 | `.prettierrc` | 저장소 전역 JS/TS 포맷 설정 |
 | `.prettierignore` | 포맷 대상 제외 규칙 |
+
+## References
+
+자체개발 MCP를 다시 추가할 때는 아래 순서로 확인합니다.
+
+1. [Model Context Protocol](https://modelcontextprotocol.io/) — 프로토콜 개요, transport, lifecycle, tool/resource/prompt 기본 규약
+2. [MCP Specification](https://modelcontextprotocol.io/specification/2025-06-18/) — 메시지 포맷, capability negotiation, server/client 의무사항
+3. [MCP Docs: Guides](https://modelcontextprotocol.io/docs) — server 구현, 보안, 인증, 배포, inspector 사용 예시
+4. 워크스페이스 설정 파일: `/home/runner/work/politics-agents/politics-agents/.mcp.json`, `/home/runner/work/politics-agents/politics-agents/.vscode/mcp.json`
+5. 저장소 규칙: `/home/runner/work/politics-agents/politics-agents/AGENTS.md`, `/home/runner/work/politics-agents/politics-agents/tools/AGENTS.md`
