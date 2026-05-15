@@ -28,7 +28,7 @@ agent: agent
 
 1. 현재 branch, remote, worktree 상태를 먼저 확인한다.
 2. 이번 배포와 무관한 변경이 있으면 자동 포함하지 말고, 어떤 파일이 막는지 짧게 설명하고 중단한다.
-3. 버전 문자열은 반드시 [scripts/headver.ps1](../../scripts/headver.ps1)을 실행해서 계산한다. 직접 손으로 조합하지 않는다.
+3. 버전 문자열은 반드시 LINE [headver](https://github.com/line/headver) 의 PowerShell 예제 스크립트를 임시 파일로 내려받아 실행해서 계산한다. 직접 손으로 조합하지 않고, 내려받은 파일은 저장소에 남기지 않는다.
 4. 계산된 버전은 아래 파일에 같은 값으로 반영한다.
    - [package.json](../../package.json)
    - [pyproject.toml](../../pyproject.toml)
@@ -45,14 +45,16 @@ agent: agent
 ## 실행 순서
 
 1. `git status --short --branch`로 상태 확인
-2. `pwsh -NoProfile -File scripts/headver.ps1 -Head <head> -Build <build> [-Suffix <suffix>]` 실행
-3. 버전 파일 2~3개 갱신
-4. 버전 값 재검증
-5. `git add <touched files>`
-6. `git commit -m "release: <version>"` 또는 사용자 지정 메시지
-7. `git tag -a <version> -m "release: <version>"`
-8. `git push origin HEAD`
-9. `git push origin <version>`
+2. OS 임시 디렉터리에 `https://raw.githubusercontent.com/line/headver/main/examples/headver.ps1` 를 내려받는다.
+3. `pwsh -NoProfile -File <temp-headver.ps1> -Head <head> -Build <build> [-Suffix <suffix>]` 실행
+4. 임시로 내려받은 `headver.ps1` 를 삭제한다.
+5. 버전 파일 2~3개 갱신
+6. 버전 값 재검증
+7. `git add <touched files>`
+8. `git commit -m "release: <version>"` 또는 사용자 지정 메시지
+9. `git tag -a <version> -m "release: <version>"`
+10. `git push origin HEAD`
+11. `git push origin <version>`
 
 ## 실패 처리
 

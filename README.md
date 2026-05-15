@@ -55,10 +55,13 @@ copilot --model=auto --allow-all-urls --add-dir . --prompt "/find-night-clinic w
 
 ### Release Tag
 
-Git tag는 HeadVer (`{head}.{yearweek}.{build}`) 형식을 사용합니다. 태그 문자열 생성은 [scripts/headver.ps1](scripts/headver.ps1)로 합니다.
+Git tag는 HeadVer (`{head}.{yearweek}.{build}`) 형식을 사용합니다. 태그 문자열이 필요하면 LINE [headver](https://github.com/line/headver) 의 PowerShell 예제를 임시 파일로 내려받아 실행합니다.
 
 ```pwsh
-pwsh -NoProfile -File scripts/headver.ps1 -Head 0 -Build 0
+$temp = Join-Path ([System.IO.Path]::GetTempPath()) ("headver-{0}.ps1" -f [guid]::NewGuid().ToString("N"))
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/line/headver/main/examples/headver.ps1" -OutFile $temp
+pwsh -NoProfile -File $temp -Head 0 -Build 0
+Remove-Item $temp -Force
 ```
 
 새 tag를 원격에 push하면 GitHub Actions가 같은 이름의 prerelease를 자동 생성합니다.
@@ -131,5 +134,5 @@ pwsh -NoProfile -File scripts/headver.ps1 -Head 0 -Build 0
 ## License
 
 코드와 문서는 **CC0 1.0 Universal**(공공도메인 헌정). [LICENSE](LICENSE) 참조.
-단, [scripts/headver.ps1](scripts/headver.ps1)은 LINE `headver` 예제 스크립트를 vendored 한 파일이며 Apache-2.0을 따릅니다.
+HeadVer 계산에 쓰는 LINE `headver` PowerShell 예제 스크립트는 upstream Apache-2.0 라이선스를 따릅니다.
 수집된 정부 자료는 별도 라이선스(공공누리 등)를 따르며, 산출물에 출처를 명시합니다.
