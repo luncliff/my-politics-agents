@@ -26,10 +26,10 @@
 보관함/다운로드/huggingface.co/datasets/nvidia/Nemotron-Personas-Korea/**/*.parquet
 
 # --- 외부 데이터 저장소 ---
-data/legalize-kr/
-data/precedent-kr/
-data/admrule-kr/
-data/ordinance-kr/
+보관함/legalize-kr/
+보관함/precedent-kr/
+보관함/admrule-kr/
+보관함/ordinance-kr/
 
 # --- Python (uv) ---
 .venv/

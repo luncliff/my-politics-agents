@@ -7,9 +7,9 @@ param(
   [switch]$DryRun
 )
 $ErrorActionPreference = 'Stop'
-. (Join-Path $PSScriptRoot 'lib/common.ps1')
+. (Join-Path $PSScriptRoot 'common.ps1')
 
-Write-Info "my-politics-agents auth-purge"
+Write-Info "politics-agents auth-purge"
 Write-Warn2 "이 스크립트는 자격증명을 삭제할 수 있습니다. 각 단계는 별도 확인을 받습니다."
 
 if (Confirm-Action -Question "gh CLI 로그아웃 (github.com)?" -DryRun:$DryRun) {

@@ -1,7 +1,7 @@
 {
   "$schema": "https://aka.ms/copilot-cli-hooks-schema",
   "version": 1,
-  "description": "my-politics-agents — logging-first Copilot CLI policy. 한 개의 deny 데모만 활성.",
+  "description": "politics-agents — logging-first Copilot CLI policy. 한 개의 deny 데모만 활성.",
   "hooks": {
     "sessionStart": [
       {

@@ -20,11 +20,11 @@
 ## 2. 저장소 받기
 
 ```pwsh
-git clone https://github.com/luncliff/my-politics-agents.git
-cd my-politics-agents
+git clone https://github.com/luncliff/politics-agents.git
+cd politics-agents
 ```
 
-`data/legalize-kr` 등 연관 저장소는 설정 단계에서 shallow clone으로 준비됩니다.
+`보관함/legalize-kr` 등 연관 저장소는 설정 단계에서 shallow clone으로 준비됩니다.
 
 ## 3. 환경 설정 (한 번만)
 
@@ -48,7 +48,7 @@ zsh scripts/setup.sh
 gh auth login
 ```
 
-자격증명 정리는 [docs/dev/security.md](../dev/security.md)의 `auth-purge` 참조.
+자격증명 정리는 [문서/security.md](../security.md)의 `auth-purge` 참조.
 
 ## 5. 다음 단계
 
@@ -58,6 +58,6 @@ gh auth login
 ## Troubleshooting
 
 - **확장 추천이 안 뜸** → `Ctrl+Shift+P` → `Extensions: Show Recommended Extensions`.
-- **Task가 안 보임** → 좌상단 폴더가 `my-politics-agents`인지 확인.
+- **Task가 안 보임** → 좌상단 폴더가 `politics-agents`인지 확인.
 - **MCP 서버가 빨간 점** → `civic: mcp doctor` 실행 후 출력 확인.
 - **인증 초기화** → `civic: auth-purge` 실행.

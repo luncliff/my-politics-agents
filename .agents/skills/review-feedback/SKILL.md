@@ -29,7 +29,7 @@ description: retrospective 누적물을 분석해 반복 패턴을 식별하고,
 |---|---|---|
 | 반복 차단 | 같은 "막힌 것"이 2회 이상 | skill 또는 hook 생성 제안 |
 | 미구현 자동화 후보 | "자동화 후보"에 등록 후 아직 구현 안 됨 | 우선순위 질문 |
-| 반복 사이트 발견 | 같은 사이트가 2회 이상 "새로 알게 된" | docs/references/ 추가 제안 |
+| 반복 사이트 발견 | 같은 사이트가 2회 이상 "새로 알게 된" | 문서/ 기존 참조 문서 보강 제안 |
 | 반복 성공 패턴 | 같은 접근법이 효과적으로 2회 이상 사용됨 | skill 규칙 강화 또는 AGENTS.md 규칙 후보 제시 |
 
 ### 3. 사용자 질문
@@ -49,7 +49,7 @@ description: retrospective 누적물을 분석해 반복 패턴을 식별하고,
 |---|---|
 | skill 생성 | `.agents/skills/<verb-noun>/SKILL.md` stub 작성 |
 | hook 생성 | 대상 채널의 설정 파일에 hook 추가 (Claude: `.claude/settings.json`, Copilot: `.github/hooks/`) |
-| references 추가 | `docs/references/` 해당 파일에 항목 append |
+| references 추가 | `문서/` 기존 참조 문서에 항목 append |
 | 스킬 규칙 강화 | 해당 `.agents/skills/<name>/SKILL.md`에 규칙 추가 |
 | AGENTS.md 규칙 후보 | **직접 수정하지 않음** — 제안 텍스트를 출력하고 사용자가 별도 확인 후 반영 |
 | 보류 | 기록만 남기고 다음 실행까지 이월 |

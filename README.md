@@ -1,4 +1,4 @@
-# my-politics-agents
+# politics-agents
 
 대한민국 지방정치에 참여하려는 시민을 위한 다중 에이전트 도구 모음.
 
@@ -9,13 +9,13 @@
 ## Quick Start
 
 ```pwsh
-git clone https://github.com/luncliff/my-politics-agents.git
-cd my-politics-agents
+git clone https://github.com/luncliff/politics-agents.git
+cd politics-agents
 pwsh -ExecutionPolicy Bypass -File scripts/setup.ps1   # Windows
 code .                                                  # VS Code 열기
 ```
 
-상세 안내: [docs/guide/getting-started.md](docs/guide/getting-started.md)
+상세 안내: [문서/getting-started.md](문서/getting-started.md)
 
 ## Result Locations
 
@@ -31,10 +31,10 @@ code .                                                  # VS Code 열기
 
 | 대상 | 문서 |
 | --- | --- |
-| 시민 사용자 | [docs/guide/](docs/guide/) |
+| 시민 사용자 | [문서/getting-started.md](문서/getting-started.md) |
 | Agent 규칙 | [AGENTS.md](AGENTS.md) |
-| Maintainer | [docs/dev/](docs/dev/) |
-| 참조 자료 | [docs/references/](docs/references/) |
+| Maintainer | [문서/architecture.md](문서/architecture.md) |
+| 참조 자료 | [문서/index.md](문서/index.md) |
 
 ## License
 

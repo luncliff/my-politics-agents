@@ -3,9 +3,9 @@
 from __future__ import annotations
 import pathlib
 
-# config.py path: <repo>/adapters/py/nemotron_personas/config.py
-# parents: [0]=adapters/py/nemotron_personas, [1]=adapters/py, [2]=adapters, [3]=repo root
-REPO_ROOT = pathlib.Path(__file__).resolve().parents[3]
+# config.py path: <repo>/tools/nemotron_personas/config.py
+# parents: [0]=tools/nemotron_personas, [1]=tools, [2]=repo root
+REPO_ROOT = pathlib.Path(__file__).resolve().parents[2]
 
 DATASET_REPO = "nvidia/Nemotron-Personas-Korea"
 HF_RESOLVE_BASE = f"https://huggingface.co/datasets/{DATASET_REPO}/resolve/main"

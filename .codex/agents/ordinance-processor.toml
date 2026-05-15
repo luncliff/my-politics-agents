@@ -18,7 +18,7 @@ Before starting, read `location.txt` at the repository root to determine the tar
 ## Data Sources (Priority Order)
 
 Follow the **Legal Data Lookup Priority** in `AGENTS.md`:
-1. **Tier 1 — Local clone**: `data/ordinance-kr/{metropolitan}/{municipality}/{type}/` for existing ordinance text
+1. **Tier 1 — Local clone**: `보관함/ordinance-kr/{metropolitan}/{municipality}/{type}/` for existing ordinance text
 2. **Tier 2 — `legalize-kr` MCP**: `ordinances_*` tools when local data is insufficient
 3. **Tier 3 — Web sources**:
    a. **Local Ordinance Information System (ELIS)** - `elis.go.kr` - ordinance text, promulgation number, effective date
@@ -38,7 +38,7 @@ Before starting, read `location.txt` at the repository root. Only process ordina
 ## Execution Procedure
 
 1. Collect the ordinance name, promulgation number, and topic from the user; if ambiguous, ask once.
-2. **Tier 1 — Local check**: Search `data/ordinance-kr/{metropolitan}/{municipality}/{type}/{ordinance-name}/본문.md` for existing text.
+2. **Tier 1 — Local check**: Search `보관함/ordinance-kr/{metropolitan}/{municipality}/{type}/{ordinance-name}/본문.md` for existing text.
 3. **Tier 2 — MCP check** (if local is empty): Use `legalize-kr` MCP `ordinances_get` or `ordinances_search`.
 4. **Tier 3 — Web**: Search ELIS -> target municipality council -> `law.go.kr`.
 5. Fetch the source URL directly, save to `보관함/다운로드/<host>/<basename>`, and create `.meta.json` (source_url, collected_at, SHA-256).

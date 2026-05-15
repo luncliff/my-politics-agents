@@ -1,0 +1,7 @@
+node_modules/
+tools/node_modules/
+dist/
+build/
+data/
+보관함/
+회고/

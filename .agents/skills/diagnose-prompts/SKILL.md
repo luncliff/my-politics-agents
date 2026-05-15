@@ -34,7 +34,7 @@ description: 저장소 전체의 prompt, agent instructions, tool configuration,
 | VS Code settings | `.vscode/settings.json` |
 | 공통 skills | `.agents/skills/*/SKILL.md` |
 | Naming conventions | `.agents/CONVENTIONS.md` |
-| References | `docs/references/*.md` |
+| References | `문서/*.md` |
 
 ## 점검 항목
 
@@ -69,7 +69,7 @@ description: 저장소 전체의 prompt, agent instructions, tool configuration,
 
 ### 5. 문서 조직 일관성
 
-- `docs/references/`에 나열된 자료가 agent/skill에서 실제로 참조되는지
+- `문서/`에 있는 참조 자료가 agent/skill에서 실제로 참조되는지
 - 상호 링크(`[text](path)`)의 대상 파일이 존재하는지
 - AGENTS.md의 규칙이 각 agent/skill에 반영되어 있는지
 

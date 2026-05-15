@@ -23,7 +23,7 @@ from .paths import (
     workspace_root,
 )
 
-USER_AGENT = "my-politics-agents/0.1 (+https://github.com/luncliff/my-politics-agents)"
+USER_AGENT = "politics-agents/0.1 (+https://github.com/luncliff/politics-agents)"
 TIMEOUT_SEC = 30.0
 AUTO_DOWNLOAD_EXTENSIONS = {".hwp", ".hwpx", ".docx", ".pdf"}
 HTML_EXTENSIONS = {".html", ".htm"}
@@ -116,14 +116,18 @@ class _LinkExtractor(HTMLParser):
 
 def _detect_html_charset(body: bytes, content_type: str = "") -> str:
     """Detect charset from Content-Type header or HTML <meta> tags."""
-    match = re.search(r"charset\s*=\s*['\"]?([A-Za-z0-9._-]+)", content_type, re.IGNORECASE)
+    match = re.search(
+        r"charset\s*=\s*['\"]?([A-Za-z0-9._-]+)", content_type, re.IGNORECASE
+    )
     if match:
         return match.group(1)
     head = body[:2048]
-    match = re.search(rb'<meta[^>]+charset\s*=\s*["\']?([A-Za-z0-9._-]+)', head, re.IGNORECASE)
+    match = re.search(
+        rb'<meta[^>]+charset\s*=\s*["\']?([A-Za-z0-9._-]+)', head, re.IGNORECASE
+    )
     if match:
         return match.group(1).decode("ascii", errors="ignore")
-    match = re.search(rb'charset\s*=\s*([A-Za-z0-9._-]+)', head, re.IGNORECASE)
+    match = re.search(rb"charset\s*=\s*([A-Za-z0-9._-]+)", head, re.IGNORECASE)
     if match:
         return match.group(1).decode("ascii", errors="ignore")
     return "utf-8"

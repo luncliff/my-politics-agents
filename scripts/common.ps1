@@ -1,4 +1,4 @@
-# scripts/lib/common.ps1 — PowerShell 공용 헬퍼
+# scripts/common.ps1 — PowerShell 공용 헬퍼
 $ErrorActionPreference = 'Stop'
 
 function Write-Info  { param([string]$m) Write-Host "[info] $m" -ForegroundColor Cyan }

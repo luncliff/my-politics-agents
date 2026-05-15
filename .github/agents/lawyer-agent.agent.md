@@ -13,11 +13,11 @@ agents: []
 
 법령·판례·행정규칙 조회는 `AGENTS.md`의 **Legal Data Lookup Priority**를 따른다:
 
-1. 로컬 클론 (`data/legalize-kr/`, `data/precedent-kr/`, `data/admrule-kr/`)
+1. 로컬 클론 (`보관함/legalize-kr/`, `보관함/precedent-kr/`, `보관함/admrule-kr/`)
 2. `legalize-kr` MCP (`laws_*`, `precedents_*`, `admrules_*`) — 설정되어 있고 호출 가능할 때
 3. Web (`law.go.kr`, 대법원 종합법률정보, 각급 법원, 헌법재판소 등)
 
-`data/*-kr/` 폴더가 존재하지 않으면(`.git` 없음) 사용자에게 `civic: fetch legalize-kr repos (shallow clone)` 태스크 실행을 안내한 뒤 Tier 2(MCP) 또는 Tier 3(Web)으로 fallback한다.
+`보관함/*-kr/` 폴더가 존재하지 않으면(`.git` 없음) 사용자에게 `civic: fetch legalize-kr repos (shallow clone)` 태스크 실행을 안내한 뒤 Tier 2(MCP) 또는 Tier 3(Web)으로 fallback한다.
 
 ## 목표
 
@@ -38,10 +38,10 @@ agents: []
 
 1. 질의에서 대상 법령명, 법령 종류, 검토 시점, 필요한 판례 범위를 식별한다.
 2. **Tier 1 — 로컬 클론 확인**:
-   - 법령: `data/legalize-kr/kr/{법령명}/`에서 법률·시행령·시행규칙 존재 여부를 확인한다.
-   - 판례: `data/precedent-kr/{사건종류}/{법원등급}/`에서 검색한다.
-   - 행정규칙: `data/admrule-kr/{기관경로}/{종류}/`에서 검색한다.
-   - `data/*-kr/.git`가 없으면 사용자에게 `civic: fetch legalize-kr repos (shallow clone)` 태스크 실행을 안내하고 Tier 2로 진행한다.
+   - 법령: `보관함/legalize-kr/kr/{법령명}/`에서 법률·시행령·시행규칙 존재 여부를 확인한다.
+   - 판례: `보관함/precedent-kr/{사건종류}/{법원등급}/`에서 검색한다.
+   - 행정규칙: `보관함/admrule-kr/{기관경로}/{종류}/`에서 검색한다.
+   - `보관함/*-kr/.git`가 없으면 사용자에게 `civic: fetch legalize-kr repos (shallow clone)` 태스크 실행을 안내하고 Tier 2로 진행한다.
 3. **Tier 2 — `legalize-kr` MCP** (로컬에 해당 데이터가 없을 때):
    - `laws_get`, `laws_article` 등으로 법령 본문·메타 조회.
    - `precedents_search`, `precedents_get`으로 판례 조회.
@@ -72,7 +72,7 @@ agents: []
 
 ### 법률 데이터 수집 및 가공 과정 (Extraction Path)
 
-1. local: data/legalize-kr/kr/{법령명}/{파일명}
+1. local: 보관함/legalize-kr/kr/{법령명}/{파일명}
 2. history: {사용한 git 명령 또는 diff 기준}
 3. official: {확인한 law.go.kr 또는 판례 URL}
 4. archive: {보존 경로 또는 미보존 사유}
@@ -102,7 +102,7 @@ agents: []
 
 ## 우선 도구
 
-- `read`, `search` — `data/legalize-kr/`와 워크스페이스 문서 탐색
+- `read`, `search` — `보관함/legalize-kr/`와 워크스페이스 문서 탐색
 - `execute` — `git log`, `git show`, `git diff`로 입법 이력 확인
 - `ms-vscode.vscode-websearchforcopilot/websearch`, `web` — `law.go.kr` 및 공식 판례 출처 탐색
 - `web` / `fetch` — URL로 직접 접근해 `보관함/다운로드/<host>/<basename>` 저장 + `.meta.json`(source_url, collected_at, SHA-256)

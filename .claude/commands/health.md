@@ -12,13 +12,13 @@ MCP 서버, 데이터 클론, 필수 파일 상태를 확인하고 문제를 보
 - [ ] `AGENTS.md` 존재 여부
 - [ ] `.mcp.json` 존재 여부
 
-### 2. 데이터 클론 (`data/*-kr/`)
+### 2. 데이터 클론 (`보관함/*-kr/`)
 
 각 경로에서 `.git` 디렉토리 존재 여부 확인:
-- `data/legalize-kr/`
-- `data/ordinance-kr/`
-- `data/precedent-kr/`
-- `data/admrule-kr/`
+- `보관함/legalize-kr/`
+- `보관함/ordinance-kr/`
+- `보관함/precedent-kr/`
+- `보관함/admrule-kr/`
 
 없으면: `civic: fetch legalize-kr repos (shallow clone)` 태스크 실행 안내.
 
@@ -46,7 +46,7 @@ MCP 서버, 데이터 클론, 필수 파일 상태를 확인하고 문제를 보
 | 항목 | 상태 | 비고 |
 |------|------|------|
 | location.txt | ✅/❌ | |
-| data/legalize-kr | ✅/❌ | |
+| 보관함/legalize-kr | ✅/❌ | |
 | ...
 
 ### 조치 필요 사항

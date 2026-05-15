@@ -3,9 +3,9 @@ description: LLM-friendly reference index for Gyeonggi and Seongnam research con
 scope: gyeonggi-seongnam
 last_updated: 2026-05-01
 source_documents:
-  - docs/references/경기도.md
-  - docs/references/성남시.md
-  - docs/references/성남시-공개데이터.md
+  - 문서/경기도.md
+  - 문서/성남시.md
+  - 문서/성남시-공개데이터.md
 ---
 
 # Reference Index
@@ -19,7 +19,7 @@ source_documents:
 | Primary region | 경기도 / 성남시 |
 | Secondary focus | 판교 생활권 |
 | Main use cases | 정책 조사, 의정 조사, 공개데이터 수집, 오버레이 후보 선정 |
-| Canonical context files | `docs/references-경기도.md`, `docs/references-성남시.md`, `docs/research-seongnam-open-data.md` |
+| Canonical context files | `문서/경기도.md`, `문서/성남시.md`, `문서/성남시-공개데이터.md` |
 
 ## 2. Source Priority
 
@@ -63,7 +63,7 @@ LLM은 아래 규칙에 따라 자료원을 선택한다.
 
 | If the task is about... | Prefer... | Avoid / Note |
 | --- | --- | --- |
-| 법률, 시행령, 시행규칙 | `data/legalize-kr/` → `legalize-kr` MCP → law.go.kr (Legal Data Lookup Priority) | 조례와 혼동하지 말 것 |
+| 법률, 시행령, 시행규칙 | `보관함/legalize-kr/` → `legalize-kr` MCP → law.go.kr (Legal Data Lookup Priority) | 조례와 혼동하지 말 것 |
 | 조례, 시 규칙, 자치법규 | ELIS, 광역의회 및 지방의회 의안검색, law.go.kr | ELIS로 최신 목록 확인 → 의회로 최신 입법 동향 확인 → law.go.kr로 최종 본문 검증 |
 | 성남시 통계 | 성남통계, KOSIS | 블로그·2차 가공자료 우선 사용 금지 |
 | 성남시 예산·결산·기금 | 성남시 재정정보, 지방재정365 | 게시판 자료는 보조 근거로 사용 |
@@ -141,12 +141,12 @@ LLM은 아래 규칙에 따라 자료원을 선택한다.
 
 | Need | Read next |
 | --- | --- |
-| 경기도 링크 모음 | `docs/references-경기도.md` |
-| 성남시 링크 모음 | `docs/references-성남시.md` |
-| 데이터셋별 활용 판단 | `docs/references-성남시-공개데이터.md` |
+| 경기도 링크 모음 | `문서/경기도.md` |
+| 성남시 링크 모음 | `문서/성남시.md` |
+| 데이터셋별 활용 판단 | `문서/성남시-공개데이터.md` |
 | NotebookLM 업로드 규칙 | `notebooks/README.md` |
 | 저장소 구조와 역할·운영 규칙 | `AGENTS.md` |
-| 보안 모델·자격증명 정리 | `docs/security.md` |
+| 보안 모델·자격증명 정리 | `문서/security.md` |
 
 ## 8. Known Constraints
 
@@ -169,5 +169,5 @@ LLM은 아래 규칙에 따라 자료원을 선택한다.
 ## 10. Maintenance Rule
 
 - 새로운 경기도/성남시 context 문서가 생기면 이 파일의 `source_documents`와 해당 섹션만 갱신한다.
-- 세부 링크 카탈로그는 `docs/references-경기도.md`, `docs/references-성남시.md`에 유지하고, 이 파일에는 의사결정에 필요한 요약만 둔다.
-- 데이터셋 세부 메모는 `docs/research-seongnam-open-data.md`에 유지하고, 이 파일에는 우선순위와 활용 판단만 둔다.
+- 세부 링크 카탈로그는 `문서/경기도.md`, `문서/성남시.md`에 유지하고, 이 파일에는 의사결정에 필요한 요약만 둔다.
+- 데이터셋 세부 메모는 `문서/성남시-공개데이터.md`에 유지하고, 이 파일에는 우선순위와 활용 판단만 둔다.

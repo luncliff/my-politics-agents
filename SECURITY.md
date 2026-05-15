@@ -14,7 +14,7 @@ Security fixes are applied to the `main` branch only.
 
 **Do not open a public issue for security vulnerabilities.**
 
-Report privately via [GitHub Security Advisories](https://github.com/luncliff/my-politics-agents/security/advisories/new) or email the repository owner (see profile).
+Report privately via [GitHub Security Advisories](https://github.com/luncliff/politics-agents/security/advisories/new) or email the repository owner (see profile).
 
 Include:
 - Description of the vulnerability and affected component.

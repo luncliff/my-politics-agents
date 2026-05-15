@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# scripts/lib/common.sh — POSIX 공용 헬퍼 (bash/zsh)
+# scripts/common.sh — POSIX 공용 헬퍼 (bash/zsh)
 set -eu
 
 c_reset='\033[0m'; c_bold='\033[1m'; c_yellow='\033[33m'; c_green='\033[32m'; c_red='\033[31m'

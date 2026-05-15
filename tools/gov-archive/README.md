@@ -35,7 +35,7 @@
 ## 실행
 
 ```pwsh
-uv run --directory mcp-servers/gov-archive gov-archive
+uv run --directory tools/gov-archive gov-archive
 ```
 
 VS Code/Copilot CLI는 `.vscode/mcp.json`을 통해 자동으로 stdio 연결합니다.

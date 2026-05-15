@@ -11,7 +11,7 @@ model: "GPT-5.4 mini (copilot)"
 
 `AGENTS.md`의 **Legal Data Lookup Priority**를 따른다:
 
-1. **Tier 1 — 로컬 클론**: `data/ordinance-kr/{광역}/{기초}/` 에서 조례 본문 확인. `data/legalize-kr/` 에서 상위 법령 교차 확인.
+1. **Tier 1 — 로컬 클론**: `보관함/ordinance-kr/{광역}/{기초}/` 에서 조례 본문 확인. `보관함/legalize-kr/` 에서 상위 법령 교차 확인.
 2. **Tier 2 — `legalize-kr` MCP**: `ordinances_*`, `laws_*` 등으로 보충 조회.
 3. **Tier 3 — Web**: `elis.go.kr`, `law.go.kr`, 지방의회 포털.
 
@@ -35,7 +35,7 @@ model: "GPT-5.4 mini (copilot)"
 
 ## 우선 도구
 
-- `data/ordinance-kr/` — 조례 로컬 본문 우선 확인 (location.txt 지역 범위 내)
-- `data/legalize-kr` — 법령 본문 교차 확인
+- `보관함/ordinance-kr/` — 조례 로컬 본문 우선 확인 (location.txt 지역 범위 내)
+- `보관함/legalize-kr` — 법령 본문 교차 확인
 - `legalize-kr` MCP (`ordinances_*`, `laws_*`) — 로컬에 없는 조례 보충
 - `search` — 동일/유사 조문의 과거 사례 탐색

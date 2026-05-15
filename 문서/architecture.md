@@ -25,11 +25,13 @@ Copilot CLI / VS Code Chat / Codex CLI / Claude Code CLI
 | `.codex/config.toml` | Codex CLI MCP · model config. |
 | `.vscode/` | IDE settings · tasks · MCP · toolsets. |
 | `scripts/` | Setup · auth purge · hook scripts. |
-| `adapters/` | Per-site collectors (JS/Py). |
+| `tools/` | Workspace-local tools hub for adapters, MCP servers, and lint config. |
+| `tools/js/`, `tools/nemotron_personas/` | Per-site collectors (JS/Py). |
+| `tools/<server>/` | Workspace-local MCP servers. |
 | `보관함/` | 원본 · 결과 · 양식 보관. |
 | `notebooks/` | NotebookLM bundles. |
 | `회고/` | Cumulative session retros. |
-| `data/{legalize,precedent,admrule,ordinance}-kr/` | Shallow clones of legal data. |
+| `보관함/{legalize,precedent,admrule,ordinance}-kr/` | Shallow clones of legal data. |
 
 ## Stack
 

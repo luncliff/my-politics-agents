@@ -196,21 +196,21 @@
         "args": [
           "-NoProfile",
           "-Command",
-          "uv run --directory mcp-servers/gov-archive python -c \"from gov_archive.server import describe; print(describe())\""
+          "uv run --directory tools/gov-archive python -c \"from gov_archive.server import describe; print(describe())\""
         ]
       },
       "linux": {
         "command": "bash",
         "args": [
           "-lc",
-          "uv run --directory mcp-servers/gov-archive python -c 'from gov_archive.server import describe; print(describe())'"
+          "uv run --directory tools/gov-archive python -c 'from gov_archive.server import describe; print(describe())'"
         ]
       },
       "osx": {
         "command": "zsh",
         "args": [
           "-lc",
-          "uv run --directory mcp-servers/gov-archive python -c 'from gov_archive.server import describe; print(describe())'"
+          "uv run --directory tools/gov-archive python -c 'from gov_archive.server import describe; print(describe())'"
         ]
       },
       "problemMatcher": []

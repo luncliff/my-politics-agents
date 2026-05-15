@@ -11,7 +11,7 @@ description: "한국 지방자치단체 조례 수집·분류·브리핑. Use wh
 
 `location.txt`를 먼저 읽어 현재 광역/기초 지자체를 확인한다.
 
-1. **로컬 클론** (`data/ordinance-kr/{광역}/{기초}/`)
+1. **로컬 클론** (`보관함/ordinance-kr/{광역}/{기초}/`)
    - 없으면 `civic: fetch legalize-kr repos (shallow clone)` 안내 후 Tier 2로 진행.
 2. **`legalize-kr` MCP** (`ordinances_get`, `ordinances_list`, `ordinances_search`)
 3. **Web** (`elis.go.kr`, `law.go.kr`, 지방의회 포털)
@@ -26,7 +26,7 @@ description: "한국 지방자치단체 조례 수집·분류·브리핑. Use wh
 - 국가 법령(법률·시행령)은 `lawyer` 에이전트로 위임.
 - 추측 인용 금지 — 원문만.
 - 새 수집 시 `보관함/다운로드/`에 원본 보존 + SHA-256.
-- `data/ordinance-kr/`에 append-only 방식으로 누적 (삭제·덮어쓰기 금지).
+- `보관함/ordinance-kr/`에 append-only 방식으로 누적 (삭제·덮어쓰기 금지).
 
 ## 브리핑 출력 형식
 

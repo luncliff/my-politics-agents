@@ -32,7 +32,7 @@ license: CC BY 4.0
 
 ## 어댑터·도구
 
-- 어댑터: [adapters/py/nemotron_personas/](../adapters/py/nemotron_personas/)
+- 어댑터: [tools/nemotron_personas/](../../tools/nemotron_personas/)
   - `python -m nemotron_personas.fetch [--dry-run|--force]`
   - `python -m nemotron_personas.sampler --panel {national|local} --size N --seed N`
 - 스크립트: [scripts/fetch_nemotron_personas.ps1](../scripts/fetch_nemotron_personas.ps1)

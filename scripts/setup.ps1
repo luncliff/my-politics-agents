@@ -1,7 +1,7 @@
 #requires -Version 7.0
 <#
 .SYNOPSIS
-  my-politics-agents 환경 설정 (Windows / PowerShell 7).
+  politics-agents 환경 설정 (Windows / PowerShell 7).
 
 .DESCRIPTION
   필요한 도구를 점검 → 설치 계획을 보여주고 → 동의를 받은 뒤 설치합니다.
@@ -19,7 +19,7 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
-. (Join-Path $PSScriptRoot 'lib/common.ps1')
+. (Join-Path $PSScriptRoot 'common.ps1')
 
 $repoRoot = Get-RepoRoot
 Set-Location $repoRoot
@@ -100,13 +100,13 @@ if (-not $status['copilot']) {
 }
 
 # 4) workspace local setup
-Invoke-Step "legalize-kr repos shallow clone (data/*)" {
+Invoke-Step "legalize-kr repos shallow clone (보관함/*)" {
   & (Join-Path $PSScriptRoot 'fetch_legalize_kr.ps1')
 }
 
-if (Test-Path "mcp-servers/gov-archive/pyproject.toml") {
-  Invoke-Step "uv sync (mcp-servers/gov-archive)" {
-    Push-Location "mcp-servers/gov-archive"
+if (Test-Path "tools/gov-archive/pyproject.toml") {
+  Invoke-Step "uv sync (tools/gov-archive)" {
+    Push-Location "tools/gov-archive"
     try { uv sync } finally { Pop-Location }
   }
 }
